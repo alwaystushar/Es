@@ -1,0 +1,28 @@
+---
+description: Design tokens in globle.css and component styles in style.css
+globs: src/app/**/*.css
+alwaysApply: false
+---
+
+# Design tokens
+
+`src/app/globle.css` is the only token source. The filename is `globle.css`, not `global.css`.
+
+`--font-size-base` is `1vw` and must stay `1vw`. `html` and `body` must keep `font-size: 1vw !important`. Do not change either one to `rem`, `px`, `100%`, or `var()` if that stops the viewport size from applying. Other type sizes stay `rem` so they scale from that root. This keeps Ctrl +/- from resizing the layout.
+
+- Put colors, type, spacing, radii, shadows, z-index, and motion tokens in `:root`.
+- Map the same tokens into Tailwind with `@theme inline` in `globle.css`. Do not introduce a second palette in a Tailwind config.
+- Put component and section styles in `src/app/style.css`. Reference tokens. Do not hardcode one-off colors, sizes, or spacing.
+- A value used once still gets a named token if it is a brand or layout measurement.
+
+```css
+/* ❌ BAD */
+.hero__title { color: #ffffff; font-size: 52px; padding: 37px; }
+
+/* ✅ GOOD */
+.hero__title {
+  color: var(--color-white);
+  font-size: var(--font-size-hero);
+  padding: var(--space-8);
+}
+```

@@ -1,0 +1,22 @@
+---
+description: TSX component, page, and asset conventions
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# Components
+
+- One section or UI piece per folder. Keep page composition in `src/app/page.tsx` or a section component.
+- Repeated controls use `src/components/ui/` (`Button`, `Icon`, `Stars`, `Eyebrow`). Do not copy their markup.
+- Use `next/image` for raster photos, with `priority` only on the hero. SVG icons go through `Icon`.
+- Buttons and nav links must go somewhere real (`/programs`, `/signin`, `/#programs`). Do not leave inert controls.
+- Semantic headings, labels, and alt text stay in the markup. Motion must not be the only way to read the content.
+- Interior pages reuse `PageIntro`. Do not invent a new layout system for them.
+
+```tsx
+// ❌ BAD
+<img src="/assets/icons/arrow-a.svg" alt="" />
+
+// ✅ GOOD
+<Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+```

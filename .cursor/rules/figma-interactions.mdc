@@ -1,0 +1,22 @@
+---
+description: Match Figma layout and the home-page interactions
+alwaysApply: true
+---
+
+# Figma interactions
+
+The Figma home frame is the visual source. Do not add decoration that is not in the file.
+
+- Program areas use the mint surface `#f0f7f5`. The “View All Programs” row sits on the right half of the content, with the arrows at the far right. It is not flush to the left edge.
+- Program-area cards stay scrollable in Swiper, with a visible scrollbar. Do not clip that section with `overflow: hidden`.
+- Knowledge Hub cards have no bottom rule. The “Explore the Knowledge Hub” button stays centered.
+- “Find Your Next Program” moves its cards from right to left as the visitor scrolls through the pinned section.
+- The header slides up while scrolling down and drops back when scrolling up. It stays visible at the top of the page and while the mobile menu is open.
+- Buttons use the ripple hover in `.btn`. The dot stays on the labeled actions that have it in the design. Language, audience, menu, and previous/next controls do not get a dot.
+- The page follows `dir` on `html`. Left-to-right is the default. Arabic sets `dir="rtl"` and the layout mirrors. Do not pin those clusters with physical `left` or `margin-left`.
+- Carousels use Swiper. Do not rebuild them with a one-off `scrollBy` scroller.
+
+```css
+/* ❌ BAD — a line the design does not have */
+.article-card::after { height: 0.125rem; background: var(--color-primary); }
+```

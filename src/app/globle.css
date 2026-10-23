@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+:root {
+  --font-primary: var(--font-rubik), "Rubik", sans-serif;
+
+  --font-size-2xs: 0.75rem;
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 0.9375rem;
+  --font-size-base: 1vw;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2rem;
+  --font-size-stat: 2.5rem;
+  --font-size-hero: 3.25rem;
+  --font-size-display: 3.375rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  --line-height-none: 1;
+  --line-height-tight: 1.1;
+  --line-height-title: 1.2;
+  --line-height-snug: 1.4;
+  --line-height-heading: 1.5;
+  --line-height-body: 1.6;
+
+  --letter-spacing-normal: 0;
+
+  --color-white: #ffffff;
+  --color-primary: #1f6f4e;
+  --color-primary-dark: #0f4d33;
+  --color-secondary: #9fcb51;
+  --color-ink: #1b2a22;
+  --color-text: #4a5a51;
+  --color-text-muted: #818f87;
+  --color-text-soft: #bfccc6;
+  --color-background: #f9fcfb;
+  --color-areas: #f0f7f5;
+  --color-surface: #ffffff;
+  --color-icon-surface: #daede5;
+  --color-border: #e1e5e4;
+  --color-border-muted: rgba(129, 143, 135, 0.3);
+  --color-border-soft: rgba(74, 90, 81, 0.2);
+  --color-border-strong: rgba(74, 90, 81, 0.7);
+  --color-overlay: rgba(0, 0, 0, 0.2);
+  --color-hero-shade: rgba(14, 42, 30, 0.42);
+  --color-star: #e9b33e;
+  --color-focus: #1f6f4e;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --container-max-width: 90rem;
+  --container-padding: 4rem;
+  --content-width: 82rem;
+  --section-spacing: 5rem;
+  --header-height: 4.25rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 62.5rem;
+
+  --border-width: 0.0625rem;
+
+  --shadow-card: 0 0.375rem 2.5rem rgba(0, 0, 0, 0.02);
+  --shadow-header: 0 0.0625rem 0 rgba(27, 42, 34, 0.04);
+
+  --duration-fast: 180ms;
+  --duration-normal: 300ms;
+  --duration-slow: 700ms;
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+
+  --bp-nav: 72rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-primary);
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-secondary: var(--color-secondary);
+  --color-ink: var(--color-ink);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-text-muted);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-white: var(--color-white);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 1vw !important;
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  overflow-x: clip;
+  background: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-primary);
+  font-size: 1vw !important;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.loc-en,
+.loc-ar {
+  display: inline;
+}
+
+html[lang="ar"] .loc-en,
+html[dir="rtl"] .loc-en {
+  display: none !important;
+}
+
+html:not([lang="ar"]) .loc-ar {
+  display: none !important;
+}
+
+[href^="tel:"],
+[href^="mailto:"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+::selection {
+  background: var(--color-icon-surface);
+  color: var(--color-ink);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

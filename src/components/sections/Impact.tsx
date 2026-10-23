@@ -1,0 +1,57 @@
+import { stats } from "@/data/home";
+import { LocalizedImage, T } from "@/i18n/locale";
+import { Button } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { RevealImage } from "@/components/animation/RevealImage";
+import { Odometer } from "@/components/animation/Odometer";
+import { RevealLines } from "@/components/animation/RevealLines";
+
+export function Impact() {
+  return (
+    <section className="impact" id="about" aria-labelledby="impact-title">
+      <div className="section-container">
+        <div className="impact__intro">
+          <RevealLines as="p" className="impact__label">
+            A Growing Record of Impact
+          </RevealLines>
+          <div className="stat-grid">
+            {stats.map((stat) => (
+              <article key={stat.label} className="stat-card">
+                <strong>
+                  <Odometer value={stat.value} />
+                </strong>
+                <span>
+                  <T>{stat.label}</T>
+                </span>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="impact__story">
+          <RevealImage className="impact__photo">
+            <LocalizedImage
+              src="/assets/images/impact-session.webp"
+              alt="A facilitator speaking with learners during a training session"
+              fill
+              sizes="(max-width: 900px) 100vw, 522px"
+            />
+          </RevealImage>
+          <div className="impact__copy">
+            <div>
+              <Eyebrow>ES Learning</Eyebrow>
+              <RevealLines id="impact-title" as="p" className="impact__text">
+                At ES Learning, we believe the true value of training is reflected in how knowledge is applied. Our programs bring learning and practice together, equipping professionals and teams with the skills and tools to work more effectively, make better decisions, and create lasting impact.
+              </RevealLines>
+            </div>
+            <div>
+              <Button href="/about" variant="outline">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,26 @@
+---
+description: Lenis and GSAP motion rules
+globs: src/components/animation/**/*.{ts,tsx},src/components/sections/PartnerMarquee.tsx,src/lib/{gsap,lenis}.ts,src/hooks/**/*.ts
+alwaysApply: false
+---
+
+# Motion
+
+Initialize Lenis only in `SmoothScroll`. Register GSAP only through `registerGsap()` in `src/lib/gsap.ts`.
+
+- Sync Lenis with ScrollTrigger in that one place: `lenis.on("scroll", ScrollTrigger.update)` and `gsap.ticker`.
+- Do not start a second `requestAnimationFrame` loop or a second Lenis instance.
+- Heading reveals use `RevealLines`. Image reveals use `RevealImage`. Do not split text ad hoc in a section.
+- Official SplitText is not installed. Do not add a Club-plugin import.
+- Skip smooth scroll, header hiding, the pinned program row, and reveal motion when `useReducedMotion()` is true. Text must stay visible if animation never runs.
+- Program areas and Knowledge Hub use Swiper. The featured-program row is the only horizontal scroll tied to vertical scroll, and it lives in that section.
+- Partner logos use `react-fast-marquee`. Do not replace that strip with a hand-rolled CSS track.
+- Clean up GSAP contexts, observers, and listeners on unmount. Do not call `ScrollTrigger.getAll().forEach(kill)` from `SmoothScroll`.
+
+```tsx
+// ❌ BAD — new Lenis inside a section
+useEffect(() => { new Lenis(); }, []);
+
+// ✅ GOOD
+<RevealLines as="h2" className="section-title">Learning you can put to work</RevealLines>
+```

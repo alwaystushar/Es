@@ -1,0 +1,26 @@
+---
+description: ES Learning stack, folders, and what not to add
+alwaysApply: true
+---
+
+# ES Learning architecture
+
+Next.js App Router, React, TypeScript, and npm. Do not add NestJS or a backend unless a feature truly needs one.
+
+- Pages and layout live in `src/app/`. Reusable UI lives in `src/components/`. Static copy lives in `src/data/`.
+- Server Components are the default. Add `"use client"` only for state, events, or browser APIs.
+- Keep the Figma home frame as the visual source of truth. Do not swap in a generic template, stock photos, or an icon library.
+- Raster images are local WebP files. Icons and logos stay SVG under `public/assets/`.
+- Forms validate in the browser. Do not invent a submit API.
+- Read `node_modules/next/dist/docs/` before using Next.js APIs. This project is on Next.js 16.
+
+```tsx
+// ❌ BAD — client boundary on a static section
+"use client";
+export function Impact() { /* markup only */ }
+
+// ✅ GOOD — server section; motion stays in RevealLines
+export function Impact() {
+  return <section className="impact">…</section>;
+}
+```
