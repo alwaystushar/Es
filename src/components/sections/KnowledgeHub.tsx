@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
-import { A11y, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { articles } from "@/data/home";
 import { Button } from "@/components/ui/Button";
@@ -56,7 +56,7 @@ export function KnowledgeHub() {
           key={direction}
           className="knowledge-swiper"
           dir={direction}
-          modules={[Navigation, A11y]}
+          modules={[Navigation]}
           spaceBetween={gap}
           watchOverflow
           slidesPerView={1.15}

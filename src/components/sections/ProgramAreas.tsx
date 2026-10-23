@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
-import { A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { programAreas } from "@/data/home";
 import { Button } from "@/components/ui/Button";
@@ -50,7 +49,6 @@ export function ProgramAreas() {
           key={direction}
           className="areas-swiper"
           dir={direction}
-          modules={[A11y]}
           slidesPerView="auto"
           spaceBetween={gap}
           watchOverflow
