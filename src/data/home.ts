@@ -153,12 +153,12 @@ export const articles = [
 ] as const;
 
 export const partners = [
-  { name: "INIFAC", src: "/assets/logos/partner-inifac.webp", width: 1630, height: 614 },
-  { name: "IAF", src: "/assets/logos/partner-iaf.webp", width: 853, height: 228 },
-  { name: "TregearBPM", src: "/assets/logos/partner-tregear.webp", width: 288, height: 174 },
-  { name: "Leadership Strategies", src: "/assets/logos/partner-leadership.webp", width: 360, height: 140 },
-  { name: "The Grove", src: "/assets/logos/partner-grove.webp", width: 1000, height: 230 },
-  { name: "DETECON Consulting", src: "/assets/logos/partner-detecon.webp", width: 685, height: 211 },
+  { name: "INIFAC", src: "/assets/logos/partner-inifac.webp", width: 1630, height: 614, logoWidth: "7.2737rem", logoHeight: "3.4278rem" },
+  { name: "IAF", src: "/assets/logos/partner-iaf.webp", width: 853, height: 228, logoWidth: "11.0263rem", logoHeight: "4.0682rem" },
+  { name: "TregearBPM", src: "/assets/logos/partner-tregear.webp", width: 288, height: 174, logoWidth: "5.6253rem", logoHeight: "3.3751rem" },
+  { name: "Leadership Strategies", src: "/assets/logos/partner-leadership.webp", width: 360, height: 140, logoWidth: "7.1439rem", logoHeight: "2.7782rem" },
+  { name: "The Grove", src: "/assets/logos/partner-grove.webp", width: 1000, height: 230, logoWidth: "8.4609rem", logoHeight: "1.946rem" },
+  { name: "DETECON Consulting", src: "/assets/logos/partner-detecon.webp", width: 685, height: 211, logoWidth: "9.2867rem", logoHeight: "5.2191rem" },
 ] as const;
 
 export const companyLinks = [

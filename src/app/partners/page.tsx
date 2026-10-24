@@ -14,7 +14,7 @@ export default function PartnersPage() {
       <div className="card-list" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(11.25rem, 1fr))" }}>
         {partners.map((partner) => (
           <article key={partner.name} className="plain-card" style={{ display: "grid", placeItems: "center", minHeight: "8rem" }}>
-            <LocalizedImage src={partner.src} alt={partner.name} width={partner.width} height={partner.height} className="partner-logo" style={{ width: "auto", height: "1.55rem" }} />
+            <LocalizedImage src={partner.src} alt={partner.name} width={partner.width} height={partner.height} className="partner-logo" style={{ width: partner.logoWidth, height: partner.logoHeight }} />
           </article>
         ))}
       </div>

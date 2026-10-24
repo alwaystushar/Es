@@ -30,7 +30,7 @@ export function PartnerMarquee() {
           alt={partner.name}
           width={partner.width}
           height={partner.height}
-          style={{ width: "auto", height: "1.55rem" }}
+          style={{ width: partner.logoWidth, height: partner.logoHeight }}
         />
       ))}
     </Marquee>

@@ -46,7 +46,6 @@ export function FeaturedPrograms() {
           end: () => `+=${Math.max(rowEl.scrollWidth - viewportEl.clientWidth, 1)}`,
           pin: true,
           scrub: 0.6,
-          anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
