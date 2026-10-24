@@ -14,6 +14,7 @@ export function Hero() {
           alt="Learners and a facilitator working together in a classroom"
           fill
           priority
+          quality={90}
           sizes="100vw"
         />
       </RevealImage>

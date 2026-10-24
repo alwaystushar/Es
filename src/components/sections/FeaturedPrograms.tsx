@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FramedPhoto } from "@/components/ui/FramedPhoto";
 import Link from "next/link";
 import { useRef } from "react";
 import { featuredPrograms } from "@/data/home";
@@ -73,7 +73,14 @@ export function FeaturedPrograms() {
           {featuredPrograms.map((program) => (
             <article key={program.slug} className="program-card">
               <RevealImage className="program-card__media">
-                <Image src={program.image} alt={tr(locale, program.alt)} fill sizes="(max-width: 800px) 84vw, 400px" />
+                <FramedPhoto
+                  src={program.image}
+                  alt={tr(locale, program.alt)}
+                  crop={program.crop}
+                  width={1600}
+                  height={1100}
+                  sizes="(max-width: 48rem) 84vw, 60vw"
+                />
               </RevealImage>
               <div className="program-card__body">
                 <div>

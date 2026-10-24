@@ -26,7 +26,7 @@ export default function ProgramsPage() {
                 <Button href={`/programs/${program.slug}`}>Enroll Now</Button>
               </div>
             </div>
-            <LocalizedImage src={program.image} alt={program.alt} width={640} height={360} style={{ borderRadius: "0.75rem", width: "100%", height: "auto" }} />
+            <LocalizedImage src={program.image} alt={program.alt} width={1600} height={1067} quality={90} sizes="(max-width: 48rem) 100vw, 40rem" style={{ borderRadius: "0.75rem", width: "100%", height: "auto" }} />
           </article>
         ))}
         {programAreas.map((area) => (

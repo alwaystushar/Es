@@ -31,10 +31,22 @@ export function Impact() {
         <div className="impact__story">
           <RevealImage className="impact__photo">
             <LocalizedImage
+              className="photo-frame"
               src="/assets/images/impact-session.webp"
               alt="A facilitator speaking with learners during a training session"
-              fill
-              sizes="(max-width: 900px) 100vw, 522px"
+              width={1280}
+              height={960}
+              quality={90}
+              sizes="80vw"
+              style={{
+                position: "absolute",
+                maxWidth: "none",
+                objectFit: "fill",
+                left: "-58.79%",
+                top: "-29.43%",
+                width: "203.28%",
+                height: "153.25%",
+              }}
             />
           </RevealImage>
           <div className="impact__copy">

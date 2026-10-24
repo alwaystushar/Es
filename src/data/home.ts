@@ -55,6 +55,7 @@ export const programAreas = [
       "Lead productive discussions, encourage participation, and turn meetings and workshops into meaningful outcomes.",
     image: "/assets/images/area-facilitation.webp",
     alt: "Professionals collaborating around a laptop during a workshop",
+    crop: { left: "-9.11%", top: "-6.88%", width: "113.9%", height: "124.37%" },
   },
   {
     slug: "strategy-performance-measurement",
@@ -63,6 +64,7 @@ export const programAreas = [
       "Set clear objectives and develop meaningful indicators to track performance and guide decisions.",
     image: "/assets/images/area-strategy.webp",
     alt: "Professional working on a laptop in a bright office",
+    crop: { left: "-4.62%", top: "-18.22%", width: "129.45%", height: "143.71%" },
   },
   {
     slug: "process-policy-management",
@@ -71,6 +73,7 @@ export const programAreas = [
       "Understand how work gets done, document and improve processes, and develop clearer, more effective policies.",
     image: "/assets/images/area-process.webp",
     alt: "Two colleagues reviewing work together",
+    crop: { left: "-10.74%", top: "-8.8%", width: "110.74%", height: "154.02%" },
   },
   {
     slug: "technology-governance",
@@ -79,6 +82,7 @@ export const programAreas = [
       "Develop expertise in governance, risk, information security, and specialized technology disciplines.",
     image: "/assets/images/area-technology.webp",
     alt: "Team reviewing technology governance materials",
+    crop: { left: "-9.11%", top: "-6.88%", width: "150.34%", height: "164.16%" },
   },
   {
     slug: "innovation-entrepreneurship",
@@ -87,6 +91,7 @@ export const programAreas = [
       "Understand user needs, develop new ideas, and design better services and solutions.",
     image: "/assets/images/area-innovation.webp",
     alt: "Two professionals reviewing a laptop outdoors at night",
+    crop: { left: "-21.62%", top: "-4.55%", width: "143.23%", height: "156.4%" },
   },
   {
     slug: "excellence-quality",
@@ -95,6 +100,7 @@ export const programAreas = [
       "Improve performance and efficiency through practical quality and excellence tools.",
     image: "/assets/images/area-excellence.webp",
     alt: "Professional using a tablet with a coastal view behind him",
+    crop: { left: "-9.11%", top: "-6.88%", width: "109.11%", height: "119.14%" },
   },
 ] as const;
 
@@ -104,24 +110,28 @@ export const featuredPrograms = [
     title: "Developing internal policies for organizations",
     image: "/assets/images/program-policies.webp",
     alt: "Two professionals reviewing documents together",
+    crop: { left: "-37.66%", top: "-75.6%", width: "212.26%", height: "246.13%" },
   },
   {
     slug: "project-governance",
     title: "Project Governance",
     image: "/assets/images/program-governance.webp",
     alt: "Presenter speaking in front of a highway analytics display",
+    crop: { left: "-8.5%", top: "-5.06%", width: "113.63%", height: "148.89%" },
   },
   {
     slug: "data-analysis-power-bi",
     title: "Data analysis using Power BI software",
     image: "/assets/images/program-powerbi.webp",
     alt: "Colleagues discussing a report in a modern office",
+    crop: { left: "-11.6%", top: "-37.43%", width: "167.93%", height: "220.03%" },
   },
   {
     slug: "rapid-business-process-improvement",
     title: "Rapid Improvement of Business Processes...",
     image: "/assets/images/program-improvement.webp",
     alt: "Professional reviewing work at a desk",
+    crop: { left: "-44.73%", top: "-95.47%", width: "191.33%", height: "250.7%" },
   },
 ] as const;
 

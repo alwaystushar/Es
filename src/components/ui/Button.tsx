@@ -34,14 +34,23 @@ export function Button({
   onPointerMove,
   ...props
 }: ButtonProps) {
-  const classes = cn("btn", plain ? undefined : `btn--${variant}`, className);
   const marker = dot ?? (plain ? "none" : "start");
+  const arrow = marker !== "none";
+  const classes = cn("btn", plain ? undefined : `btn--${variant}`, arrow ? "btn--dot-arrow" : undefined, className);
+  const dotMark = (
+    <span className="btn__dot" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M3.4 8h5.8" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" />
+        <path d="M8.1 4.35 12.5 8 8.1 11.65" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
   const content = (
     <>
       <span className="btn__ripple" aria-hidden="true" />
-      {marker === "start" ? <span className="btn__dot" aria-hidden="true" /> : null}
+      {marker === "start" ? dotMark : null}
       <span className="btn__label">{typeof children === "string" ? <T>{children}</T> : children}</span>
-      {marker === "end" ? <span className="btn__dot" aria-hidden="true" /> : null}
+      {marker === "end" ? dotMark : null}
     </>
   );
 

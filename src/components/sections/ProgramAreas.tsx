@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FramedPhoto } from "@/components/ui/FramedPhoto";
 import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -122,7 +122,14 @@ export function ProgramAreas() {
               <SwiperSlide key={area.slug}>
                 <article className="area-card">
                   <RevealImage className="area-card__media">
-                    <Image src={area.image} alt={tr(locale, area.alt)} fill sizes="(max-width: 800px) 100vw, 677px" />
+                    <FramedPhoto
+                      src={area.image}
+                      alt={tr(locale, area.alt)}
+                      crop={area.crop}
+                      width={1536}
+                      height={1024}
+                      sizes="(max-width: 48rem) 100vw, 70vw"
+                    />
                   </RevealImage>
                   <div>
                     <h3>

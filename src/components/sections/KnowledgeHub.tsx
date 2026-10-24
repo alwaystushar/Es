@@ -72,7 +72,13 @@ export function KnowledgeHub() {
             <SwiperSlide key={article.slug}>
               <article className="article-card">
                 <RevealImage className="article-card__media">
-                  <Image src={article.image} alt={tr(locale, article.alt)} fill sizes="(max-width: 800px) 100vw, 386px" />
+                  <Image
+                    src={article.image}
+                    alt={tr(locale, article.alt)}
+                    fill
+                    quality={90}
+                    sizes="(max-width: 48rem) 100vw, 42vw"
+                  />
                   <span className="article-card__tag">
                     <span className="review-dot" aria-hidden="true" />
                     <T>{article.category}</T>

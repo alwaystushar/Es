@@ -1,8 +1,16 @@
 import { whyItems } from "@/data/home";
+import { dictionary } from "@/i18n/dictionary";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
+
+const whyTitleLines = {
+  "Rooted in the Local Context": ["Rooted in the Local", "Context"],
+  "Established Global Methodologies": ["Established Global", "Methodologies"],
+  "Expertise Shaped by Practice": ["Expertise Shaped", "by Practice"],
+  "Knowledge Made Practical": ["Knowledge Made", "Practical"],
+} as const;
 
 export function Why() {
   return (
@@ -30,7 +38,12 @@ export function Why() {
               </div>
               <div className="why-card__copy">
                 <h3>
-                  <T>{item.title}</T>
+                  <span className="loc-en">
+                    {whyTitleLines[item.title][0]}
+                    <br />
+                    {whyTitleLines[item.title][1]}
+                  </span>
+                  <span className="loc-ar">{dictionary[item.title]}</span>
                 </h3>
                 <p>
                   <span className="why-card__detail">

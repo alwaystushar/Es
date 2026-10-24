@@ -24,7 +24,7 @@ export default async function ArticlePage({ params }: PageProps) {
   return (
     <PageIntro title={article.title} lede={article.excerpt}>
       <div className="card-list">
-        <LocalizedImage src={article.image} alt={article.alt} width={1200} height={680} style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
+        <LocalizedImage src={article.image} alt={article.alt} width={1536} height={1024} quality={90} sizes="(max-width: 48rem) 100vw, 82rem" style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
         <article className="plain-card">
           <p>
             <T>{article.category}</T>

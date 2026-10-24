@@ -28,7 +28,7 @@ export default function KnowledgePage() {
                 </Link>
               </div>
             </div>
-            <LocalizedImage src={article.image} alt={article.alt} width={640} height={360} style={{ width: "100%", height: "auto", borderRadius: "0.75rem" }} />
+            <LocalizedImage src={article.image} alt={article.alt} width={1536} height={1024} quality={90} sizes="(max-width: 48rem) 100vw, 40rem" style={{ width: "100%", height: "auto", borderRadius: "0.75rem" }} />
           </article>
         ))}
       </div>

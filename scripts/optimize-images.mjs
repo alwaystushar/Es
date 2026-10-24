@@ -11,29 +11,29 @@ await mkdir(imageDir, { recursive: true });
 await mkdir(logoDir, { recursive: true });
 
 const photos = [
-  ["hero-classroom.png", "hero-classroom.webp", 1920],
-  ["impact-session.png", "impact-session.webp", 1400],
-  ["area-facilitation.png", "area-facilitation.webp", 1200],
-  ["area-strategy.png", "area-strategy.webp", 1200],
-  ["area-process.png", "area-process.webp", 1200],
-  ["area-technology.png", "area-technology.webp", 1200],
-  ["area-innovation.png", "area-innovation.webp", 1200],
-  ["area-excellence.png", "area-excellence.webp", 1200],
-  ["program-policies.png", "program-policies.webp", 1200],
-  ["program-governance.png", "program-governance.webp", 1200],
-  ["program-powerbi.png", "program-powerbi.webp", 1200],
-  ["program-improvement.png", "program-improvement.webp", 1200],
-  ["article-career.png", "article-career.webp", 1200],
-  ["article-strategy.png", "article-strategy.webp", 1200],
-  ["article-process.png", "article-process.webp", 1200],
-  ["license-tvtc.png", "license-tvtc.webp", 800],
-  ["globe-dots.png", "globe-dots.webp", 1600],
+  ["hero-classroom.png", "hero-classroom.webp"],
+  ["impact-session.png", "impact-session.webp"],
+  ["area-facilitation.png", "area-facilitation.webp"],
+  ["area-strategy.png", "area-strategy.webp"],
+  ["area-process.png", "area-process.webp"],
+  ["area-technology.png", "area-technology.webp"],
+  ["area-innovation.png", "area-innovation.webp"],
+  ["area-excellence.png", "area-excellence.webp"],
+  ["program-policies.png", "program-policies.webp"],
+  ["program-governance.png", "program-governance.webp"],
+  ["program-powerbi.png", "program-powerbi.webp"],
+  ["program-improvement.png", "program-improvement.webp"],
+  ["article-career.png", "article-career.webp"],
+  ["article-strategy.png", "article-strategy.webp"],
+  ["article-process.png", "article-process.webp"],
+  ["license-tvtc.png", "license-tvtc.webp"],
+  ["globe-dots.png", "globe-dots.webp"],
 ];
 
-for (const [inputName, outputName, width] of photos) {
+for (const [inputName, outputName] of photos) {
   await sharp(path.join(sourceDir, inputName))
-    .resize({ width, withoutEnlargement: true })
-    .webp({ quality: 82, effort: 4 })
+    .resize({ width: 2560, withoutEnlargement: true })
+    .webp({ quality: 92, effort: 6, smartSubsample: true })
     .toFile(path.join(imageDir, outputName));
   console.log(outputName);
 }

@@ -27,7 +27,7 @@ export default async function ProgramPage({ params }: PageProps) {
   return (
     <PageIntro title={item.title} lede={"description" in item ? item.description : "15 days · 64 hours · SAR 2,000, reduced from SAR 2,500."}>
       <div className="detail-grid">
-        <LocalizedImage src={item.image} alt={item.alt} width={960} height={640} style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
+        <LocalizedImage src={item.image} alt={item.alt} width={1600} height={1067} quality={90} sizes="(max-width: 48rem) 100vw, 82rem" style={{ width: "100%", height: "auto", borderRadius: "1rem" }} />
         <ContactForm intent="Enroll in this program" />
       </div>
     </PageIntro>
