@@ -1335,7 +1335,7 @@
   background: var(--color-white);
   border: var(--border-width) solid rgba(129, 143, 135, 0.08);
   border-radius: var(--radius-xl);
-  box-shadow: 0 0.4rem 1.15rem rgba(27, 42, 34, 0.08);
+  box-shadow: 0 0.55rem 1.75rem rgba(27, 42, 34, 0.035);
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
@@ -1494,6 +1494,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  min-height: 41.21rem;
   padding-top: 9.15625rem;
   padding-bottom: 10.09375rem;
   overflow: hidden;
@@ -1505,8 +1506,9 @@
   position: absolute;
   top: 1.46875rem;
   left: 50%;
-  width: min(100% - (var(--container-padding) * 2), 81.75rem);
-  height: 32.5rem;
+  width: min(100% - (var(--container-padding) * 2), var(--content-width));
+  aspect-ratio: 1308 / 520;
+  height: auto;
   overflow: hidden;
   transform: translateX(-50%);
   pointer-events: none;
