@@ -489,6 +489,7 @@
   line-height: var(--line-height-tight);
   white-space: nowrap;
   padding-block: 0.35rem;
+  cursor: pointer;
   transition: color 0.4s var(--ease-standard);
 }
 
@@ -2034,6 +2035,7 @@
 .mobile-nav > span {
   font-size: var(--font-size-lg);
   color: var(--color-ink);
+  cursor: pointer;
 }
 
 .mobile-nav__actions {
