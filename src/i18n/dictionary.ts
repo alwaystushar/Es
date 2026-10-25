@@ -185,7 +185,6 @@ export const dictionary: Record<string, string> = {
     "يتحقق هذا النموذج من بياناتك في المتصفح، وهو جاهز للربط بخدمة الإرسال لاحقًا.",
   Name: "الاسم",
   Email: "البريد الإلكتروني",
-  Organization: "المؤسسة",
   Message: "الرسالة",
   "Add your name, a valid email, and a message of at least 12 characters.":
     "أضف اسمك وبريدًا إلكترونيًا صحيحًا ورسالة لا تقل عن ١٢ حرفًا.",
