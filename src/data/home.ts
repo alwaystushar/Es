@@ -73,7 +73,7 @@ export const programAreas = [
       "Understand how work gets done, document and improve processes, and develop clearer, more effective policies.",
     image: "/assets/images/area-process.webp",
     alt: "Two colleagues reviewing work together",
-    crop: { left: "-10.74%", top: "-8.8%", width: "110.74%", height: "154.02%" },
+    crop: { left: "-10.74%", top: "-5.93%", width: "110.74%", height: "111.86%" },
   },
   {
     slug: "technology-governance",

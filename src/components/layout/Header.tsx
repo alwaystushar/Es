@@ -69,7 +69,7 @@ export function Header() {
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
           <Link href="/" className="brand" aria-label={tr(locale, "ES Learning home")}>
-            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={64} height={65} />
+            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={58} height={59} />
           </Link>
         </div>
 

@@ -20,7 +20,7 @@ export function Footer() {
       <div className="section-container">
         <div className="site-footer__main">
           <Link href="/" className="site-footer__brand" aria-label={tr(locale, "ES Learning home")}>
-            <Icon src="/assets/logos/logo.svg" width={64} height={64} />
+            <Icon src="/assets/logos/logo.svg" width={58} height={58} />
           </Link>
           <nav aria-label={tr(locale, "Company")}>
             <p className="footer-title">

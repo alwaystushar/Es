@@ -389,15 +389,15 @@
 
 .brand {
   display: inline-flex;
-  width: 4rem;
-  height: 4rem;
+  width: 3.6rem;
+  height: 3.6rem;
   align-items: center;
   justify-content: center;
   flex: none;
 }
 
 .brand img {
-  width: 4rem;
+  width: 3.6rem;
   height: auto;
 }
 
@@ -1815,7 +1815,7 @@
 }
 
 .site-footer__brand img {
-  width: 4rem;
+  width: 3.6rem;
   height: auto;
 }
 
