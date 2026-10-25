@@ -96,21 +96,23 @@ export function FeaturedPrograms() {
                   </h3>
                   <div className="program-meta">
                     <div className="program-meta__row">
-                      <Odometer value="4.8" />
-                      <Stars small />
+                      <span className="program-meta__cluster">
+                        <Odometer value={program.rating} />
+                        <Stars small />
+                      </span>
                       <span className="review-dot" aria-hidden="true" />
                       <span>
-                        <T>61 Reviews</T>
+                        <T>{program.reviews}</T>
                       </span>
                     </div>
                     <div className="program-meta__row">
-                      <Icon src="/assets/icons/clock.svg" width={14} height={14} />
-                      <span>
-                        <T>15 days</T>
+                      <span className="program-meta__cluster">
+                        <Icon src="/assets/icons/clock.svg" width={14} height={14} />
+                        <T>{program.duration}</T>
                       </span>
                       <span className="review-dot" aria-hidden="true" />
                       <span>
-                        <T>64h</T>
+                        <T>{program.hours}</T>
                       </span>
                     </div>
                   </div>
@@ -119,11 +121,11 @@ export function FeaturedPrograms() {
                   <div className="price">
                     <span className="price__current">
                       <Icon src="/assets/icons/riyal.svg" width={22} height={23} />
-                      <Odometer value="2,000" />
+                      <Odometer value={program.price} />
                     </span>
                     <span className="price__old">
                       <Icon src="/assets/icons/riyal.svg" width={13} height={13} />
-                      <Odometer value="2,500" />
+                      <Odometer value={program.compareAt} />
                     </span>
                   </div>
                   <Button href={`/programs/${program.slug}`} variant="white" dot="none">
