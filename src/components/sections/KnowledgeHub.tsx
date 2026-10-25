@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Navigation } from "swiper/modules";
@@ -90,16 +89,16 @@ export function KnowledgeHub() {
                 <p>
                   <T>{article.excerpt}</T>
                 </p>
-                <Link className="article-card__link" href="#knowledge">
+                <span className="article-card__link">
                   <T>Read Article</T>
-                </Link>
+                </span>
               </article>
             </SwiperSlide>
           ))}
         </Swiper>
 
         <div className="knowledge__action">
-          <Button href="#knowledge" variant="outline">
+          <Button variant="outline">
             Explore the Knowledge Hub
           </Button>
         </div>

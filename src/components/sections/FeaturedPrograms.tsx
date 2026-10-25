@@ -1,7 +1,6 @@
 "use client";
 
 import { FramedPhoto } from "@/components/ui/FramedPhoto";
-import Link from "next/link";
 import { featuredPrograms } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { FieldWash } from "@/components/ui/FieldWash";
@@ -99,7 +98,7 @@ export function FeaturedPrograms() {
                       <Odometer value={program.compareAt} />
                     </span>
                   </div>
-                  <Button href="#contact" variant="white" dot="none">
+                  <Button variant="white" dot="none">
                     Enroll Now
                   </Button>
                 </div>
@@ -111,15 +110,15 @@ export function FeaturedPrograms() {
 
       <div className="section-container">
         <div className="programs__action">
-          <Button href="#programs" variant="outline">
+          <Button variant="outline">
             View all programs
           </Button>
         </div>
         <p className="sr-only">
           <T>Prices are shown in Saudi Riyals.</T>{" "}
-          <Link href="#programs">
+          <span>
             <T>Open the full program list.</T>
-          </Link>
+          </span>
         </p>
       </div>
     </section>

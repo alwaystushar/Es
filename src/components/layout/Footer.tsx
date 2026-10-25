@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { companyLinks, legalLinks } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/ui/Icon";
@@ -28,9 +27,9 @@ export function Footer() {
             </p>
             <div className="footer-links">
               {companyLinks.map((item) => (
-                <Link key={item.href} href={item.href}>
+                <span key={item.label}>
                   <T>{item.label}</T>
-                </Link>
+                </span>
               ))}
             </div>
           </nav>
@@ -74,9 +73,9 @@ export function Footer() {
           </p>
           <nav aria-label={tr(locale, "Legal")}>
             {legalLinks.map((item) => (
-              <Link key={item.href} href={item.href}>
+              <span key={item.label}>
                 <T>{item.label}</T>
-              </Link>
+              </span>
             ))}
           </nav>
         </div>

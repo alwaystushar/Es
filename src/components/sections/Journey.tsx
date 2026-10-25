@@ -14,10 +14,10 @@ export function Journey() {
           Let&apos;s build your next learning journey
         </RevealLines>
         <div className="journey__actions">
-          <Button href="#contact" variant="white">
+          <Button variant="white">
             Sign In
           </Button>
-          <Button href="#programs" variant="outline-light">
+          <Button variant="outline-light">
             View all programs
           </Button>
         </div>

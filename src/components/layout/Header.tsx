@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/data/home";
@@ -76,14 +75,9 @@ export function Header() {
         <nav className="desktop-nav" aria-label="Primary">
           <div className="desktop-nav__links">
             {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-link"
-                onClick={() => setOpen(false)}
-              >
+              <span key={item.label} className="nav-link">
                 <T>{item.label}</T>
-              </Link>
+              </span>
             ))}
           </div>
           <div className="desktop-nav__actions">
@@ -91,7 +85,7 @@ export function Header() {
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button href="#contact">Sign In</Button>
+            <Button>Sign In</Button>
           </div>
         </nav>
 
@@ -113,17 +107,17 @@ export function Header() {
       {open ? (
         <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile">
           {navigation.map((item) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            <span key={item.label}>
               <T>{item.label}</T>
-            </Link>
+            </span>
           ))}
           <div className="mobile-nav__actions">
             <Button plain dot="none" className="lang-button" aria-pressed={arabic} onClick={() => setLocale(arabic ? "en" : "ar")}>
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button href="#contact">Sign In</Button>
-            <Button href="#contact" variant="outline">
+            <Button>Sign In</Button>
+            <Button variant="outline">
               For Organization
             </Button>
           </div>

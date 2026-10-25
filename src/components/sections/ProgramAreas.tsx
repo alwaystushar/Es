@@ -148,7 +148,7 @@ export function ProgramAreas() {
 
       <div className="section-container">
         <div className="areas__footer">
-          <Button href="#programs" dot="end">
+          <Button dot="end">
             View All Programs
           </Button>
           <div className="areas__arrows">
