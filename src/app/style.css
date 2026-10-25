@@ -486,7 +486,7 @@
 .nav-link {
   color: var(--color-text);
   font-size: var(--font-size-xs);
-  font-weight: 300;
+  font-weight: 400;
   line-height: var(--line-height-tight);
   white-space: nowrap;
   padding-block: 0.35rem;
