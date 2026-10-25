@@ -68,7 +68,7 @@ export function Header() {
     <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
-          <Link href="/" className="brand" aria-label={tr(locale, "ES Learning home")}>
+          <Link href="#main" className="brand" aria-label={tr(locale, "ES Learning home")} onClick={() => setOpen(false)}>
             <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={58} height={59} />
           </Link>
         </div>
@@ -80,7 +80,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className="nav-link"
-                aria-current={pathname.startsWith(item.href) ? "page" : undefined}
+                onClick={() => setOpen(false)}
               >
                 <T>{item.label}</T>
               </Link>
@@ -91,7 +91,7 @@ export function Header() {
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button href="/signin">Sign In</Button>
+            <Button href="#contact">Sign In</Button>
           </div>
         </nav>
 
@@ -113,7 +113,7 @@ export function Header() {
       {open ? (
         <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile">
           {navigation.map((item) => (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
               <T>{item.label}</T>
             </Link>
           ))}
@@ -122,8 +122,8 @@ export function Header() {
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button href="/signin">Sign In</Button>
-            <Button href="/organization" variant="outline">
+            <Button href="#contact">Sign In</Button>
+            <Button href="#contact" variant="outline">
               For Organization
             </Button>
           </div>

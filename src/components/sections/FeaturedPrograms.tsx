@@ -99,7 +99,7 @@ export function FeaturedPrograms() {
                       <Odometer value={program.compareAt} />
                     </span>
                   </div>
-                  <Button href={`/programs/${program.slug}`} variant="white" dot="none">
+                  <Button href="#contact" variant="white" dot="none">
                     Enroll Now
                   </Button>
                 </div>
@@ -111,13 +111,13 @@ export function FeaturedPrograms() {
 
       <div className="section-container">
         <div className="programs__action">
-          <Button href="/programs" variant="outline">
+          <Button href="#programs" variant="outline">
             View all programs
           </Button>
         </div>
         <p className="sr-only">
           <T>Prices are shown in Saudi Riyals.</T>{" "}
-          <Link href="/programs">
+          <Link href="#programs">
             <T>Open the full program list.</T>
           </Link>
         </p>

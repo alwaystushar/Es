@@ -31,7 +31,7 @@ export function Hero() {
               Enhance your capabilities to embrace new opportunities, deepen your knowledge, & advance your professional journey.
             </RevealLines>
             <div className="hero__actions">
-              <Button href="/#programs">Explore Programs</Button>
+              <Button href="#programs">Explore Programs</Button>
             </div>
           </div>
         </div>

@@ -55,7 +55,7 @@ export function Impact() {
               </RevealLines>
             </div>
             <div>
-              <Button href="/about" variant="outline">
+              <Button href="#about" variant="outline">
                 Learn More
               </Button>
             </div>

@@ -16,10 +16,10 @@ export function Footer() {
   const { locale } = useLocale();
 
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" id="footer">
       <div className="section-container">
         <div className="site-footer__main">
-          <Link href="/" className="site-footer__brand" aria-label={tr(locale, "ES Learning home")}>
+          <Link href="#main" className="site-footer__brand" aria-label={tr(locale, "ES Learning home")}>
             <Icon src="/assets/logos/logo.svg" width={58} height={58} />
           </Link>
           <nav aria-label={tr(locale, "Company")}>

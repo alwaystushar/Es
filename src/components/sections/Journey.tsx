@@ -3,7 +3,7 @@ import { RevealLines } from "@/components/animation/RevealLines";
 
 export function Journey() {
   return (
-    <section className="journey" data-header-tone="light" aria-labelledby="journey-title">
+    <section className="journey" id="contact" data-header-tone="light" aria-labelledby="journey-title">
       <div className="journey__field" aria-hidden="true">
         <img src="/assets/images/journey-field.svg" alt="" width={2055} height={2020} />
       </div>
@@ -14,10 +14,10 @@ export function Journey() {
           Let&apos;s build your next learning journey
         </RevealLines>
         <div className="journey__actions">
-          <Button href="/signin" variant="white">
+          <Button href="#contact" variant="white">
             Sign In
           </Button>
-          <Button href="/programs" variant="outline-light">
+          <Button href="#programs" variant="outline-light">
             View all programs
           </Button>
         </div>

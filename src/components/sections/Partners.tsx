@@ -23,7 +23,7 @@ export function Partners() {
       <PartnerMarquee />
 
       <div className="section-container partners__action">
-        <Button href="/partners" variant="outline">
+        <Button href="#partners" variant="outline">
           Meet Our Partners
         </Button>
       </div>

@@ -90,7 +90,7 @@ export function KnowledgeHub() {
                 <p>
                   <T>{article.excerpt}</T>
                 </p>
-                <Link className="article-card__link" href={`/knowledge/${article.slug}`}>
+                <Link className="article-card__link" href="#knowledge">
                   <T>Read Article</T>
                 </Link>
               </article>
@@ -99,7 +99,7 @@ export function KnowledgeHub() {
         </Swiper>
 
         <div className="knowledge__action">
-          <Button href="/knowledge" variant="outline">
+          <Button href="#knowledge" variant="outline">
             Explore the Knowledge Hub
           </Button>
         </div>
