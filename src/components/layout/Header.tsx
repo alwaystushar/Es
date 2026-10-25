@@ -1,11 +1,71 @@
 "use client";
 
+import { memo, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { T, tr, useLocale } from "@/i18n/locale";
+import { dictionary } from "@/i18n/dictionary";
+import { gsap, registerGsap, SplitText } from "@/lib/gsap";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
+const NavLabel = memo(function NavLabel({ label }: { label: string }) {
+  const root = useRef<HTMLSpanElement>(null);
+  const { locale } = useLocale();
+  const reduced = useReducedMotion();
+
+  useIsomorphicLayoutEffect(() => {
+    const link = root.current;
+    if (!link) return;
+    const lines = [...link.querySelectorAll<HTMLElement>(".nav-link__line")];
+    const text = locale === "ar" ? (dictionary[label] ?? label) : label;
+    lines.forEach((line) => {
+      line.textContent = text;
+    });
+    if (reduced) return;
+
+    registerGsap();
+    const splits = lines.map((line) =>
+      SplitText.create(line, { type: "chars", tag: "span", charsClass: "nav-char", aria: "auto" }),
+    );
+    const [top, bottom] = splits;
+    gsap.set(bottom.chars, { yPercent: 110 });
+
+    const play = (enter: boolean) => {
+      const tween = {
+        stagger: enter ? 0.028 : 0.016,
+        duration: 0.45,
+        ease: "power3.out",
+        overwrite: "auto" as const,
+      };
+      gsap.to(top.chars, { ...tween, yPercent: enter ? -110 : 0 });
+      gsap.to(bottom.chars, { ...tween, yPercent: enter ? 0 : 110 });
+    };
+    const onEnter = () => play(true);
+    const onLeave = () => play(false);
+    link.addEventListener("pointerenter", onEnter);
+    link.addEventListener("pointerleave", onLeave);
+
+    return () => {
+      link.removeEventListener("pointerenter", onEnter);
+      link.removeEventListener("pointerleave", onLeave);
+      splits.forEach((split) => split.revert());
+    };
+  }, [label, locale, reduced]);
+
+  return (
+    <span ref={root} className="nav-link">
+      <span className="nav-link__mask">
+        <span className="nav-link__line">{label}</span>
+        <span className="nav-link__line" aria-hidden="true">
+          {label}
+        </span>
+      </span>
+    </span>
+  );
+});
 
 export function Header() {
   const pathname = usePathname();
@@ -75,9 +135,7 @@ export function Header() {
         <nav className="desktop-nav" aria-label="Primary">
           <div className="desktop-nav__links">
             {navigation.map((item) => (
-              <span key={item.label} className="nav-link">
-                <T>{item.label}</T>
-              </span>
+              <NavLabel key={item.label} label={item.label} />
             ))}
           </div>
           <div className="desktop-nav__actions">
