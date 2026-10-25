@@ -39,9 +39,9 @@ export function Button({
   const classes = cn("btn", plain ? undefined : `btn--${variant}`, arrow ? "btn--dot-arrow" : undefined, className);
   const dotMark = (
     <span className="btn__dot" aria-hidden="true">
-      <svg viewBox="0 0 16 16" fill="none">
-        <path d="M3.4 8h5.8" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" />
-        <path d="M8.1 4.35 12.5 8 8.1 11.65" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" strokeLinejoin="round" />
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="m12 5 7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </span>
   );

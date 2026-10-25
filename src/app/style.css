@@ -272,6 +272,10 @@
   background: var(--color-icon-surface);
 }
 
+.btn--white.btn--dot-arrow .btn__dot svg {
+  color: var(--color-white);
+}
+
 .btn.icon-button,
 .btn.lang-button,
 .btn.audience__trigger,
@@ -1842,12 +1846,6 @@
 .socials img {
   width: 1.25rem;
   height: 1.25rem;
-}
-
-.socials__instagram {
-  width: 2.8203125rem;
-  height: 2.8203125rem;
-  border: 0;
 }
 
 .site-footer__badges {

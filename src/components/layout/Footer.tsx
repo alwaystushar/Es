@@ -7,9 +7,9 @@ import { Icon } from "@/components/ui/Icon";
 import { LocalizedImage, T, tr, useLocale } from "@/i18n/locale";
 
 const socials = [
-  { label: "ES Learning on X", href: "https://x.com", icon: "/assets/icons/social-x.svg", width: 20, height: 20 },
-  { label: "ES Learning on LinkedIn", href: "https://www.linkedin.com", icon: "/assets/icons/social-linkedin.svg", width: 20, height: 20 },
-  { label: "ES Learning on Instagram", href: "https://www.instagram.com", icon: "/assets/icons/social-instagram.svg", width: 45, height: 45 },
+  { label: "ES Learning on X", href: "https://x.com", icon: "/assets/icons/social-x.svg" },
+  { label: "ES Learning on LinkedIn", href: "https://www.linkedin.com", icon: "/assets/icons/social-linkedin.svg" },
+  { label: "ES Learning on Instagram", href: "https://www.instagram.com", icon: "/assets/icons/social-instagram.svg" },
 ];
 
 export function Footer() {
@@ -43,15 +43,8 @@ export function Footer() {
               <a href={siteConfig.emailHref}>{siteConfig.email}</a>
               <div className="socials">
                 {socials.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className={item.width === 45 ? "socials__instagram" : undefined}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={tr(locale, item.label)}
-                  >
-                    <Icon src={item.icon} width={item.width} height={item.height} />
+                  <a key={item.label} href={item.href} target="_blank" rel="noreferrer" aria-label={tr(locale, item.label)}>
+                    <Icon src={item.icon} width={20} height={20} />
                   </a>
                 ))}
               </div>
