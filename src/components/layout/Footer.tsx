@@ -7,9 +7,9 @@ import { Icon } from "@/components/ui/Icon";
 import { LocalizedImage, T, tr, useLocale } from "@/i18n/locale";
 
 const socials = [
-  { label: "ES Learning on X", href: "https://x.com", icon: "/assets/icons/social-x.svg" },
-  { label: "ES Learning on LinkedIn", href: "https://www.linkedin.com", icon: "/assets/icons/social-linkedin.svg" },
-  { label: "ES Learning on Instagram", href: "https://www.instagram.com", icon: "/assets/icons/social-instagram.svg" },
+  { label: "ES Learning on X", href: "https://x.com", icon: "/assets/icons/social-x.svg", width: 20, height: 20 },
+  { label: "ES Learning on LinkedIn", href: "https://www.linkedin.com", icon: "/assets/icons/social-linkedin.svg", width: 20, height: 20 },
+  { label: "ES Learning on Instagram", href: "https://www.instagram.com", icon: "/assets/icons/social-instagram.svg", width: 45, height: 45 },
 ];
 
 export function Footer() {
@@ -43,8 +43,15 @@ export function Footer() {
               <a href={siteConfig.emailHref}>{siteConfig.email}</a>
               <div className="socials">
                 {socials.map((item) => (
-                  <a key={item.label} href={item.href} target="_blank" rel="noreferrer" aria-label={tr(locale, item.label)}>
-                    <Icon src={item.icon} width={20} height={20} />
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className={item.width === 45 ? "socials__instagram" : undefined}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={tr(locale, item.label)}
+                  >
+                    <Icon src={item.icon} width={item.width} height={item.height} />
                   </a>
                 ))}
               </div>
@@ -55,7 +62,7 @@ export function Footer() {
         <div className="site-footer__badges">
           <LocalizedImage
             className="license"
-            src="/assets/images/license-tvtc.webp"
+            src="/assets/images/license-tvtc.png"
             alt="Technical and Vocational Training Corporation"
             width={195}
             height={101}
@@ -64,7 +71,7 @@ export function Footer() {
             <Icon src="/assets/logos/badge-iso.svg" alt="ISO 9001" width={46} height={57} />
             <Icon src="/assets/logos/badge-iqnet.svg" alt="IQNET" width={49} height={49} />
             <Icon src="/assets/logos/badge-mada.svg" alt="mada" width={77} height={25} />
-            <Icon src="/assets/logos/badge-visa.svg" alt="Visa" width={65} height={23} />
+            <Icon src="/assets/logos/badge-visa.svg" alt="Visa" width={64} height={23} />
           </div>
         </div>
 

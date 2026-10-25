@@ -1,10 +1,10 @@
-<svg preserveAspectRatio="xMidYMid meet" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Frame">
 <g id="Group 1171276817">
-<path id="Vector" d="M5.83301 7.91016V13.7435" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
-<path id="Vector_2" d="M9.16699 10.4102V13.7435M9.16699 10.4102C9.16699 9.02941 10.2862 7.91016 11.667 7.91016C13.0477 7.91016 14.167 9.02941 14.167 10.4102V13.7435M9.16699 10.4102V7.91016" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
-<path id="Vector_3" d="M5.83952 5.41016H5.83203" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke="white"/>
+<path id="Vector" d="M5.83301 7.91016V13.7435" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="#1B2A22"/>
+<path id="Vector_2" d="M9.16699 10.4102V13.7435M9.16699 10.4102C9.16699 9.02941 10.2862 7.91016 11.667 7.91016C13.0477 7.91016 14.167 9.02941 14.167 10.4102V13.7435M9.16699 10.4102V7.91016" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" stroke="#1B2A22"/>
+<path id="Vector_3" d="M5.83952 5.41016H5.83203" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke="#1B2A22"/>
 </g>
-<path id="Vector_4" d="M1.5 9.57812C1.5 5.57119 1.5 3.56772 2.74479 2.32292C3.9896 1.07812 5.99306 1.07812 10 1.07812C14.0069 1.07812 16.0104 1.07812 17.2552 2.32292C18.5 3.56772 18.5 5.57119 18.5 9.57812C18.5 13.585 18.5 15.5885 17.2552 16.8334C16.0104 18.0781 14.0069 18.0781 10 18.0781C5.99306 18.0781 3.9896 18.0781 2.74479 16.8334C1.5 15.5885 1.5 13.585 1.5 9.57812Z" stroke-linejoin="round" stroke="white" stroke-width="1.5"/>
+<path id="Vector_4" d="M1.5 9.57812C1.5 5.57119 1.5 3.56772 2.74479 2.32292C3.9896 1.07812 5.99306 1.07812 10 1.07812C14.0069 1.07812 16.0104 1.07812 17.2552 2.32292C18.5 3.56772 18.5 5.57119 18.5 9.57812C18.5 13.585 18.5 15.5885 17.2552 16.8334C16.0104 18.0781 14.0069 18.0781 10 18.0781C5.99306 18.0781 3.9896 18.0781 2.74479 16.8334C1.5 15.5885 1.5 13.585 1.5 9.57812Z" stroke-linejoin="round" stroke="#1B2A22"/>
 </g>
 </svg>

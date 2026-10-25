@@ -1842,7 +1842,12 @@
 .socials img {
   width: 1.25rem;
   height: 1.25rem;
-  filter: brightness(0);
+}
+
+.socials__instagram {
+  width: 2.8203125rem;
+  height: 2.8203125rem;
+  border: 0;
 }
 
 .site-footer__badges {
@@ -1854,9 +1859,8 @@
 }
 
 .license {
-  width: min(12.2rem, 100%);
+  width: min(12.214375rem, 100%);
   height: auto;
-  mix-blend-mode: lighten;
 }
 
 .payment-badges {

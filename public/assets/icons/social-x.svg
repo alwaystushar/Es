@@ -1,6 +1,6 @@
-<svg preserveAspectRatio="xMidYMid meet" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="Frame">
-<path id="Vector" d="M14.0165 16.8851L3.12764 2.88509C2.8722 2.55667 3.10624 2.07812 3.52232 2.07812H5.58879C5.74308 2.07812 5.88874 2.14936 5.98347 2.27116L16.8723 16.2711C17.1278 16.5996 16.8937 17.0781 16.4777 17.0781H14.4113C14.2569 17.0781 14.1112 17.0069 14.0165 16.8851Z" stroke-width="1.5" stroke="white"/>
-<path id="Vector_2" d="M16.6667 2.07812L3.33334 17.0781" stroke-width="1.5" stroke-linecap="round" stroke="white"/>
+<path id="Vector" d="M14.0165 16.8851L3.12764 2.88509C2.8722 2.55667 3.10624 2.07812 3.52232 2.07812H5.58879C5.74308 2.07812 5.88874 2.14936 5.98347 2.27116L16.8723 16.2711C17.1278 16.5996 16.8937 17.0781 16.4777 17.0781H14.4113C14.2569 17.0781 14.1112 17.0069 14.0165 16.8851Z" stroke-width="1.5" stroke="#1B2A22"/>
+<path id="Vector_2" d="M16.6667 2.07812L3.33334 17.0781" stroke-width="1.5" stroke-linecap="round" stroke="#1B2A22"/>
 </g>
 </svg>
