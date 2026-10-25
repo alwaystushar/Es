@@ -68,9 +68,9 @@ export function Header() {
     <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
-          <Link href="#main" className="brand" aria-label={tr(locale, "ES Learning home")} onClick={() => setOpen(false)}>
-            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={58} height={59} />
-          </Link>
+          <span className="brand">
+            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={48} height={48} />
+          </span>
         </div>
 
         <nav className="desktop-nav" aria-label="Primary">

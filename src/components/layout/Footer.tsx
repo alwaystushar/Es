@@ -19,9 +19,9 @@ export function Footer() {
     <footer className="site-footer" id="footer">
       <div className="section-container">
         <div className="site-footer__main">
-          <Link href="#main" className="site-footer__brand" aria-label={tr(locale, "ES Learning home")}>
-            <Icon src="/assets/logos/logo.svg" width={58} height={58} />
-          </Link>
+          <div className="site-footer__brand">
+            <Icon src="/assets/logos/logo.svg" width={48} height={48} />
+          </div>
           <nav aria-label={tr(locale, "Company")}>
             <p className="footer-title">
               <T>Company</T>
