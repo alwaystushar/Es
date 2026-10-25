@@ -1043,9 +1043,9 @@
 }
 
 .why .field-wash__dots {
-  top: 50%;
+  top: 23.0625rem;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 }
 
 .why > .section-container,

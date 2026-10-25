@@ -18,6 +18,13 @@ import { T, tr, useLocale } from "@/i18n/locale";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, registerGsap } from "@/lib/gsap";
 
+const programTitleLines = {
+  "Developing internal policies for organizations": ["Developing internal", "policies for organizations"],
+  "Project Governance": ["Project", "Governance"],
+  "Data analysis using Power BI software": ["Data analysis using", "Power BI software"],
+  "Rapid Improvement of Business Processes...": ["Rapid Improvement of", "Business Processes..."],
+} as const;
+
 export function FeaturedPrograms() {
   const section = useRef<HTMLElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
@@ -88,9 +95,9 @@ export function FeaturedPrograms() {
                 <div>
                   <h3>
                     <span className="loc-en">
-                      Developing internal
+                      {programTitleLines[program.title][0]}
                       <br />
-                      policies for organizations
+                      {programTitleLines[program.title][1]}
                     </span>
                     <span className="loc-ar">{tr("ar", program.title)}</span>
                   </h3>

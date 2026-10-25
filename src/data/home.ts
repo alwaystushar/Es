@@ -120,7 +120,7 @@ export const featuredPrograms = [
   },
   {
     slug: "project-governance",
-    title: "Developing internal policies for organizations",
+    title: "Project Governance",
     image: "/assets/images/program-governance.webp",
     alt: "Presenter speaking in front of a highway analytics display",
     crop: { left: "-15.16%", top: "-2.99%", width: "126.26%", height: "71.21%" },
@@ -133,7 +133,7 @@ export const featuredPrograms = [
   },
   {
     slug: "data-analysis-power-bi",
-    title: "Developing internal policies for organizations",
+    title: "Data analysis using Power BI software",
     image: "/assets/images/program-powerbi.webp",
     alt: "Colleagues discussing a report in a modern office",
     crop: { left: "-5.56%", top: "-17.65%", width: "186.58%", height: "105.23%" },
@@ -146,7 +146,7 @@ export const featuredPrograms = [
   },
   {
     slug: "rapid-business-process-improvement",
-    title: "Developing internal policies for organizations",
+    title: "Rapid Improvement of Business Processes...",
     image: "/assets/images/program-improvement.webp",
     alt: "Professional reviewing work at a desk",
     crop: { left: "-56.22%", top: "-42.36%", width: "212.59%", height: "119.9%" },
