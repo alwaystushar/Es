@@ -1045,6 +1045,7 @@
 .why .field-wash__dots {
   top: 23.0625rem;
   left: 50%;
+  opacity: 0.45;
   transform: translateX(-50%);
 }
 

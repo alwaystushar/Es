@@ -20,7 +20,7 @@ import { gsap, registerGsap } from "@/lib/gsap";
 
 const programTitleLines = {
   "Developing internal policies for organizations": ["Developing internal", "policies for organizations"],
-  "Project Governance": ["Project", "Governance"],
+  "Project Governance": ["Project Governance"],
   "Data analysis using Power BI software": ["Data analysis using", "Power BI software"],
   "Rapid Improvement of Business Processes...": ["Rapid Improvement of", "Business Processes..."],
 } as const;
@@ -95,9 +95,12 @@ export function FeaturedPrograms() {
                 <div>
                   <h3>
                     <span className="loc-en">
-                      {programTitleLines[program.title][0]}
-                      <br />
-                      {programTitleLines[program.title][1]}
+                      {programTitleLines[program.title].map((line, index) => (
+                        <span key={line}>
+                          {index > 0 ? <br /> : null}
+                          {line}
+                        </span>
+                      ))}
                     </span>
                     <span className="loc-ar">{tr("ar", program.title)}</span>
                   </h3>
