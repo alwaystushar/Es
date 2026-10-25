@@ -7,11 +7,11 @@ export const navigation = [
 ] as const;
 
 export const stats = [
-  { value: "10k+", label: "Specialists trained" },
-  { value: "80+", label: "Organizations" },
-  { value: "4,100+", label: "Learning Hours" },
-  { value: "300+", label: "Programs" },
-  { value: "95%", label: "Satisfaction rate" },
+  { value: "10,000+", label: "Participants trained" },
+  { value: "86+", label: "Public & private organizations" },
+  { value: "300+", label: "Training program" },
+  { value: "4,100", label: "Hours of applied learning" },
+  { value: "95%", label: "Participant satisfaction" },
 ] as const;
 
 export const whyItems = [
@@ -110,28 +110,28 @@ export const featuredPrograms = [
     title: "Developing internal policies for organizations",
     image: "/assets/images/program-policies.webp",
     alt: "Two professionals reviewing documents together",
-    crop: { left: "-37.66%", top: "-75.6%", width: "212.26%", height: "246.13%" },
+    crop: { left: "-64.17%", top: "-43.92%", width: "276.82%", height: "138.17%" },
   },
   {
     slug: "project-governance",
-    title: "Project Governance",
+    title: "Developing internal policies for organizations",
     image: "/assets/images/program-governance.webp",
     alt: "Presenter speaking in front of a highway analytics display",
-    crop: { left: "-8.5%", top: "-5.06%", width: "113.63%", height: "148.89%" },
+    crop: { left: "-15.16%", top: "-2.99%", width: "126.26%", height: "71.21%" },
   },
   {
     slug: "data-analysis-power-bi",
-    title: "Data analysis using Power BI software",
+    title: "Developing internal policies for organizations",
     image: "/assets/images/program-powerbi.webp",
     alt: "Colleagues discussing a report in a modern office",
-    crop: { left: "-11.6%", top: "-37.43%", width: "167.93%", height: "220.03%" },
+    crop: { left: "-5.56%", top: "-17.65%", width: "186.58%", height: "105.23%" },
   },
   {
     slug: "rapid-business-process-improvement",
-    title: "Rapid Improvement of Business Processes...",
+    title: "Developing internal policies for organizations",
     image: "/assets/images/program-improvement.webp",
     alt: "Professional reviewing work at a desk",
-    crop: { left: "-44.73%", top: "-95.47%", width: "191.33%", height: "250.7%" },
+    crop: { left: "-56.22%", top: "-42.36%", width: "212.59%", height: "119.9%" },
   },
 ] as const;
 

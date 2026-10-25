@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { navigation } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -11,16 +11,17 @@ import { T, tr, useLocale } from "@/i18n/locale";
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [audienceOpen, setAudienceOpen] = useState(false);
   const { locale, setLocale } = useLocale();
   const arabic = locale === "ar";
   const [hidden, setHidden] = useState(false);
+  const [onDark, setOnDark] = useState(pathname === "/");
+  const headerRef = useRef<HTMLElement>(null);
+  const toneRef = useRef(pathname === "/");
   const [menuPath, setMenuPath] = useState(pathname);
 
   if (menuPath !== pathname) {
     setMenuPath(pathname);
     setOpen(false);
-    setAudienceOpen(false);
   }
 
   if (open && hidden) setHidden(false);
@@ -35,6 +36,15 @@ export function Header() {
       if (open || y < 72) setHidden(false);
       else if (delta > 8) setHidden(true);
       else if (delta < -8) setHidden(false);
+      const probe = (headerRef.current?.getBoundingClientRect().height || 68) * 0.55;
+      const dark = [...document.querySelectorAll<HTMLElement>("[data-header-tone='light']")].some((zone) => {
+        const rect = zone.getBoundingClientRect();
+        return rect.top <= probe && rect.bottom >= probe;
+      });
+      if (toneRef.current !== dark) {
+        toneRef.current = dark;
+        setOnDark(dark);
+      }
       last = y;
       frame = 0;
     };
@@ -44,47 +54,23 @@ export function Header() {
       frame = window.requestAnimationFrame(update);
     };
 
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
       window.cancelAnimationFrame(frame);
     };
-  }, [open]);
+  }, [open, pathname]);
 
   return (
-    <header className={hidden && !open ? "site-header is-hidden" : "site-header"}>
+    <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
           <Link href="/" className="brand" aria-label={tr(locale, "ES Learning home")}>
-            <Icon src="/assets/logos/logo.svg" width={46} height={47} />
+            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={46} height={47} />
           </Link>
-          <div className="audience">
-            <Button
-              plain
-              dot="none"
-              className="audience__trigger"
-              aria-expanded={audienceOpen}
-              aria-haspopup="menu"
-              onClick={() => setAudienceOpen((value) => !value)}
-            >
-              <T>{pathname.startsWith("/organization") ? "For Organization" : "For Individual"}</T>
-              <Icon src="/assets/icons/chevron.svg" width={24} height={24} />
-            </Button>
-            {audienceOpen ? (
-              <div className="audience__menu" role="menu">
-                <Link href="/" aria-current={pathname === "/" ? "page" : undefined} role="menuitem">
-                  <T>For Individual</T>
-                </Link>
-                <Link
-                  href="/organization"
-                  aria-current={pathname.startsWith("/organization") ? "page" : undefined}
-                  role="menuitem"
-                >
-                  <T>For Organization</T>
-                </Link>
-              </div>
-            ) : null}
-          </div>
         </div>
 
         <nav className="desktop-nav" aria-label="Primary">

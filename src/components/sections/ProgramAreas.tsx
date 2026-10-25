@@ -94,7 +94,7 @@ export function ProgramAreas() {
           <Eyebrow small>Program areas</Eyebrow>
           <div className="areas__split">
             <RevealLines id="areas-title" as="h2" className="section-title section-title--display">
-              Build the Skills to Perform Better
+              Build the skills to perform better
             </RevealLines>
             <RevealLines as="p" className="section-copy" duration={0.7} stagger={0.08}>
               Explore specialized learning areas designed to build skills and knowledge directly relevant to your work.

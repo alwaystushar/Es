@@ -10,7 +10,7 @@ import { LocaleProvider, localeBootScript, T } from "@/i18n/locale";
 
 const rubik = Rubik({
   subsets: ["latin", "arabic"],
-  weight: ["400", "500"],
+  weight: ["300", "400", "500"],
   variable: "--font-rubik",
   display: "swap",
 });

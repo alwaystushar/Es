@@ -39,7 +39,7 @@ export function KnowledgeHub() {
           <div className="knowledge__heading">
             <Eyebrow>Knowledge Hub</Eyebrow>
             <RevealLines id="knowledge-title" as="h2" className="section-title">
-              Insights for Better Decisions and Growth
+              Insights for better decisions and growth
             </RevealLines>
           </div>
           <div className="knowledge__arrows">

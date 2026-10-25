@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Partners" };
 export default function PartnersPage() {
   return (
     <PageIntro
-      title="Our Global Partners"
+      title="Our global partners"
       lede="We collaborate with specialist organizations to deliver programs grounded in global methodologies and standards."
     >
       <div className="card-list" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(11.25rem, 1fr))" }}>

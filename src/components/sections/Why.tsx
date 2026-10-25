@@ -1,12 +1,13 @@
 import { whyItems } from "@/data/home";
 import { dictionary } from "@/i18n/dictionary";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { FieldWash } from "@/components/ui/FieldWash";
 import { Icon } from "@/components/ui/Icon";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
 
 const whyTitleLines = {
-  "Rooted in the Local Context": ["Rooted in the Local", "Context"],
+  "Rooted in the Local Context": ["Rooted in the", "Local Context"],
   "Established Global Methodologies": ["Established Global", "Methodologies"],
   "Expertise Shaped by Practice": ["Expertise Shaped", "by Practice"],
   "Knowledge Made Practical": ["Knowledge Made", "Practical"],
@@ -15,6 +16,7 @@ const whyTitleLines = {
 export function Why() {
   return (
     <section className="why" aria-labelledby="why-title">
+      <FieldWash />
       <div className="section-container">
         <div className="why__intro">
           <Eyebrow>Why ES Learning?</Eyebrow>

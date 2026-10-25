@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { featuredPrograms } from "@/data/home";
 import { Button } from "@/components/ui/Button";
+import { FieldWash } from "@/components/ui/FieldWash";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { Stars } from "@/components/ui/Stars";
@@ -56,11 +57,12 @@ export function FeaturedPrograms() {
 
   return (
     <section className="programs" id="programs" aria-labelledby="programs-title" ref={section}>
+      <FieldWash />
       <div className="section-container">
         <div className="programs__intro">
-          <Eyebrow light>Featured Programs</Eyebrow>
-          <RevealLines id="programs-title" as="h2" className="section-title section-title--display">
-            Find Your Next Program
+          <Eyebrow>Featured Programs</Eyebrow>
+          <RevealLines id="programs-title" as="h2" className="section-title">
+            Find your next program
           </RevealLines>
           <RevealLines as="p" className="section-copy" duration={0.7} stagger={0.08}>
             Browse upcoming programs to find the right fit for your development goals.
@@ -85,7 +87,12 @@ export function FeaturedPrograms() {
               <div className="program-card__body">
                 <div>
                   <h3>
-                    <T>{program.title}</T>
+                    <span className="loc-en">
+                      Developing internal
+                      <br />
+                      policies for organizations
+                    </span>
+                    <span className="loc-ar">{tr("ar", program.title)}</span>
                   </h3>
                   <div className="program-meta">
                     <div className="program-meta__row">
@@ -131,7 +138,7 @@ export function FeaturedPrograms() {
 
       <div className="section-container">
         <div className="programs__action">
-          <Button href="/programs" variant="outline-light">
+          <Button href="/programs" variant="outline">
             View all programs
           </Button>
         </div>

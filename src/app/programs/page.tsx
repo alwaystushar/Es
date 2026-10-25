@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Training Programs" };
 export default function ProgramsPage() {
   return (
     <PageIntro
-      title="Find Your Next Program"
+      title="Find your next program"
       lede="Browse upcoming programs to find the right fit for your development goals."
     >
       <div className="card-list">

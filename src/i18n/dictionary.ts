@@ -15,17 +15,27 @@ export const dictionary: Record<string, string> = {
   "Privacy Policy": "سياسة الخصوصية",
   "Quality Policy": "سياسة الجودة",
   "From Learning to Impact You Can See": "من التعلّم إلى أثر تراه",
+  "From learning to impact you can see": "من التعلّم إلى أثر تراه",
+  Individual: "الأفراد",
+  Organization: "المؤسسات",
   "Enhance your capabilities to embrace new opportunities, deepen your knowledge, and advance your professional journey.":
+    "طوّر قدراتك لاغتنام فرص جديدة، وتعميق معرفتك، والمضي قدمًا في مسيرتك المهنية.",
+  "Enhance your capabilities to embrace new opportunities, deepen your knowledge, & advance your professional journey.":
     "طوّر قدراتك لاغتنام فرص جديدة، وتعميق معرفتك، والمضي قدمًا في مسيرتك المهنية.",
   "Explore Programs": "استكشف البرامج",
   "320 Total Reviews": "٣٢٠ تقييمًا",
   "Learners and a facilitator working together in a classroom": "متعلمون وميسّر يعملون معًا في قاعة تدريب",
   "A Growing Record of Impact": "سجل متنامٍ من الأثر",
   "Specialists trained": "متخصصون تم تدريبهم",
+  "Participants trained": "مشاركون تم تدريبهم",
   Organizations: "مؤسسات",
+  "Public & private organizations": "مؤسسات عامة وخاصة",
   "Learning Hours": "ساعات تعلم",
+  "Hours of applied learning": "ساعات تعلم تطبيقي",
   Programs: "برامج",
+  "Training program": "برنامج تدريبي",
   "Satisfaction rate": "معدل الرضا",
+  "Participant satisfaction": "رضا المشاركين",
   "ES Learning": "إي إس ليرنينغ",
   "At ES Learning, we believe the true value of training is reflected in how knowledge is applied. Our programs bring learning and practice together, equipping professionals and teams with the skills and tools to work more effectively, make better decisions, and create lasting impact.":
     "في إي إس ليرنينغ، نؤمن أن القيمة الحقيقية للتدريب تظهر في تطبيق المعرفة. تجمع برامجنا بين التعلّم والممارسة، وتزوّد المهنيين والفرق بالمهارات والأدوات ليعملوا بفاعلية أكبر، ويتخذوا قرارات أفضل، ويصنعوا أثرًا دائمًا.",
@@ -49,6 +59,7 @@ export const dictionary: Record<string, string> = {
     "نحوّل الأفكار إلى أدوات وتمارين عملية يمكنك استخدامها مباشرة في عملك.",
   "Program areas": "مجالات البرامج",
   "Build the Skills to Perform Better": "ابنِ المهارات لتحسن الأداء",
+  "Build the skills to perform better": "ابنِ المهارات لتحسن الأداء",
   "Explore specialized learning areas designed to build skills and knowledge directly relevant to your work.":
     "استكشف مجالات تعلم متخصصة صُممت لبناء مهارات ومعرفة ترتبط مباشرة بعملك.",
   "View All Programs": "عرض كل البرامج",
@@ -80,6 +91,7 @@ export const dictionary: Record<string, string> = {
   "Professional using a tablet with a coastal view behind him": "مهني يستخدم جهازًا لوحيًا وخلفه مشهد ساحلي",
   "Featured Programs": "البرامج المميزة",
   "Find Your Next Program": "ابحث عن برنامجك القادم",
+  "Find your next program": "ابحث عن برنامجك القادم",
   "Browse upcoming programs to find the right fit for your development goals.":
     "تصفح البرامج القادمة لتجد ما يناسب أهداف تطورك.",
   "61 Reviews": "٦١ تقييمًا",
@@ -98,6 +110,7 @@ export const dictionary: Record<string, string> = {
   "Rapid Improvement of Business Processes...": "التحسين السريع لعمليات الأعمال...",
   "Professional reviewing work at a desk": "مهني يراجع العمل على مكتبه",
   "Insights for Better Decisions and Growth": "رؤى لقرارات أفضل ونمو أوضح",
+  "Insights for better decisions and growth": "رؤى لقرارات أفضل ونمو أوضح",
   "Read Article": "اقرأ المقال",
   "Explore the Knowledge Hub": "استكشف مركز المعرفة",
   "Previous article": "المقال السابق",
@@ -119,6 +132,7 @@ export const dictionary: Record<string, string> = {
   "Two professionals shaking hands in an office": "مهنيان يتصافحان في مكتب",
   Partners: "الشركاء",
   "Our Global Partners": "شركاؤنا العالميون",
+  "Our global partners": "شركاؤنا العالميون",
   "We collaborate with specialist organizations to deliver programs grounded in global methodologies and standards.":
     "نتعاون مع مؤسسات متخصصة لتقديم برامج تستند إلى منهجيات ومعايير عالمية.",
   "Meet Our Partners": "تعرّف على شركائنا",
@@ -137,6 +151,8 @@ export const dictionary: Record<string, string> = {
   "A growing record of impact": "سجل متنامٍ من الأثر",
   "10k+ specialists trained, 80+ organizations, 4,100+ learning hours, 300+ programs, and a 95% satisfaction rate.":
     "أكثر من ١٠ آلاف متخصص تم تدريبهم، وأكثر من ٨٠ مؤسسة، وأكثر من ٤١٠٠ ساعة تعلم، وأكثر من ٣٠٠ برنامج، ومعدل رضا ٩٥٪.",
+  "10,000+ participants trained, 86+ public and private organizations, 300+ training programs, 4,100 hours of applied learning, and 95% participant satisfaction.":
+    "أكثر من ١٠٬٠٠٠ مشارك تم تدريبهم، وأكثر من ٨٦ مؤسسة عامة وخاصة، وأكثر من ٣٠٠ برنامج تدريبي، و٤٬١٠٠ ساعة تعلم تطبيقي، ورضا مشاركين بنسبة ٩٥٪.",
   "15 days · 64 hours · SAR 2,000": "١٥ يومًا · ٦٤ ساعة · ٢٠٠٠ ريال سعودي",
   "15 days · 64 hours · SAR 2,000, reduced from SAR 2,500.":
     "١٥ يومًا · ٦٤ ساعة · ٢٠٠٠ ريال سعودي، بعد التخفيض من ٢٥٠٠ ريال سعودي.",

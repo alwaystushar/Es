@@ -12,7 +12,7 @@ export function Impact() {
       <div className="section-container">
         <div className="impact__intro">
           <RevealLines as="p" className="impact__label">
-            A Growing Record of Impact
+            A growing record of impact
           </RevealLines>
           <div className="stat-grid">
             {stats.map((stat) => (
@@ -31,21 +31,19 @@ export function Impact() {
         <div className="impact__story">
           <RevealImage className="impact__photo">
             <LocalizedImage
-              className="photo-frame"
               src="/assets/images/impact-session.webp"
               alt="A facilitator speaking with learners during a training session"
-              width={1280}
-              height={960}
+              width={1600}
+              height={1531}
               quality={90}
               sizes="80vw"
               style={{
                 position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
                 maxWidth: "none",
-                objectFit: "fill",
-                left: "-58.79%",
-                top: "-29.43%",
-                width: "203.28%",
-                height: "153.25%",
+                objectFit: "cover",
               }}
             />
           </RevealImage>

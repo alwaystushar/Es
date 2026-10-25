@@ -17,7 +17,7 @@ export default function AboutPage() {
             <T>A growing record of impact</T>
           </h2>
           <p>
-            <T>10k+ specialists trained, 80+ organizations, 4,100+ learning hours, 300+ programs, and a 95% satisfaction rate.</T>
+            <T>10,000+ participants trained, 86+ public and private organizations, 300+ training programs, 4,100 hours of applied learning, and 95% participant satisfaction.</T>
           </p>
         </article>
         <Button href="/programs">Explore Programs</Button>

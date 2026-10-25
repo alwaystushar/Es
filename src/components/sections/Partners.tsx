@@ -11,7 +11,7 @@ export function Partners() {
           <div>
             <Eyebrow>Partners</Eyebrow>
             <RevealLines id="partners-title" as="h2" className="section-title partners__title">
-              Our Global Partners
+              Our global partners
             </RevealLines>
           </div>
           <RevealLines as="p" className="section-copy" duration={0.7} stagger={0.08}>

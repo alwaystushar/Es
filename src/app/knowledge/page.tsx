@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Knowledge Hub" };
 
 export default function KnowledgePage() {
   return (
-    <PageIntro title="Insights for Better Decisions and Growth" lede="Practical writing for professionals who want learning to change the way they work.">
+    <PageIntro title="Insights for better decisions and growth" lede="Practical writing for professionals who want learning to change the way they work.">
       <div className="card-list">
         {articles.map((article) => (
           <article key={article.slug} className="plain-card detail-grid">
