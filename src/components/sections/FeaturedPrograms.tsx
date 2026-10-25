@@ -2,7 +2,6 @@
 
 import { FramedPhoto } from "@/components/ui/FramedPhoto";
 import Link from "next/link";
-import { useRef } from "react";
 import { featuredPrograms } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { FieldWash } from "@/components/ui/FieldWash";
@@ -12,11 +11,7 @@ import { Stars } from "@/components/ui/Stars";
 import { RevealImage } from "@/components/animation/RevealImage";
 import { Odometer } from "@/components/animation/Odometer";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { useDocumentDirection } from "@/hooks/useDocumentDirection";
 import { T, tr, useLocale } from "@/i18n/locale";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { gsap, registerGsap } from "@/lib/gsap";
 
 const programTitleLines = {
   "Developing internal policies for organizations": ["Developing internal", "policies for organizations"],
@@ -26,44 +21,10 @@ const programTitleLines = {
 } as const;
 
 export function FeaturedPrograms() {
-  const section = useRef<HTMLElement>(null);
-  const viewport = useRef<HTMLDivElement>(null);
-  const row = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
-  const direction = useDocumentDirection();
   const { locale } = useLocale();
 
-  useIsomorphicLayoutEffect(() => {
-    if (reduced) return;
-    const sectionEl = section.current;
-    const viewportEl = viewport.current;
-    const rowEl = row.current;
-    if (!sectionEl || !viewportEl || !rowEl) return;
-    registerGsap();
-
-    const context = gsap.context(() => {
-      gsap.to(rowEl, {
-        x: () => {
-          const distance = rowEl.scrollWidth - viewportEl.clientWidth;
-          return direction === "rtl" ? distance : -distance;
-        },
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionEl,
-          start: "top top",
-          end: () => `+=${Math.max(rowEl.scrollWidth - viewportEl.clientWidth, 1)}`,
-          pin: true,
-          scrub: 0.6,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, sectionEl);
-
-    return () => context.revert();
-  }, [reduced, direction]);
-
   return (
-    <section className="programs" id="programs" aria-labelledby="programs-title" ref={section}>
+    <section className="programs" id="programs" aria-labelledby="programs-title">
       <FieldWash />
       <div className="section-container">
         <div className="programs__intro">
@@ -77,8 +38,8 @@ export function FeaturedPrograms() {
         </div>
       </div>
 
-      <div className={reduced ? "program-viewport is-free" : "program-viewport"} ref={viewport}>
-        <div className="program-row" ref={row}>
+      <div className="program-viewport">
+        <div className="program-row">
           {featuredPrograms.map((program) => (
             <article key={program.slug} className="program-card">
               <RevealImage className="program-card__media">
