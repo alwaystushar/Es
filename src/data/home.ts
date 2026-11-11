@@ -1,9 +1,9 @@
 export const navigation = [
-  { label: "About Us", href: "" },
-  { label: "Training Programs", href: "" },
-  { label: "Seminars", href: "" },
-  { label: "Knowledge Hub", href: "" },
-  { label: "Contact Us", href: "" },
+  { label: "About Us", href: "/about" },
+  { label: "Training Programs", href: "/programs" },
+  { label: "Seminars", href: "/seminars" },
+  { label: "Knowledge Hub", href: "/knowledge" },
+  { label: "Contact Us", href: "/contact" },
 ] as const;
 
 export const stats = [
@@ -196,15 +196,15 @@ export const partners = [
 ] as const;
 
 export const companyLinks = [
-  { label: "About Us", href: "" },
-  { label: "Training Programs", href: "" },
-  { label: "Seminars", href: "" },
-  { label: "Knowledge Hub", href: "" },
-  { label: "Contact Us", href: "" },
+  { label: "About Us", href: "/about" },
+  { label: "Training Programs", href: "/programs" },
+  { label: "Seminars", href: "/seminars" },
+  { label: "Knowledge Hub", href: "/knowledge" },
+  { label: "Contact Us", href: "/contact" },
 ] as const;
 
 export const legalLinks = [
-  { label: "Terms & Condition", href: "" },
-  { label: "Privacy Policy", href: "" },
-  { label: "Quality Policy", href: "" },
+  { label: "Terms & Condition", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Quality Policy", href: "/quality" },
 ] as const;

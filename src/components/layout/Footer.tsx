@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { companyLinks, legalLinks } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/ui/Icon";
@@ -19,7 +20,9 @@ export function Footer() {
       <div className="section-container">
         <div className="site-footer__main">
           <div className="site-footer__brand">
-            <Icon src="/assets/logos/logo.svg" width={48} height={48} />
+            <Link href="/" aria-label={tr(locale, "ES Learning home")}>
+              <Icon src="/assets/logos/logo.svg" width={48} height={48} />
+            </Link>
           </div>
           <nav aria-label={tr(locale, "Company")}>
             <p className="footer-title">
@@ -27,9 +30,9 @@ export function Footer() {
             </p>
             <div className="footer-links">
               {companyLinks.map((item) => (
-                <span key={item.label}>
+                <Link key={item.label} href={item.href}>
                   <T>{item.label}</T>
-                </span>
+                </Link>
               ))}
             </div>
           </nav>
@@ -73,9 +76,9 @@ export function Footer() {
           </p>
           <nav aria-label={tr(locale, "Legal")}>
             {legalLinks.map((item) => (
-              <span key={item.label}>
+              <Link key={item.label} href={item.href}>
                 <T>{item.label}</T>
-              </span>
+              </Link>
             ))}
           </nav>
         </div>

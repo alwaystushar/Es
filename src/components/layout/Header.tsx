@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/data/home";
 import { Button } from "@/components/ui/Button";
@@ -11,8 +12,16 @@ import { gsap, registerGsap, SplitText } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const NavLabel = memo(function NavLabel({ label }: { label: string }) {
-  const root = useRef<HTMLSpanElement>(null);
+const NavLabel = memo(function NavLabel({
+  label,
+  href,
+  current = false,
+}: {
+  label: string;
+  href: string;
+  current?: boolean;
+}) {
+  const root = useRef<HTMLAnchorElement>(null);
   const { locale } = useLocale();
   const reduced = useReducedMotion();
 
@@ -56,14 +65,14 @@ const NavLabel = memo(function NavLabel({ label }: { label: string }) {
   }, [label, locale, reduced]);
 
   return (
-    <span ref={root} className="nav-link">
+    <Link ref={root} href={href} className="nav-link" aria-current={current ? "page" : undefined}>
       <span className="nav-link__mask">
         <span className="nav-link__line">{label}</span>
         <span className="nav-link__line" aria-hidden="true">
           {label}
         </span>
       </span>
-    </span>
+    </Link>
   );
 });
 
@@ -127,15 +136,15 @@ export function Header() {
     <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
-          <span className="brand">
+          <Link href="/" className="brand" aria-label={tr(locale, "ES Learning home")}>
             <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={48} height={48} />
-          </span>
+          </Link>
         </div>
 
         <nav className="desktop-nav" aria-label="Primary">
           <div className="desktop-nav__links">
             {navigation.map((item) => (
-              <NavLabel key={item.label} label={item.label} />
+              <NavLabel key={item.label} label={item.label} href={item.href} current={pathname === item.href} />
             ))}
           </div>
           <div className="desktop-nav__actions">
@@ -143,7 +152,7 @@ export function Header() {
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button>Sign In</Button>
+            <Button href="/signin">Sign In</Button>
           </div>
         </nav>
 
@@ -165,17 +174,17 @@ export function Header() {
       {open ? (
         <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile">
           {navigation.map((item) => (
-            <span key={item.label}>
+            <Link key={item.label} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
               <T>{item.label}</T>
-            </span>
+            </Link>
           ))}
           <div className="mobile-nav__actions">
             <Button plain dot="none" className="lang-button" aria-pressed={arabic} onClick={() => setLocale(arabic ? "en" : "ar")}>
               <Icon src="/assets/icons/language.svg" width={18} height={18} />
               {arabic ? "EN" : "AR"}
             </Button>
-            <Button>Sign In</Button>
-            <Button variant="outline">
+            <Button href="/signin">Sign In</Button>
+            <Button href="/organization" variant="outline">
               For Organization
             </Button>
           </div>

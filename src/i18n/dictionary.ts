@@ -197,4 +197,69 @@ export const dictionary: Record<string, string> = {
   "Enter a valid email and a password of at least 8 characters.":
     "أدخل بريدًا إلكترونيًا صحيحًا وكلمة مرور لا تقل عن ٨ أحرف.",
   "Your details look valid and are ready for sign-in.": "تبدو بياناتك صحيحة وجاهزة لتسجيل الدخول.",
+  "Building capabilities for better performance": "بناء القدرات لأداء أفضل",
+  "ES Learning is a Saudi company dedicated to capability development and stronger performance. Our practical programs draw on global methodologies":
+    "إي إس ليرنينغ شركة سعودية متخصصة في تطوير القدرات وتعزيز الأداء. تعتمد برامجنا العملية على منهجيات عالمية",
+  "Learners in a classroom workshop": "متعلمون في ورشة عمل داخل قاعة تدريب",
+  "What Sets ES Learning Apart?": "ما الذي يميز إي إس ليرنينغ؟",
+  "Four foundations of our learning experience": "أربع ركائز لتجربة التعلم لدينا",
+  "Global Methodologies": "منهجيات عالمية",
+  "Specialist methodologies underpin structured, practical learning experiences.":
+    "تدعم المنهجيات المتخصصة تجارب تعلم عملية ومنظمة.",
+  "Riyadh skyline at night": "أفق الرياض ليلاً",
+  "Local Context": "السياق المحلي",
+  "We bring global knowledge into the Saudi workplace, addressing the needs of professionals and organizations.":
+    "نجلب المعرفة العالمية إلى بيئة العمل السعودية بما يلبي احتياجات المهنيين والمنظمات.",
+  "Professionals collaborating in a training session": "مهنيون يتعاونون في جلسة تدريبية",
+  "Practical Application": "التطبيق العملي",
+  "Expert Practitioners": "ممارسون خبراء",
+  "Our programs are led by experienced practitioners who connect specialist knowledge with workplace realities.":
+    "تقاد برامجنا من قبل ممارسين ذوي خبرة يربطون المعرفة المتخصصة بواقع العمل.",
+  "Lasting Workplace Value": "قيمة مستدامة في مكان العمل",
+  "Every program is designed to build skills that create lasting impact beyond the classroom.":
+    "صُمم كل برنامج لبناء مهارات تُحدث أثراً دائماً خارج قاعة التدريب.",
+  "Our Mission": "رسالتنا",
+  "To deliver programs that combine knowledge, application and experience building skills with lasting workplace value.":
+    "تقديم برامج تجمع بين المعرفة والتطبيق وبناء الخبرات بما يحقق قيمة مستدامة في مكان العمل.",
+  "Our Vision": "رؤيتنا",
+  "To help build the skills and capabilities that enable professionals and organizations to perform better.":
+    "المساعدة في بناء المهارات والقدرات التي تمكّن المهنيين والمنظمات من الأداء بشكل أفضل.",
+  "Our Values": "قيمنا",
+  "Our principles shape every learning experience.": "مبادئنا تشكل كل تجربة تعلم.",
+  Innovation: "الابتكار",
+  "We adapt our programs to evolving workplace needs.": "نكيّف برامجنا مع احتياجات بيئة العمل المتغيرة.",
+  Integrity: "النزاهة",
+  "We deliver learning with honesty, clarity, and accountability.": "نقدم التعلم بصدق ووضوح ومسؤولية.",
+  Excellence: "التميز",
+  "We hold every experience to a high standard of quality.": "نلتزم بمعايير جودة عالية في كل تجربة.",
+  Collaboration: "التعاون",
+  "We learn with our partners to create stronger outcomes.": "نتعلم مع شركائنا لتحقيق نتائج أقوى.",
+  "Our Experts": "خبراؤنا",
+  "Real world expertise that shapes learning": "خبرة واقعية تشكل التعلم",
+  "We work with subject-matter experts and practitioners who combine professional knowledge with hands-on experience.":
+    "نعمل مع خبراء متخصصين وممارسين يجمعون بين المعرفة المهنية والخبرة العملية.",
+  "Imran Al-Mikhlafi": "عمران المخلافي",
+  "Certified business process management expert": "خبير معتمد في إدارة عمليات الأعمال",
+  "Meet Our Experts": "تعرّف على خبرائنا",
+  "Two Development Paths. One Goal: Stronger Performance.": "مساران للتطوير. هدف واحد: أداء أقوى.",
+  "Choose the path that fits—whether you're developing your own skills or seeking training for your organization.":
+    "اختر المسار المناسب—سواء كنت تطور مهاراتك أو تبحث عن تدريب لمؤسستك.",
+  "Find your perfect course.": "اعثر على الدورة المناسبة لك.",
+  "All Subject Areas": "جميع مجالات التخصص",
+  "All Programs": "جميع البرامج",
+  "Public Programs": "البرامج العامة",
+  "Supported by Hadaf": "مدعوم من هدف",
+  "Exclusive to ES Learning": "حصري لإي إس ليرنينغ",
+  "Business Process Management Professional": "محترف إدارة عمليات الأعمال",
+  "From process management fundamentals to analysis, future-state design and actionable recommendations.":
+    "من أساسيات إدارة العمليات إلى التحليل وتصميم الحالة المستقبلية والتوصيات القابلة للتنفيذ.",
+  Duration: "المدة",
+  "5 days": "٥ أيام",
+  Fees: "الرسوم",
+  "View Program": "عرض البرنامج",
+  "Load More Programs": "تحميل المزيد من البرامج",
+  "Looking for training for your team?": "تبحث عن تدريب لفريقك؟",
+  "We can tailor learning objectives, content and activities to your organization's needs and target audience.":
+    "يمكننا تكييف أهداف التعلم والمحتوى والأنشطة وفق احتياجات مؤسستك والجمهور المستهدف.",
+  "Request a Team Proposal": "اطلب مقترحًا للفريق",
 };
