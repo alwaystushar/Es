@@ -117,7 +117,7 @@ export function ProgramsCatalog() {
                       </span>
                     </div>
                   </div>
-                  <Button plain className="program-list-card__cta" dot="none">
+                  <Button href={`/programs/${program.slug}`} plain className="program-list-card__cta" dot="none">
                     View Program
                   </Button>
                 </div>

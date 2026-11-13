@@ -106,7 +106,9 @@ export function AboutExperts() {
         </div>
 
         <div className="about-experts__action">
-          <Button variant="outline">Meet Our Experts</Button>
+          <Button href="/experts" variant="outline">
+            Meet Our Experts
+          </Button>
         </div>
       </div>
     </section>
