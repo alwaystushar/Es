@@ -5492,51 +5492,60 @@
    CONTACT PAGE
    ============================================================ */
 
+/* Contact hero — Figma 3047:58713 (1440×740). 100vh adds room under the field crop. */
 .contact-hero {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
-  padding-top: calc(var(--header-height) + var(--header-offset) + 2.5rem);
-  padding-bottom: 8rem;
-  background: var(--color-background);
+  min-height: 100svh;
+  padding-top: 11.25rem; /* Figma content top ~180px */
+  padding-bottom: 10rem;
+  background: #f9fcfb;
   overflow: hidden;
 }
 
-.contact-hero .field-wash__dots {
-  display: none;
+/* Figma BG Gradient (soft lime wash) */
+.contact-hero__wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 48% 55% at 8% 55%, rgba(159, 203, 81, 0.28), transparent 72%),
+    radial-gradient(ellipse 55% 60% at 42% 62%, rgba(159, 203, 81, 0.18), transparent 74%),
+    radial-gradient(ellipse 50% 48% at 58% 70%, rgba(159, 203, 81, 0.1), transparent 70%),
+    radial-gradient(ellipse 45% 50% at 88% 42%, rgba(31, 111, 78, 0.08), transparent 72%);
 }
 
+/*
+  Figma Vector 3047:58731 — same structure as .journey__field:
+  wrapper 2879.081×2880.688 @ top 25.12, left calc(50% - 34.95), translateX(-50%)
+  img 2054.932×2019.993, rotate 133.14deg — no non-uniform scale
+*/
 .contact-hero__field {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 1.57rem;
+  left: calc(50% - 2.184375rem);
   z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(179.9425625rem, 2879px);
-  height: min(180.043rem, 2881px);
-  margin-inline-start: -1.8125rem;
-  transform: translate(-50%, -42%);
+  width: 179.9425625rem;
+  height: 180.043rem;
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
-.contact-hero__field-scale {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: min(128.43325rem, 2054.93px);
-  height: min(126.2495625rem, 2019.99px);
-}
-
-.contact-hero__field-scale img {
+.contact-hero__field img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 128.43325rem;
+  height: auto;
+  aspect-ratio: 2054.93 / 2019.99;
   max-width: none;
+  flex: none;
   transform: rotate(133.14deg);
 }
 
