@@ -25,7 +25,7 @@ export function ExpertGrid({ experts }: ExpertGridProps) {
         <ul className="expert-cards" role="list">
           {experts.map((expert) => (
             <li key={expert.slug}>
-              <Link href={`/experts/${expert.slug}`} className="expert-card">
+              <Link href={`/experts/${expert.slug}`} className="expert-card card-hover">
                 <div className="expert-card__media reveal-image">
                   <Image
                     src={expert.photo}

@@ -36,24 +36,27 @@ export function KnowledgeContent() {
 
   return (
     <main id="main">
-      <KnowledgeHero
-        activeFilter={activeFilter}
-        searchQuery={searchQuery}
-        onFilterChange={setActiveFilter}
-        onSearchChange={setSearchQuery}
-      />
-
-      {isFiltered ? (
-        <KnowledgeLatest
-          articles={filteredArticles}
-          title={filteredArticles.length > 0 ? "Search Results" : undefined}
+      <div className="knowledge-page">
+        <div className="knowledge-page__wash" aria-hidden="true" />
+        <KnowledgeHero
+          activeFilter={activeFilter}
+          searchQuery={searchQuery}
+          onFilterChange={setActiveFilter}
+          onSearchChange={setSearchQuery}
         />
-      ) : (
-        <>
-          <KnowledgeFeatured main={featuredMain} side={featuredSide} />
-          <KnowledgeLatest articles={latestArticles} />
-        </>
-      )}
+
+        {isFiltered ? (
+          <KnowledgeLatest
+            articles={filteredArticles}
+            title={filteredArticles.length > 0 ? "Search Results" : undefined}
+          />
+        ) : (
+          <>
+            <KnowledgeFeatured main={featuredMain} side={featuredSide} />
+            <KnowledgeLatest articles={latestArticles} />
+          </>
+        )}
+      </div>
 
       <Journey
         title="Turn insight into your next step"

@@ -6,16 +6,54 @@ import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
 import { faqItems } from "@/data/contact";
 
+type FaqItemProps = {
+  id: string;
+  question: string;
+  answer: string;
+  open: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+};
+
+function FaqItem({ id, question, answer, open, onOpen, onClose }: FaqItemProps) {
+  return (
+    <div
+      className={["faq-item", open ? "faq-item--open" : ""].filter(Boolean).join(" ")}
+      onMouseEnter={onOpen}
+      onFocus={onOpen}
+    >
+      <button
+        type="button"
+        className="faq-item__trigger"
+        aria-expanded={open}
+        aria-controls={`faq-answer-${id}`}
+        onClick={() => (open ? onClose() : onOpen())}
+      >
+        <span className="faq-item__question">
+          <T>{question}</T>
+        </span>
+        <span className="faq-item__icon" aria-hidden="true">
+          <span className="faq-item__icon-bar faq-item__icon-bar--h" />
+          <span className="faq-item__icon-bar faq-item__icon-bar--v" />
+        </span>
+      </button>
+      <div id={`faq-answer-${id}`} className="faq-item__answer" role="region">
+        <div className="faq-item__answer-inner">
+          <p>
+            <T>{answer}</T>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function FAQAccordion() {
   const [openId, setOpenId] = useState<string>(faqItems[0].id);
 
-  const toggle = (id: string) => {
-    setOpenId((current) => (current === id ? "" : id));
-  };
-
   return (
     <section className="faq-section" aria-labelledby="faq-title">
-      <div className="section-container">
+      <div className="section-container faq-section__inner">
         <div className="faq-section__intro">
           <Eyebrow>FAQs</Eyebrow>
           <RevealLines id="faq-title" as="h2" className="faq-section__title">
@@ -23,48 +61,27 @@ export function FAQAccordion() {
           </RevealLines>
         </div>
 
-        <dl className="faq-list">
-          {faqItems.map((item) => {
-            const isOpen = openId === item.id;
-            return (
-              <div key={item.id} className={["faq-item", isOpen ? "faq-item--open" : ""].filter(Boolean).join(" ")}>
-                <dt>
-                  <button
-                    type="button"
-                    className="faq-item__trigger"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-answer-${item.id}`}
-                    onClick={() => toggle(item.id)}
-                  >
-                    <span className="faq-item__question">
-                      <T>{item.question}</T>
-                    </span>
-                    <span className="faq-item__icon" aria-hidden="true">
-                      {isOpen ? (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                      ) : (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                        </svg>
-                      )}
-                    </span>
-                  </button>
-                </dt>
-                <dd
-                  id={`faq-answer-${item.id}`}
-                  className="faq-item__answer"
-                  hidden={!isOpen}
-                >
-                  <p>
-                    <T>{item.answer}</T>
-                  </p>
-                </dd>
-              </div>
-            );
-          })}
-        </dl>
+        <div
+          className="faq-list"
+          role="list"
+          onMouseLeave={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+              setOpenId("");
+            }
+          }}
+        >
+          {faqItems.map((item) => (
+            <FaqItem
+              key={item.id}
+              id={item.id}
+              question={item.question}
+              answer={item.answer}
+              open={openId === item.id}
+              onOpen={() => setOpenId(item.id)}
+              onClose={() => setOpenId("")}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

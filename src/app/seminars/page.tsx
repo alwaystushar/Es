@@ -16,6 +16,10 @@ export default function SeminarsPage() {
       <Journey
         title="Keep building your knowledge"
         body="Explore our training programs or stay informed about upcoming seminars and professional events."
+        primaryLabel="Explore Programs"
+        primaryHref="/programs"
+        secondaryLabel="View Upcoming Seminars"
+        secondaryHref="/seminars#catalog"
       />
     </main>
   );

@@ -1,9 +1,16 @@
 "use client";
 
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/Button";
+import { CustomSelect } from "@/components/ui/CustomSelect";
+import { RevealLines } from "@/components/animation/RevealLines";
 import { T, tr, useLocale } from "@/i18n/locale";
 import { audienceOptions } from "@/data/contact";
+
+const audienceSelectOptions = audienceOptions.map((opt) => ({
+  value: opt,
+  label: opt,
+}));
 
 export function ContactPageForm() {
   const { locale } = useLocale();
@@ -14,12 +21,16 @@ export function ContactPageForm() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const firstName = String(data.get("firstName") ?? "").trim();
+    const fullName = String(data.get("fullName") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const mobile = String(data.get("mobile") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
 
-    if (firstName.length < 2) {
+    if (!audience) {
+      setError("Please select how you are contacting us.");
+      return;
+    }
+    if (fullName.length < 2) {
       setError("Please enter your full name.");
       return;
     }
@@ -44,49 +55,35 @@ export function ContactPageForm() {
 
   return (
     <form className="contact-page-form" onSubmit={onSubmit} noValidate aria-label={tr(locale, "Get in touch form")}>
-      <h2 className="contact-page-form__title">
-        <T>Get in touch</T>
-      </h2>
+      <RevealLines as="h2" className="contact-page-form__title">
+        Get in touch
+      </RevealLines>
 
       <label className="contact-field">
         <span className="contact-field__label">
           <T>I am contacting you as</T>
         </span>
-        <div className="contact-field__select-wrap">
-          <select
-            name="audience"
-            className="contact-field__select"
-            value={audience}
-            onChange={(e: ChangeEvent<HTMLSelectElement>) => setAudience(e.target.value)}
-            aria-label={tr(locale, "Select: Individual / Professional or Organization")}
-          >
-            <option value="" disabled>
-              {tr(locale, "Select: Individual / Professional or Organization")}
-            </option>
-            {audienceOptions.map((opt) => (
-              <option key={opt} value={opt}>
-                {tr(locale, opt)}
-              </option>
-            ))}
-          </select>
-          <span className="contact-field__chevron" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        </div>
+        <CustomSelect
+          name="audience"
+          value={audience}
+          options={audienceSelectOptions}
+          placeholder="Select: Individual / Professional or Organization"
+          ariaLabel="Select: Individual / Professional or Organization"
+          accent
+          onChange={setAudience}
+        />
       </label>
 
       <div className="contact-field-row">
         <label className="contact-field">
           <span className="contact-field__label">
-            <T>First name</T>
+            <T>Full name</T>
           </span>
           <input
-            name="firstName"
+            name="fullName"
             className="contact-field__input"
             type="text"
-            autoComplete="given-name"
+            autoComplete="name"
             placeholder={tr(locale, "Enter your full name")}
             required
           />
@@ -121,10 +118,7 @@ export function ContactPageForm() {
         </label>
         <label className="contact-field">
           <span className="contact-field__label">
-            <T>Organization</T>{" "}
-            <span className="contact-field__optional">
-              <T>(Optional)</T>
-            </span>
+            <T>Organization (Optional)</T>
           </span>
           <input
             name="organization"

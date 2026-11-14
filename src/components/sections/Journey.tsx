@@ -7,12 +7,20 @@ type JourneyProps = {
   title?: string;
   body?: string;
   variant?: "home" | "about";
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 };
 
 export function Journey({
   title = "Let's build your next learning journey",
   body,
   variant = "home",
+  primaryLabel = "Sign In",
+  primaryHref,
+  secondaryLabel = "View all programs",
+  secondaryHref,
 }: JourneyProps) {
   const heading = variant === "about" ? aboutJourney.title : title;
   const copy = variant === "about" ? aboutJourney.body : body;
@@ -34,8 +42,12 @@ export function Journey({
           </p>
         ) : null}
         <div className="journey__actions">
-          <Button variant="white">Sign In</Button>
-          <Button variant="outline-light">View all programs</Button>
+          <Button variant="white" href={primaryHref} dot="start">
+            {primaryLabel}
+          </Button>
+          <Button variant="outline-light" href={secondaryHref} dot="start">
+            {secondaryLabel}
+          </Button>
         </div>
       </div>
     </section>

@@ -3,9 +3,23 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
+import { CustomSelect } from "@/components/ui/CustomSelect";
+import { Icon } from "@/components/ui/Icon";
 import { T } from "@/i18n/locale";
 import { faqItems } from "@/data/contact";
 import type { Expert } from "@/data/experts";
+
+const dateOptions = [
+  { value: "jan-2025", label: "Jan 15–19, 2025" },
+  { value: "mar-2025", label: "Mar 10–14, 2025" },
+  { value: "may-2025", label: "May 5–9, 2025" },
+] as const;
+
+const locationOptions = [
+  { value: "riyadh", label: "Riyadh" },
+  { value: "online", label: "Online" },
+  { value: "jeddah", label: "Jeddah" },
+] as const;
 
 type ProgramDetailTabsProps = {
   title: string;
@@ -25,6 +39,13 @@ const tabs = [
 
 type TabId = (typeof tabs)[number]["id"];
 
+const overviewPoints = [
+  "Understand the current process and identify gaps.",
+  "Redesign processes and create an implementable To-Be model.",
+  "Build recommendations and an actionable implementation plan.",
+  "Complete an applied project and prepare for the BPT-PS exam.",
+];
+
 const learningOutcomes = [
   "Understand BPM fundamentals and identify gaps between the current and desired states.",
   "Model processes and use data to identify problems and their root causes.",
@@ -33,11 +54,31 @@ const learningOutcomes = [
 ];
 
 const courseOutline = [
-  { step: "01", title: "BPM Foundations", description: "Understand the principles of business process management and how it applies to your organization." },
-  { step: "02", title: "Process Discovery & Mapping", description: "Identify, document, and visualize current-state processes using standard notation." },
-  { step: "03", title: "Process Analysis", description: "Use data and structured techniques to find root causes and opportunities for improvement." },
-  { step: "04", title: "Process Redesign", description: "Design future-state processes and develop a roadmap for implementation." },
-  { step: "05", title: "Recommendations & Implementation", description: "Prepare recommendations and an implementation plan, applying the learning through the final project." },
+  {
+    step: "01",
+    title: "BPM Foundations",
+    description: "Core BPM concepts, process types and how processes contribute to organizational performance.",
+  },
+  {
+    step: "02",
+    title: "Understanding the Current Process",
+    description: "Assess the current state, collect information and identify gaps and opportunities.",
+  },
+  {
+    step: "03",
+    title: "Process Analysis",
+    description: "Use data and structured techniques to find root causes and opportunities for improvement.",
+  },
+  {
+    step: "04",
+    title: "Process Redesign",
+    description: "Design future-state processes and develop a roadmap for implementation.",
+  },
+  {
+    step: "05",
+    title: "Recommendations & Implementation",
+    description: "Prepare recommendations and an implementation plan, applying the learning through the final project.",
+  },
 ];
 
 const reviews = [
@@ -46,51 +87,73 @@ const reviews = [
   { author: "Ahmad M.", rating: 4, comment: "Solid content and well-structured delivery. I would recommend this to any process professional." },
 ];
 
-export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDetailTabsProps) {
+function CheckIcon() {
+  return <Icon src="/assets/icons/program-detail/check.svg" width={20} height={20} className="program-checklist__glyph" />;
+}
+
+function TabEyebrow({ children }: { children: string }) {
+  return (
+    <p className="program-tab-eyebrow">
+      <Icon src="/assets/icons/program-detail/eyebrow-dot.svg" width={8} height={8} />
+      <T>{children}</T>
+    </p>
+  );
+}
+
+export function ProgramDetailTabs({ price, compareAt, expert }: ProgramDetailTabsProps) {
   const [activeTab, setActiveTab] = useState<TabId>("learning-outcomes");
   const [openFaq, setOpenFaq] = useState<string>(faqItems[0].id);
+  const [sessionDate, setSessionDate] = useState("");
+  const [sessionLocation, setSessionLocation] = useState("");
+
+  const activeIndex = tabs.findIndex((tab) => tab.id === activeTab);
 
   return (
     <div className="program-tabs-section">
+      <div className="program-tabs-nav">
+        <div className="section-container">
+          <div className="program-tabs-bar" role="tablist" aria-label="Program sections">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                role="tab"
+                type="button"
+                className={["program-tab", activeTab === tab.id ? "program-tab--active" : ""].filter(Boolean).join(" ")}
+                aria-selected={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id)}
+              >
+                <T>{tab.label}</T>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="section-container">
         <div className="program-tabs-layout">
-          {/* Main column */}
           <div className="program-tabs-main">
-            {/* Tab bar */}
-            <div className="program-tabs-bar" role="tablist" aria-label="Program sections">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  role="tab"
-                  type="button"
-                  className={["program-tab", activeTab === tab.id ? "program-tab--active" : ""].filter(Boolean).join(" ")}
-                  aria-selected={activeTab === tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                >
-                  <T>{tab.label}</T>
-                </button>
-              ))}
-            </div>
-
-            {/* Tab panels */}
             <div className="program-tab-panel" role="tabpanel" aria-label={tabs.find((t) => t.id === activeTab)?.label}>
               {activeTab === "overview" && (
                 <div className="program-tab-overview">
-                  <h2 className="program-tab-overview__title">
-                    <T>Program Overview</T>
-                  </h2>
-                  <p className="program-tab-overview__body">
-                    <T>This program builds the skills to understand, analyze and redesign business processes and develop actionable recommendations. Participants will work through a structured methodology used by process professionals globally.</T>
-                  </p>
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>Overview</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>What Is the BPM Professional Program?</T>
+                    </h2>
+                    <p className="program-tab-panel__body">
+                      <T>
+                        Learn the fundamentals of BPM, then apply them to an end-to-end process improvement journey—from
+                        current-state analysis and gap assessment to future-state design and actionable recommendations.
+                      </T>
+                    </p>
+                  </div>
                   <ul className="program-checklist" role="list">
-                    {learningOutcomes.map((outcome) => (
-                      <li key={outcome} className="program-checklist__item">
+                    {overviewPoints.map((point) => (
+                      <li key={point} className="program-checklist__item">
                         <span className="program-checklist__icon" aria-hidden="true">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <CheckIcon />
                         </span>
-                        <T>{outcome}</T>
+                        <T>{point}</T>
                       </li>
                     ))}
                   </ul>
@@ -99,19 +162,17 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
 
               {activeTab === "learning-outcomes" && (
                 <div className="program-tab-outcomes">
-                  <p className="program-tab-eyebrow">
-                    <T>Learning Outcomes</T>
-                  </p>
-                  <h2 className="program-tab-outcomes__title">
-                    <T>What will you learn?</T>
-                  </h2>
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>Learning Outcomes</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>What will you learn?</T>
+                    </h2>
+                  </div>
                   <ul className="program-checklist" role="list">
                     {learningOutcomes.map((outcome) => (
                       <li key={outcome} className="program-checklist__item">
                         <span className="program-checklist__icon" aria-hidden="true">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <CheckIcon />
                         </span>
                         <T>{outcome}</T>
                       </li>
@@ -122,9 +183,15 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
 
               {activeTab === "course-outline" && (
                 <div className="program-tab-outline">
-                  <h2 className="program-tab-outcomes__title">
-                    <T>Course Outline</T>
-                  </h2>
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>Course Outline</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>Program modules</T>
+                    </h2>
+                    <p className="program-tab-panel__body program-tab-panel__body--lg">
+                      <T>Program modules follow the process improvement journey from understanding through implementation.</T>
+                    </p>
+                  </div>
                   <div className="program-outline-list">
                     {courseOutline.map((item) => (
                       <div key={item.step} className="program-outline-item">
@@ -147,6 +214,12 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
 
               {activeTab === "trainer" && expert && (
                 <div className="program-tab-trainer">
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>Trainer</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>Meet your trainer</T>
+                    </h2>
+                  </div>
                   <div className="program-trainer-card">
                     <div className="program-trainer-card__photo">
                       <Image
@@ -158,7 +231,7 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
                       />
                     </div>
                     <div className="program-trainer-card__info">
-                      <h2 className="program-trainer-card__name">{expert.name}</h2>
+                      <h3 className="program-trainer-card__name">{expert.name}</h3>
                       <p className="program-trainer-card__role">
                         <T>{expert.role}</T>
                       </p>
@@ -167,53 +240,71 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
                       </Button>
                     </div>
                   </div>
-                  <p className="program-trainer-bio">
-                    <T>Brings hands-on process management and improvement expertise, connecting program concepts to workplace examples.</T>
-                  </p>
                 </div>
               )}
 
               {activeTab === "faqs" && (
                 <div className="program-tab-faqs">
-                  <h2 className="program-tab-outcomes__title">
-                    <T>Frequently Asked Questions</T>
-                  </h2>
-                  <dl className="faq-list">
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>FAQs</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>Frequently Asked Questions</T>
+                    </h2>
+                  </div>
+                  <div
+                    className="faq-list"
+                    role="list"
+                    onMouseLeave={(event) => {
+                      if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+                        setOpenFaq("");
+                      }
+                    }}
+                  >
                     {faqItems.map((item) => {
                       const isOpen = openFaq === item.id;
                       return (
-                        <div key={item.id} className={["faq-item", isOpen ? "faq-item--open" : ""].filter(Boolean).join(" ")}>
-                          <dt>
-                            <button
-                              type="button"
-                              className="faq-item__trigger"
-                              aria-expanded={isOpen}
-                              aria-controls={`prog-faq-answer-${item.id}`}
-                              onClick={() => setOpenFaq(isOpen ? "" : item.id)}
-                            >
-                              <span className="faq-item__question">
-                                <T>{item.question}</T>
-                              </span>
-                              <span className="faq-item__icon" aria-hidden="true">
-                                {isOpen ? "−" : "+"}
-                              </span>
-                            </button>
-                          </dt>
-                          <dd id={`prog-faq-answer-${item.id}`} className="faq-item__answer" hidden={!isOpen}>
-                            <p><T>{item.answer}</T></p>
-                          </dd>
+                        <div
+                          key={item.id}
+                          className={["faq-item", isOpen ? "faq-item--open" : ""].filter(Boolean).join(" ")}
+                          onMouseEnter={() => setOpenFaq(item.id)}
+                        >
+                          <button
+                            type="button"
+                            className="faq-item__trigger"
+                            aria-expanded={isOpen}
+                            aria-controls={`prog-faq-answer-${item.id}`}
+                            onClick={() => setOpenFaq(isOpen ? "" : item.id)}
+                          >
+                            <span className="faq-item__question">
+                              <T>{item.question}</T>
+                            </span>
+                            <span className="faq-item__icon" aria-hidden="true">
+                              <span className="faq-item__icon-bar faq-item__icon-bar--h" />
+                              <span className="faq-item__icon-bar faq-item__icon-bar--v" />
+                            </span>
+                          </button>
+                          <div id={`prog-faq-answer-${item.id}`} className="faq-item__answer" role="region">
+                            <div className="faq-item__answer-inner">
+                              <p>
+                                <T>{item.answer}</T>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       );
                     })}
-                  </dl>
+                  </div>
                 </div>
               )}
 
               {activeTab === "reviews" && (
                 <div className="program-tab-reviews">
-                  <h2 className="program-tab-outcomes__title">
-                    <T>Participant Reviews</T>
-                  </h2>
+                  <div className="program-tab-panel__intro">
+                    <TabEyebrow>Reviews</TabEyebrow>
+                    <h2 className="program-tab-panel__title">
+                      <T>Participant Reviews</T>
+                    </h2>
+                  </div>
                   <div className="program-reviews-list">
                     {reviews.map((review) => (
                       <div key={review.author} className="program-review-card">
@@ -221,7 +312,7 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
                           <strong className="program-review-card__author">{review.author}</strong>
                           <span className="stars stars--small" role="img" aria-label={`${review.rating} out of 5 stars`}>
                             {Array.from({ length: review.rating }, (_, i) => (
-                              <img key={i} src="/assets/icons/star.svg" alt="" width={12} height={12} />
+                              <img key={i} src="/assets/icons/program-detail/star.svg" alt="" width={12} height={12} />
                             ))}
                           </span>
                         </div>
@@ -234,41 +325,33 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
                 </div>
               )}
 
-              {/* Previous / Next navigation */}
               <div className="program-tab-nav">
                 <button
                   type="button"
                   className="program-tab-nav__btn"
                   onClick={() => {
-                    const idx = tabs.findIndex((t) => t.id === activeTab);
-                    if (idx > 0) setActiveTab(tabs[idx - 1].id);
+                    if (activeIndex > 0) setActiveTab(tabs[activeIndex - 1].id);
                   }}
-                  disabled={activeTab === tabs[0].id}
+                  disabled={activeIndex <= 0}
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="m15 18-6-6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <Icon src="/assets/icons/program-detail/nav-prev.svg" width={20} height={20} className="program-tab-nav__chevron program-tab-nav__chevron--prev" />
                   <T>Previous</T>
                 </button>
                 <button
                   type="button"
                   className="program-tab-nav__btn program-tab-nav__btn--next"
                   onClick={() => {
-                    const idx = tabs.findIndex((t) => t.id === activeTab);
-                    if (idx < tabs.length - 1) setActiveTab(tabs[idx + 1].id);
+                    if (activeIndex < tabs.length - 1) setActiveTab(tabs[activeIndex + 1].id);
                   }}
-                  disabled={activeTab === tabs[tabs.length - 1].id}
+                  disabled={activeIndex >= tabs.length - 1}
                 >
                   <T>Next</T>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="m9 18 6-6-6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <Icon src="/assets/icons/program-detail/nav-next.svg" width={20} height={20} className="program-tab-nav__chevron" />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Sidebar */}
           <aside className="program-register-sidebar" aria-label="Register for this program">
             <div className="program-register-card">
               <div className="program-register-card__header">
@@ -287,71 +370,58 @@ export function ProgramDetailTabs({ title, price, compareAt, expert }: ProgramDe
                   </p>
                   <div className="program-register-fee__price">
                     <div className="program-register-fee__current">
-                      <img
-                        src="/assets/icons/riyal.svg"
-                        alt="SAR"
-                        width={22}
-                        height={22}
-                        style={{ filter: "invert(37%) sepia(44%) saturate(571%) hue-rotate(103deg) brightness(89%) contrast(90%)" }}
-                      />
+                      <Icon src="/assets/icons/program-detail/riyal-green.svg" width={27} height={28} />
                       <span className="program-register-fee__amount">{price}</span>
                     </div>
-                    {compareAt && (
+                    {compareAt ? (
                       <div className="program-register-fee__compare">
-                        <img
-                          src="/assets/icons/riyal.svg"
-                          alt=""
-                          width={10}
-                          height={10}
-                          aria-hidden="true"
-                        />
+                        <Icon src="/assets/icons/program-detail/riyal-muted.svg" width={11} height={12} />
                         <span>{compareAt}</span>
                       </div>
-                    )}
+                    ) : null}
                   </div>
                   <p className="program-register-fee__note">
-                    <T>HRDF Tax Refund Request.</T>
+                    <Icon src="/assets/icons/program-detail/info.svg" width={16} height={16} />
+                    <T>HRDF Fee Refund Request.</T>
                   </p>
                 </div>
 
                 <div className="program-register-selects">
-                  <label className="program-register-select">
-                    <span className="program-register-select__label">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-                        <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                      </svg>
-                      <T>Select Date</T>
-                    </span>
-                    <select className="program-register-select__control" aria-label="Select program date">
-                      <option value="">—</option>
-                      <option value="jan-2025">Jan 15–19, 2025</option>
-                      <option value="mar-2025">Mar 10–14, 2025</option>
-                      <option value="may-2025">May 5–9, 2025</option>
-                    </select>
-                    <svg className="program-register-select__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </label>
+                  <div className="program-register-field">
+                    <Icon
+                      src="/assets/icons/program-detail/select-calendar.svg"
+                      width={16}
+                      height={18}
+                      className="program-register-field__glyph"
+                    />
+                    <CustomSelect
+                      value={sessionDate}
+                      options={dateOptions}
+                      placeholder="Select Date"
+                      ariaLabel="Select program date"
+                      className="program-register-field__select"
+                      chevronSrc="/assets/icons/program-detail/select-chevron.svg"
+                      onChange={setSessionDate}
+                    />
+                  </div>
 
-                  <label className="program-register-select">
-                    <span className="program-register-select__label">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        <circle cx="12" cy="10" r="3" stroke="currentColor" strokeWidth="1.5"/>
-                      </svg>
-                      <T>Select Location</T>
-                    </span>
-                    <select className="program-register-select__control" aria-label="Select program location">
-                      <option value="">—</option>
-                      <option value="riyadh">Riyadh</option>
-                      <option value="online">Online</option>
-                      <option value="jeddah">Jeddah</option>
-                    </select>
-                    <svg className="program-register-select__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </label>
+                  <div className="program-register-field">
+                    <Icon
+                      src="/assets/icons/program-detail/select-pin.svg"
+                      width={21}
+                      height={25}
+                      className="program-register-field__glyph program-register-field__glyph--pin"
+                    />
+                    <CustomSelect
+                      value={sessionLocation}
+                      options={locationOptions}
+                      placeholder="Select Location"
+                      ariaLabel="Select program location"
+                      className="program-register-field__select"
+                      chevronSrc="/assets/icons/program-detail/select-chevron.svg"
+                      onChange={setSessionLocation}
+                    />
+                  </div>
                 </div>
               </div>
 

@@ -1,11 +1,16 @@
-export const seminarFilters = [
-  "Upcoming",
-  "Past Seminars",
-  "Supported by Hadaf",
-  "Exclusive to ES Learning",
-] as const;
+export const seminarFilters = ["Upcoming", "Past Seminars"] as const;
 
 export type SeminarFilter = (typeof seminarFilters)[number];
+
+export const seminarSubjectAreas = [
+  "All Subject Areas",
+  "Strategy & Performance",
+  "Leadership",
+  "Policy Design",
+  "Process Management",
+  "Data & Analytics",
+  "Communication",
+] as const;
 
 export const seminarHero = {
   title: "Expert conversations that broaden your perspective",
@@ -57,7 +62,7 @@ export const seminarCatalog = [
     location: "Online",
     image: "/assets/images/seminars/card-a.png",
     alt: "Professionals reviewing policy documents",
-    filter: "Supported by Hadaf" as SeminarFilter,
+    filter: "Upcoming" as SeminarFilter,
     about:
       "Policies are the backbone of organisational governance. This seminar introduces a structured approach to drafting, reviewing and communicating policies that employees understand and follow.",
     afterSeminar:
@@ -73,7 +78,7 @@ export const seminarCatalog = [
     location: "Online",
     image: "/assets/images/seminars/card-b.png",
     alt: "Executive team reviewing process maps",
-    filter: "Exclusive to ES Learning" as SeminarFilter,
+    filter: "Upcoming" as SeminarFilter,
     about:
       "Business Process Management gives organisations a systematic way to improve how work gets done. This seminar is designed for decision-makers who want to champion BPM without getting lost in technical detail.",
     afterSeminar:

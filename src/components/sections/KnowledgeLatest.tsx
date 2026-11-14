@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { RevealImage } from "@/components/animation/RevealImage";
+import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
 import type { KnowledgeArticle } from "@/data/knowledge";
 
@@ -26,13 +27,13 @@ export function KnowledgeLatest({ articles, title = "Latest Content" }: Knowledg
     <section className="kh-section" aria-labelledby="kh-latest-title">
       <div className="section-container">
         <div className="kh-divider" aria-hidden="true" />
-        <h2 id="kh-latest-title" className="kh-section__title">
-          <T>{title}</T>
-        </h2>
+        <RevealLines id="kh-latest-title" as="h2" className="kh-section__title">
+          {title}
+        </RevealLines>
 
         <div className="kh-grid">
           {articles.map((article) => (
-            <Link key={article.slug} href={`/knowledge/${article.slug}`} className="kh-card">
+            <Link key={article.slug} href={`/knowledge/${article.slug}`} className="kh-card card-hover">
               <RevealImage className="kh-card__image">
                 <Image
                   src={article.image}

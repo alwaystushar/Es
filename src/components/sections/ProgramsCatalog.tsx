@@ -1,17 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { programCatalog, programFilters } from "@/data/programs";
+import { useMemo, useState } from "react";
+import { programCatalog, programFilters, programSubjectAreas } from "@/data/programs";
 import { Button } from "@/components/ui/Button";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { Stars } from "@/components/ui/Stars";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { LocalizedImage, T } from "@/i18n/locale";
 
+const subjectOptions = programSubjectAreas.map((label) => ({
+  value: label,
+  label,
+}));
+
 export function ProgramsCatalog() {
   const [filter, setFilter] = useState<(typeof programFilters)[number]>("All Programs");
+  const [subject, setSubject] = useState<(typeof programSubjectAreas)[number]>("All Subject Areas");
   const [query, setQuery] = useState("");
+
+  const visible = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return programCatalog.filter((program) => {
+      const matchesFilter = filter === "All Programs" || program.badge === filter;
+      const matchesSubject = subject === "All Subject Areas" || program.category === subject;
+      const matchesQuery =
+        needle === "" ||
+        program.title.toLowerCase().includes(needle) ||
+        program.description.toLowerCase().includes(needle) ||
+        program.category.toLowerCase().includes(needle);
+      return matchesFilter && matchesSubject && matchesQuery;
+    });
+  }, [filter, query, subject]);
 
   return (
     <section className="programs-catalog" aria-labelledby="programs-catalog-title">
@@ -26,7 +47,7 @@ export function ProgramsCatalog() {
 
         <div className="programs-catalog__search">
           <label className="programs-catalog__field">
-            <Icon src="/assets/icons/why-frame.svg" width={24} height={24} />
+            <Icon src="/assets/icons/search.svg" width={24} height={24} className="catalog-search-icon" />
             <span className="sr-only">
               <T>Find your perfect course.</T>
             </span>
@@ -37,10 +58,14 @@ export function ProgramsCatalog() {
               placeholder="Find your perfect course."
             />
           </label>
-          <button type="button" className="programs-catalog__subject" aria-haspopup="listbox">
-            <T>All Subject Areas</T>
-            <Icon src="/assets/icons/chevron.svg" width={24} height={24} />
-          </button>
+          <CustomSelect
+            value={subject}
+            options={subjectOptions}
+            placeholder="All Subject Areas"
+            ariaLabel="All Subject Areas"
+            className="programs-catalog__subject-select"
+            onChange={(value) => setSubject(value as (typeof programSubjectAreas)[number])}
+          />
         </div>
 
         <div className="programs-catalog__filters" role="tablist" aria-label="Program filters">
@@ -59,8 +84,8 @@ export function ProgramsCatalog() {
         </div>
 
         <div className="programs-catalog__grid">
-          {programCatalog.map((program) => (
-            <article key={program.slug} className="program-list-card">
+          {visible.map((program) => (
+            <article key={program.slug} className="program-list-card card-hover">
               <div className="program-list-card__media">
                 <LocalizedImage
                   src={program.image}
@@ -69,38 +94,43 @@ export function ProgramsCatalog() {
                   quality={90}
                   sizes="(max-width: 48rem) 100vw, 24rem"
                 />
+                <span className="program-list-card__overlay" aria-hidden="true" />
                 <span className="program-list-card__badge">
                   <T>{program.badge}</T>
                 </span>
               </div>
               <div className="program-list-card__body">
-                <p className="program-list-card__category">
-                  <T>{program.category}</T>
-                </p>
-                <h2>
-                  <T>{program.title}</T>
-                </h2>
-                <p className="program-list-card__copy">
-                  <T>{program.description}</T>
-                </p>
-                <div className="program-list-card__meta">
-                  <div className="program-list-card__reviews">
-                    <span>{program.rating}</span>
-                    <Stars small />
-                    <span className="review-dot" aria-hidden="true" />
-                    <span>
-                      <T>{program.reviews}</T>
-                    </span>
+                <div className="program-list-card__content">
+                  <div className="program-list-card__heading">
+                    <p className="program-list-card__category">
+                      <T>{program.category}</T>
+                    </p>
+                    <h2>
+                      <T>{program.title}</T>
+                    </h2>
+                    <p className="program-list-card__copy">
+                      <T>{program.description}</T>
+                    </p>
                   </div>
-                  <div className="program-list-card__duration">
-                    <Icon src="/assets/icons/clock.svg" width={16} height={16} />
-                    <span>
-                      <T>Duration</T>
-                    </span>
-                    <span className="review-dot" aria-hidden="true" />
-                    <span>
-                      <T>{program.duration}</T>
-                    </span>
+                  <div className="program-list-card__meta">
+                    <div className="program-list-card__reviews">
+                      <span>{program.rating}</span>
+                      <Stars small />
+                      <span className="review-dot" aria-hidden="true" />
+                      <span>
+                        <T>{program.reviews}</T>
+                      </span>
+                    </div>
+                    <div className="program-list-card__duration">
+                      <Icon src="/assets/icons/clock.svg" width={16} height={16} />
+                      <span>
+                        <T>Duration</T>
+                      </span>
+                      <span className="review-dot" aria-hidden="true" />
+                      <span>
+                        <T>{program.duration}</T>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="program-list-card__footer">
@@ -125,6 +155,12 @@ export function ProgramsCatalog() {
             </article>
           ))}
         </div>
+
+        {visible.length === 0 ? (
+          <p className="programs-catalog__empty">
+            <T>No programs match your search. Try adjusting the filters.</T>
+          </p>
+        ) : null}
 
         <div className="programs-catalog__more">
           <Button>Load More Programs</Button>

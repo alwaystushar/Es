@@ -1,56 +1,82 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { seminarCatalog, seminarFilters, type SeminarFilter } from "@/data/seminars";
+import {
+  seminarCatalog,
+  seminarFilters,
+  seminarSubjectAreas,
+  type SeminarFilter,
+} from "@/data/seminars";
 import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
+import { CustomSelect } from "@/components/ui/CustomSelect";
 import { Icon } from "@/components/ui/Icon";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { LocalizedImage, T } from "@/i18n/locale";
 
+const subjectOptions = seminarSubjectAreas.map((label) => ({
+  value: label,
+  label,
+}));
+
+function subjectForSeminar(slug: string) {
+  if (slug.includes("strategy") || slug.includes("performance")) return "Strategy & Performance";
+  if (slug.includes("leadership")) return "Leadership";
+  if (slug.includes("policy")) return "Policy Design";
+  if (slug.includes("bpm") || slug.includes("process")) return "Process Management";
+  if (slug.includes("data")) return "Data & Analytics";
+  if (slug.includes("communication")) return "Communication";
+  return "All Subject Areas";
+}
+
 export function SeminarsCatalog() {
   const [filter, setFilter] = useState<SeminarFilter>("Upcoming");
+  const [subject, setSubject] = useState<(typeof seminarSubjectAreas)[number]>("All Subject Areas");
   const [query, setQuery] = useState("");
 
-  const visible = seminarCatalog.filter((s) => {
-    const matchesFilter = filter === "Upcoming" ? true : s.filter === filter;
-    const matchesQuery =
-      query.trim() === "" ||
-      s.title.toLowerCase().includes(query.toLowerCase()) ||
-      s.trainer.toLowerCase().includes(query.toLowerCase());
-    return matchesFilter && matchesQuery;
-  });
+  const visible = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return seminarCatalog.filter((seminar) => {
+      const matchesFilter = seminar.filter === filter;
+      const matchesSubject = subject === "All Subject Areas" || subjectForSeminar(seminar.slug) === subject;
+      const matchesQuery =
+        needle === "" ||
+        seminar.title.toLowerCase().includes(needle) ||
+        seminar.trainer.toLowerCase().includes(needle) ||
+        seminar.description.toLowerCase().includes(needle);
+      return matchesFilter && matchesSubject && matchesQuery;
+    });
+  }, [filter, query, subject]);
 
   return (
     <section id="catalog" className="seminars-catalog" aria-labelledby="seminars-catalog-title">
-      <div className="seminars-catalog__wash" aria-hidden="true" />
       <div className="section-container">
         <div className="seminars-catalog__topbar">
-          <div className="seminars-catalog__intro">
-            <Eyebrow>Browse</Eyebrow>
-            <RevealLines id="seminars-catalog-title" as="h2" className="seminars-catalog__title" playOnMount>
-              Seminars
-            </RevealLines>
-          </div>
+          <RevealLines id="seminars-catalog-title" as="h2" className="seminars-catalog__title" playOnMount>
+            Seminars
+          </RevealLines>
 
           <div className="seminars-catalog__search">
             <label className="seminars-catalog__field">
-              <Icon src="/assets/icons/why-frame.svg" width={24} height={24} />
+              <Icon src="/assets/icons/search.svg" width={24} height={24} className="catalog-search-icon" />
               <span className="sr-only">
-                <T>Find your perfect seminar.</T>
+                <T>Find your perfect course.</T>
               </span>
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Find your perfect seminar."
+                placeholder="Find your perfect course."
               />
             </label>
-            <button type="button" className="seminars-catalog__subject" aria-haspopup="listbox">
-              <T>All Subject Areas</T>
-              <Icon src="/assets/icons/chevron.svg" width={24} height={24} />
-            </button>
+            <CustomSelect
+              value={subject}
+              options={subjectOptions}
+              placeholder="All Subject Areas"
+              ariaLabel="All Subject Areas"
+              className="seminars-catalog__subject-select"
+              onChange={(value) => setSubject(value as (typeof seminarSubjectAreas)[number])}
+            />
           </div>
         </div>
 
@@ -72,59 +98,61 @@ export function SeminarsCatalog() {
         <div className="seminars-catalog__grid">
           {visible.map((seminar) => (
             <article key={seminar.slug} className="seminar-list-card">
-              <div className="seminar-list-card__photo">
+              <div className="seminar-list-card__media">
                 <LocalizedImage
                   src={seminar.image}
                   alt={seminar.alt}
                   fill
                   quality={90}
-                  sizes="(max-width: 48rem) 100vw, 36rem"
+                  sizes="(max-width: 48rem) 100vw, 22rem"
                 />
-                <span className="seminar-list-card__photo-fade" aria-hidden="true" />
+                <span className="seminar-list-card__fade" aria-hidden="true" />
               </div>
 
-              <div className="seminar-list-card__body">
-                <div className="seminar-list-card__content">
-                  <h3 className="seminar-list-card__title">
-                    <T>{seminar.title}</T>
-                  </h3>
+              <div className="seminar-list-card__panel">
+                <div className="seminar-list-card__body">
+                  <div className="seminar-list-card__content">
+                    <div className="seminar-list-card__heading">
+                      <h3 className="seminar-list-card__title">
+                        <T>{seminar.title}</T>
+                      </h3>
 
-                  <div className="seminar-list-card__meta">
-                    <span className="seminar-list-card__meta-item">
-                      <Icon src="/assets/icons/person.svg" width={16} height={16} />
-                      <T>{seminar.trainer}</T>
-                    </span>
-                    <span className="seminar-list-card__meta-item">
-                      <Icon src="/assets/icons/clock.svg" width={16} height={16} />
-                      <T>{seminar.time}</T>
-                    </span>
-                    <span className="seminar-list-card__meta-item">
-                      <Icon src="/assets/icons/calendar.svg" width={16} height={16} />
-                      <T>{seminar.date}</T>
-                    </span>
-                    <span className="seminar-list-card__meta-item">
-                      <Icon src="/assets/icons/globe.svg" width={16} height={16} />
-                      <T>{seminar.location}</T>
-                    </span>
+                      <div className="seminar-list-card__meta">
+                        <div className="seminar-list-card__meta-row">
+                          <span className="seminar-list-card__meta-item">
+                            <Icon src="/assets/icons/person.svg" width={16} height={16} />
+                            <T>{seminar.trainer}</T>
+                          </span>
+                        </div>
+                        <div className="seminar-list-card__meta-row seminar-list-card__meta-row--details">
+                          <span className="seminar-list-card__meta-item">
+                            <Icon src="/assets/icons/clock.svg" width={16} height={16} />
+                            <T>{seminar.time}</T>
+                          </span>
+                          <span className="seminar-list-card__meta-item">
+                            <Icon src="/assets/icons/calendar.svg" width={16} height={16} />
+                            <T>{seminar.date}</T>
+                          </span>
+                          <span className="seminar-list-card__meta-item">
+                            <Icon src="/assets/icons/program-detail/meta-globe.svg" width={16} height={16} />
+                            <T>{seminar.location}</T>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="seminar-list-card__description">
+                      <T>{seminar.description}</T>
+                    </p>
                   </div>
 
-                  <p className="seminar-list-card__description">
-                    <T>{seminar.description}</T>
-                  </p>
+                  <Link href={`/seminars/${seminar.slug}`} className="btn btn--solid seminar-list-card__cta">
+                    <span className="btn__ripple" aria-hidden="true" />
+                    <span className="btn__label">
+                      <T>Register Now</T>
+                    </span>
+                  </Link>
                 </div>
-
-                <Link href={`/seminars/${seminar.slug}`} className="btn btn--solid btn--dot-arrow seminar-list-card__cta">
-                  <span className="btn__ripple" aria-hidden="true" />
-                  <span className="btn__dot" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="m12 5 7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                  <span className="btn__label">
-                    <T>Register Now</T>
-                  </span>
-                </Link>
               </div>
             </article>
           ))}

@@ -14,7 +14,6 @@ type KnowledgeHeroProps = {
 export function KnowledgeHero({ activeFilter, searchQuery, onFilterChange, onSearchChange }: KnowledgeHeroProps) {
   return (
     <section className="knowledge-page-hero" aria-labelledby="knowledge-page-title">
-      <div className="knowledge-page-hero__glows" aria-hidden="true" />
       <div className="section-container knowledge-page-hero__inner">
         <div className="knowledge-page-hero__heading">
           <Eyebrow>Knowledge Hub</Eyebrow>

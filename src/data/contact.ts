@@ -15,26 +15,25 @@ export const faqItems = [
   {
     id: "faq-1",
     question: "How long is the program?",
-    answer:
-      "ES learning is dedicated for the moment. Programs range from 2 to 15 days depending on the subject and level. Each program page lists the exact duration and scheduled hours.",
+    answer: "25 training hours delivered over five days.",
   },
   {
     id: "faq-2",
     question: "Where is the program held?",
     answer:
-      "Programs are held at our training facilities in Riyadh, Saudi Arabia, or delivered online via our virtual classroom platform. The delivery mode is listed on each program page.",
+      "Programs are held at our training facilities in Riyadh, Saudi Arabia, or delivered online via our virtual classroom platform.",
   },
   {
     id: "faq-3",
     question: "Is practical work included?",
     answer:
-      "Yes. All ES Learning programs are built around applied exercises, real-world case studies, and hands-on activities so participants can use what they learn immediately in their roles.",
+      "Yes. All ES Learning programs are built around applied exercises, real-world case studies, and hands-on activities.",
   },
   {
     id: "faq-4",
     question: "Is there an exam and Certificate?",
     answer:
-      "Many programs include an assessment and award a recognized certificate upon completion. Specific certification requirements and accrediting bodies are listed on each program's detail page.",
+      "Many programs include an assessment and award a recognized certificate upon completion.",
   },
 ] as const;
 

@@ -5,15 +5,25 @@ export const programFilters = [
   "Exclusive to ES Learning",
 ] as const;
 
+export const programSubjectAreas = [
+  "All Subject Areas",
+  "Meeting & Workshop Facilitation",
+  "Strategy & Performance Measurement",
+  "Process & Policy Management",
+  "Technology Governance",
+  "Innovation & Entrepreneurship",
+  "Excellence & Quality",
+] as const;
+
 export const programCatalog = [
   {
     slug: "bpm-professional",
-    badge: "Exclusive to ES Learning",
+    badge: "Professional Program",
     category: "Process & Policy Management",
-    title: "Business Process Management Professional",
-    description: "From process management fundamentals to analysis, future-state design and actionable recommendations.",
-    image: "/assets/images/programs/card-cover.png",
-    alt: "Two professionals reviewing documents together",
+    title: "Business Process Management Professional - BPTrends Associates",
+    description: "A practical program that builds the skills to understand, analyze and redesign business processes and develop actionable recommendations.",
+    image: "/assets/images/programs/detail-hero.png",
+    alt: "Professionals collaborating on a laptop in a modern office",
     rating: "4.8",
     reviews: "61 Reviews",
     duration: "5 days",

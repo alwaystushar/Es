@@ -43,6 +43,7 @@ export default async function ArticlePage({ params }: PageProps) {
               quality={90}
               sizes="(max-width: 48rem) 100vw, 92rem"
               priority
+              style={{ objectFit: "cover", objectPosition: "center" }}
             />
           </div>
 
