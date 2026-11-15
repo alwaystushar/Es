@@ -2,89 +2,120 @@
 
 import { useRef } from "react";
 import { aboutMission } from "@/data/about";
-import { T } from "@/i18n/locale";
+import { dictionary } from "@/i18n/dictionary";
+import { useLocale } from "@/i18n/locale";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { gsap, registerGsap } from "@/lib/gsap";
 
+function localize(text: string, locale: string) {
+  if (locale !== "ar") return text;
+  return dictionary[text] ?? text;
+}
+
 export function AboutMission() {
   const section = useRef<HTMLElement>(null);
   const pin = useRef<HTMLDivElement>(null);
-  const globe = useRef<HTMLDivElement>(null);
-  const stageA = useRef<HTMLDivElement>(null);
-  const stageB = useRef<HTMLDivElement>(null);
+  const titleSlot = useRef<HTMLHeadingElement>(null);
+  const bodySlot = useRef<HTMLParagraphElement>(null);
+  const titleMission = useRef<HTMLSpanElement>(null);
+  const titleVision = useRef<HTMLSpanElement>(null);
+  const bodyMission = useRef<HTMLSpanElement>(null);
+  const bodyVision = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
+  const { locale } = useLocale();
+
+  const missionTitle = localize(aboutMission.mission.title, locale);
+  const missionBody = localize(aboutMission.mission.body, locale);
+  const visionTitle = localize(aboutMission.vision.title, locale);
+  const visionBody = localize(aboutMission.vision.body, locale);
 
   useIsomorphicLayoutEffect(() => {
     const root = section.current;
     const pinEl = pin.current;
-    const globeEl = globe.current;
-    const a = stageA.current;
-    const b = stageB.current;
-    if (!root || !pinEl || !globeEl || !a || !b || reduced) return;
+    const titleSlotEl = titleSlot.current;
+    const bodySlotEl = bodySlot.current;
+    const titleA = titleMission.current;
+    const titleB = titleVision.current;
+    const bodyA = bodyMission.current;
+    const bodyB = bodyVision.current;
+    if (!root || !pinEl || !titleSlotEl || !bodySlotEl || !titleA || !titleB || !bodyA || !bodyB || reduced) {
+      return;
+    }
     if (window.matchMedia("(max-width: 48rem)").matches) return;
 
     registerGsap();
     const context = gsap.context(() => {
-      const titleA = a.querySelector<HTMLElement>(".about-mission__title");
-      const bodyA = a.querySelector<HTMLElement>(".about-mission__body");
-      const titleB = b.querySelector<HTMLElement>(".about-mission__title");
-      const bodyB = b.querySelector<HTMLElement>(".about-mission__body");
+      const rtl = document.documentElement.getAttribute("dir") === "rtl";
+      const titleFrom = rtl ? "52.12%" : "28.23%";
+      const titleTo = rtl ? "28.23%" : "52.12%";
+      const bodyFrom = rtl ? "24.79%" : "42.71%";
+      const bodyTo = rtl ? "42.71%" : "24.79%";
 
-      gsap.set(a, { autoAlpha: 1 });
-      gsap.set(b, { autoAlpha: 0 });
-      gsap.set([titleA, bodyA], { autoAlpha: 1, xPercent: 0 });
-      gsap.set([titleB, bodyB], { autoAlpha: 0, xPercent: 0 });
-      gsap.set(globeEl, { left: "25.56%", scale: 1 });
+      // Mission visible; Vision waits below (comes up on scroll down)
+      gsap.set(titleSlotEl, { insetInlineStart: titleFrom });
+      gsap.set(bodySlotEl, { insetInlineStart: bodyFrom });
+      gsap.set([titleA, bodyA], { yPercent: 0 });
+      gsap.set([titleB, bodyB], { yPercent: 100 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root,
           start: "top top",
-          end: "+=180%",
+          end: "+=160%",
           pin: pinEl,
-          scrub: 0.7,
+          scrub: 0.65,
           invalidateOnRefresh: true,
         },
       });
 
-      // Hold Mission, then flip to Vision (Figma Property 1: Default → Variant2)
-      tl.to(globeEl, { scale: 1.06, ease: "none", duration: 0.35 }, 0)
-        .to(titleA, { autoAlpha: 0, xPercent: 18, ease: "none", duration: 0.4 }, 0.35)
-        .to(bodyA, { autoAlpha: 0, xPercent: -18, ease: "none", duration: 0.4 }, 0.35)
-        .to(a, { autoAlpha: 0, ease: "none", duration: 0.15 }, 0.6)
-        .to(globeEl, { left: "74.44%", scale: 1, ease: "none", duration: 0.55 }, 0.35)
-        .to(b, { autoAlpha: 1, ease: "none", duration: 0.15 }, 0.6)
-        .fromTo(titleB, { autoAlpha: 0, xPercent: -18 }, { autoAlpha: 1, xPercent: 0, ease: "none", duration: 0.4 }, 0.6)
-        .fromTo(bodyB, { autoAlpha: 0, xPercent: 18 }, { autoAlpha: 1, xPercent: 0, ease: "none", duration: 0.4 }, 0.6);
+      // Scroll down: Mission ↑ out, Vision ↑ in. Scroll up reverses.
+      tl.to({}, { duration: 0.18 })
+        .to(titleSlotEl, { insetInlineStart: titleTo, ease: "none", duration: 0.82 }, 0.18)
+        .to(bodySlotEl, { insetInlineStart: bodyTo, ease: "none", duration: 0.82 }, 0.18)
+        .to(titleA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.25)
+        .to(titleB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.25)
+        .to(bodyA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.28)
+        .to(bodyB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.28)
+        .to({}, { duration: 0.18 });
     }, root);
 
     return () => context.revert();
-  }, [reduced]);
+  }, [reduced, missionTitle, missionBody, visionTitle, visionBody]);
 
   return (
     <section ref={section} className="about-mission" data-header-tone="light" aria-labelledby="about-mission-title">
       <div ref={pin} className="about-mission__pin">
-        <div ref={globe} className="about-mission__globe" aria-hidden="true">
+        <div className="about-mission__globe" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={aboutMission.globe} alt="" width={704} height={725} />
         </div>
 
-        <div ref={stageA} className="about-mission__stage about-mission__stage--mission">
-          <h2 id="about-mission-title" className="about-mission__title">
-            <T>{aboutMission.mission.title}</T>
-          </h2>
-          <p className="about-mission__body">
-            <T>{aboutMission.mission.body}</T>
-          </p>
-        </div>
+        <h2 id="about-mission-title" ref={titleSlot} className="about-mission__title">
+          <span className="about-mission__swap">
+            <span ref={titleMission} className="about-mission__swap-item">
+              {missionTitle}
+            </span>
+            <span ref={titleVision} className="about-mission__swap-item" aria-hidden="true">
+              {visionTitle}
+            </span>
+          </span>
+        </h2>
 
-        <div ref={stageB} className="about-mission__stage about-mission__stage--vision" aria-hidden="true">
-          <h2 className="about-mission__title">
-            <T>{aboutMission.vision.title}</T>
-          </h2>
-          <p className="about-mission__body">
-            <T>{aboutMission.vision.body}</T>
-          </p>
+        <p ref={bodySlot} className="about-mission__body">
+          <span className="about-mission__swap">
+            <span ref={bodyMission} className="about-mission__swap-item">
+              {missionBody}
+            </span>
+            <span ref={bodyVision} className="about-mission__swap-item" aria-hidden="true">
+              {visionBody}
+            </span>
+          </span>
+        </p>
+
+        <div className="about-mission__static">
+          <h2 className="about-mission__title">{visionTitle}</h2>
+          <p className="about-mission__body">{visionBody}</p>
         </div>
       </div>
     </section>

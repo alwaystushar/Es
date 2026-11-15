@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
   seminarCatalog,
@@ -8,11 +8,12 @@ import {
   seminarSubjectAreas,
   type SeminarFilter,
 } from "@/data/seminars";
-import { Button } from "@/components/ui/Button";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 import { Icon } from "@/components/ui/Icon";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { LocalizedImage, T } from "@/i18n/locale";
+
+const PAGE_SIZE = 4;
 
 const subjectOptions = seminarSubjectAreas.map((label) => ({
   value: label,
@@ -33,8 +34,10 @@ export function SeminarsCatalog() {
   const [filter, setFilter] = useState<SeminarFilter>("Upcoming");
   const [subject, setSubject] = useState<(typeof seminarSubjectAreas)[number]>("All Subject Areas");
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinel = useRef<HTMLDivElement>(null);
 
-  const visible = useMemo(() => {
+  const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return seminarCatalog.filter((seminar) => {
       const matchesFilter = seminar.filter === filter;
@@ -47,6 +50,30 @@ export function SeminarsCatalog() {
       return matchesFilter && matchesSubject && matchesQuery;
     });
   }, [filter, query, subject]);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [filter, query, subject]);
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
+
+  useEffect(() => {
+    const target = sentinel.current;
+    if (!target || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisibleCount((count) => Math.min(count + PAGE_SIZE, filtered.length));
+        }
+      },
+      { rootMargin: "240px 0px" },
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [filtered.length, hasMore, visible.length]);
 
   return (
     <section id="catalog" className="seminars-catalog" aria-labelledby="seminars-catalog-title">
@@ -164,9 +191,7 @@ export function SeminarsCatalog() {
           </p>
         )}
 
-        <div className="seminars-catalog__more">
-          <Button>Load More</Button>
-        </div>
+        {hasMore ? <div ref={sentinel} className="seminars-catalog__sentinel" aria-hidden="true" /> : null}
       </div>
     </section>
   );

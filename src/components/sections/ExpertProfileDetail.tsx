@@ -6,52 +6,48 @@ type ExpertProfileDetailProps = {
   expert: Expert;
 };
 
+function Icon({ src, size = 28 }: { src: string; size?: number }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" width={size} height={size} className="expert-detail__icon-img" />
+  );
+}
+
 export function ExpertProfileDetail({ expert }: ExpertProfileDetailProps) {
   return (
     <section className="expert-detail" aria-label="Expert profile details">
-      <div className="section-container">
-        <div className="expert-detail__layout">
-          {/* Left column */}
-          <div className="expert-detail__main">
-            <div className="expert-detail__block">
-              <h2 className="expert-detail__block-title">About the Expert</h2>
-              <p className="expert-detail__about">
-                <T>{expert.about}</T>
-              </p>
-            </div>
+      <div className="section-container expert-detail__layout">
+        <div className="expert-detail__main">
+          <div className="expert-detail__about-block">
+            <h2 className="expert-detail__heading">About the Expert</h2>
+            <p className="expert-detail__lede">
+              <T>{expert.about}</T>
+            </p>
+          </div>
 
-            <div className="expert-detail__block expert-detail__block--bordered">
-              <div className="expert-detail__block-header">
-                <span className="expert-detail__block-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    <path d="M6 12v5c3.33 1 6.67 1 10 0v-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <h2 className="expert-detail__block-title">Qualifications &amp; Credentials</h2>
+          <div className="expert-detail__panels">
+            <article className="expert-panel">
+              <div className="expert-panel__head">
+                <Icon src="/assets/icons/expert-grad.svg" />
+                <h3 className="expert-panel__title">Qualifications &amp; Credentials</h3>
               </div>
-              <p className="expert-detail__about">
+              <div className="expert-panel__rule" aria-hidden="true" />
+              <p className="expert-panel__body">
                 <T>{expert.qualifications}</T>
               </p>
-            </div>
+            </article>
 
-            <div className="expert-detail__block expert-detail__block--bordered">
-              <div className="expert-detail__block-header">
-                <span className="expert-detail__block-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-                    <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-                    <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-                    <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-                  </svg>
-                </span>
-                <h2 className="expert-detail__block-title">Areas of Expertise</h2>
+            <article className="expert-panel">
+              <div className="expert-panel__head">
+                <Icon src="/assets/icons/expert-book.svg" />
+                <h3 className="expert-panel__title">Areas of Expertise</h3>
               </div>
+              <div className="expert-panel__rule" aria-hidden="true" />
               <ul className="expert-areas" role="list">
                 {expert.areasOfExpertise.map((area) => (
                   <li key={area.title} className="expert-area">
                     <div className="expert-area__header">
-                      <span className="expert-area__arrow" aria-hidden="true">→</span>
+                      <Icon src="/assets/icons/expert-arrow.svg" size={24} />
                       <strong className="expert-area__title">
                         <T>{area.title}</T>
                       </strong>
@@ -62,44 +58,51 @@ export function ExpertProfileDetail({ expert }: ExpertProfileDetailProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </article>
           </div>
+        </div>
 
-          {/* Right column */}
-          <div className="expert-detail__sidebar">
-            <div className="expert-programs-card">
-              <div className="expert-programs-card__header">
-                <span className="expert-programs-card__icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-                <h2 className="expert-programs-card__title">Programs Delivered</h2>
+        <aside className="expert-detail__sidebar">
+          <div className="expert-programs">
+            <div className="expert-programs__top">
+              <div className="expert-programs__head">
+                <Icon src="/assets/icons/expert-book.svg" />
+                <h2 className="expert-programs__title">Programs Delivered</h2>
               </div>
-              <ul className="expert-programs-list" role="list">
+              <ul className="expert-programs__list" role="list">
                 {expert.programsDelivered.map((program) => (
-                  <li key={program.title} className="expert-programs-item">
-                    <strong className="expert-programs-item__title">
+                  <li key={program.title} className="expert-programs__item">
+                    <strong className="expert-programs__item-title">
                       <T>{program.title}</T>
                     </strong>
-                    <p className="expert-programs-item__desc">
+                    <p className="expert-programs__item-desc">
                       <T>{program.description}</T>
                     </p>
                   </li>
                 ))}
               </ul>
-              <div className="expert-programs-cta">
+            </div>
+
+            <div className="expert-programs-cta">
+              <div className="expert-programs-cta__field" aria-hidden="true">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/assets/images/experts/profile-cta-field.svg" alt="" width={1535} height={1509} />
+              </div>
+              <div className="expert-programs-cta__shade" aria-hidden="true" />
+              <div className="expert-programs-cta__content">
                 <p className="expert-programs-cta__label">
                   <T>Explore programs led by our experts</T>
                 </p>
                 <p className="expert-programs-cta__sub">
                   <T>Discover professional training programs designed to strengthen your expertise and support your career development.</T>
                 </p>
-                <Button variant="solid" href="/programs" dot="start">Explore Programs</Button>
+                <Button variant="white" href="/programs">
+                  Explore Programs
+                </Button>
               </div>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
   );

@@ -17,6 +17,10 @@ export default function ExpertsPage() {
       <Journey
         title="Interested in Training with ES Learning?"
         body="If you bring practical and training experience in one of our specialist areas, we'd be pleased to hear from you."
+        primaryLabel="Explore Training Programs"
+        primaryHref="/programs"
+        secondaryLabel="Join Our Expert Network"
+        secondaryHref="/contact"
       />
     </main>
   );

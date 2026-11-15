@@ -19,7 +19,7 @@ export default function SeminarsPage() {
         primaryLabel="Explore Programs"
         primaryHref="/programs"
         secondaryLabel="View Upcoming Seminars"
-        secondaryHref="/seminars#catalog"
+        secondaryHref="#catalog"
       />
     </main>
   );

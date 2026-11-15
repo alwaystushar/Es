@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { T } from "@/i18n/locale";
 import type { Expert } from "@/data/experts";
 
@@ -9,24 +10,35 @@ type ExpertProfileHeroProps = {
 
 export function ExpertProfileHero({ expert }: ExpertProfileHeroProps) {
   return (
-    <section className="expert-profile-hero" aria-labelledby="expert-profile-name">
-      <div className="expert-profile-hero__photo-wrap" aria-hidden="true">
+    <section className="expert-profile-hero" data-header-tone="default" aria-labelledby="expert-profile-name">
+      <div className="expert-profile-hero__wash" aria-hidden="true" />
+
+      {/* Figma 3047:47530 — stipple field behind portrait */}
+      <div className="expert-profile-hero__field" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/images/experts/profile-field.svg" alt="" width={1536} height={1788} />
+      </div>
+
+      {/* Figma 3047:47533 — portrait 550.79×660.95 @ 97.21, 117.82 */}
+      <div className="expert-profile-hero__photo">
         <Image
-          src={expert.photo}
+          src="/assets/images/experts/profile-hero.webp"
           alt={expert.photoAlt}
           fill
           priority
-          sizes="(max-width: 48rem) 100vw, 40vw"
-          style={{ objectFit: "cover", objectPosition: "center top" }}
+          sizes="(max-width: 48rem) 80vw, 40vw"
+          className="expert-profile-hero__photo-img"
         />
       </div>
-      <div className="expert-profile-hero__content section-container">
-        <div className="expert-profile-hero__copy">
-          <p className="expert-profile-hero__breadcrumb">
-            <Link href="/experts">
-              <T>ES Learning Experts</T>
-            </Link>
-          </p>
+
+      {/* Figma 3047:47534 — bottom fade */}
+      <div className="expert-profile-hero__fade" aria-hidden="true" />
+
+      <div className="expert-profile-hero__copy">
+        <Link href="/experts" className="expert-profile-hero__eyebrow-link">
+          <Eyebrow>ES Learning Experts</Eyebrow>
+        </Link>
+        <div className="expert-profile-hero__text">
           <h1 id="expert-profile-name" className="expert-profile-hero__name">
             {expert.name}
           </h1>

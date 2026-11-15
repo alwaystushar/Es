@@ -1,85 +1,101 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { LocalizedImage } from "@/i18n/locale";
-import { partners } from "@/data/home";
+import { LocalizedImage, T } from "@/i18n/locale";
+import { partnerBodies, partnersPageHero } from "@/data/partners-page";
 
-const accreditingBodies = [
-  { name: "BPTrends Associates", src: "/assets/logos/partner-tregear.webp", width: 288, height: 174 },
-  { name: "The Grove", src: "/assets/logos/partner-grove.webp", width: 1000, height: 230 },
-  { name: "ISACA", src: "/assets/logos/partner-iaf.webp", width: 853, height: 228 },
-  { name: "INIFAC", src: "/assets/logos/partner-inifac.webp", width: 1630, height: 614 },
-  { name: "Leadership Strategies", src: "/assets/logos/partner-leadership.webp", width: 360, height: 140 },
-  { name: "DETECON Consulting", src: "/assets/logos/partner-detecon.webp", width: 685, height: 211 },
-] as const;
-
-export function PartnersHero() {
+function PartnerClientStrip() {
   return (
-    <section className="partners-page-hero" data-header-tone="default" aria-labelledby="partners-hero-title">
-      <div className="partners-page-hero__bg" aria-hidden="true" />
-      <div className="section-container partners-page-hero__layout">
-        <Eyebrow>Partners</Eyebrow>
-        <RevealLines id="partners-hero-title" as="h1" className="partners-page-hero__title" playOnMount>
-          When expertise comes together, learning goes further
-        </RevealLines>
-        <p className="partners-page-hero__body">
-          We collaborate with local and global specialist organizations to deliver programs informed by established expertise, methodologies and professional recognition.
-        </p>
-        <div className="partners-page-hero__action">
-          <Button variant="solid" href="/programs">Explore Programs</Button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-type PartnerRowProps = {
-  label: string;
-  items: ReadonlyArray<{
-    name: string;
-    src: string;
-    width: number;
-    height: number;
-  }>;
-};
-
-function PartnerRow({ label, items }: PartnerRowProps) {
-  return (
-    <div className="partners-row">
-      <div className="partners-row__header">
-        <span className="partners-row__label">{label}</span>
-      </div>
-      <div className="partners-row__logos">
-        {items.map((p) => (
-          <div key={p.name} className="partners-row__logo-wrap">
-            <LocalizedImage
-              src={p.src}
-              alt={p.name}
-              width={p.width}
-              height={p.height}
-              className="partner-logo partners-row__logo"
-            />
-          </div>
-        ))}
-      </div>
+    <div className="partners-row__logos">
+      <LocalizedImage
+        src="/assets/logos/clients/logo-strip.webp"
+        alt="Partner organisations including Aramco, Saudi Customs, SABIC, SCHS, Bank Albilad, and MHRSD"
+        width={2382}
+        height={204}
+        className="partners-row__strip"
+      />
     </div>
   );
 }
 
-export function PartnersAccrediting() {
+/**
+ * Figma 3047:57715 — one continuous Section (1440×2257), not a 100vh hero.
+ * Shared wash + field + white overlay sit behind hero copy and partner rows.
+ */
+export function PartnersSection() {
   return (
-    <section className="partners-accrediting" aria-labelledby="partners-accrediting-title">
-      <div className="section-container">
-        <RevealLines id="partners-accrediting-title" as="h2" className="partners-accrediting__title">
-          Our partners &amp; accrediting bodies
-        </RevealLines>
-        <div className="partners-accrediting__list">
-          <PartnerRow label="Content Partners" items={partners} />
-          <PartnerRow label="Accrediting Bodies" items={accreditingBodies} />
-          <PartnerRow label="Delivery Partners" items={partners.slice(0, 4)} />
+    <section className="partners-page" data-header-tone="default" aria-labelledby="partners-hero-title">
+      {/* Soft lime/green blobs — Figma 3047:57718 */}
+      <div className="partners-page__wash" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="partners-page__glow partners-page__glow--a" src="/assets/images/partners-page/glow-a.svg" alt="" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="partners-page__glow partners-page__glow--b" src="/assets/images/partners-page/glow-b.svg" alt="" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="partners-page__glow partners-page__glow--c" src="/assets/images/partners-page/glow-c.svg" alt="" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="partners-page__glow partners-page__glow--d" src="/assets/images/partners-page/glow-d.svg" alt="" />
+      </div>
+
+      {/* Stipple field — Figma 3047:57716 @ y≈1489 of 2257 */}
+      <div className="partners-page__field" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/images/partners-page/hero-field.svg"
+          alt=""
+          width={2055}
+          height={2020}
+        />
+      </div>
+
+      {/* White fade over field into partner list — Figma 3047:57717 */}
+      <div className="partners-page__overlay" aria-hidden="true" />
+
+      {/* Hero copy — Figma Container 3047:57735 @ y=180, h=464 */}
+      <div className="partners-page__hero">
+        <div className="section-container partners-page__hero-layout">
+          <Eyebrow>{partnersPageHero.eyebrow}</Eyebrow>
+          <RevealLines id="partners-hero-title" as="h1" className="partners-page__title" playOnMount>
+            {partnersPageHero.title}
+          </RevealLines>
+          <p className="partners-page__body">
+            <T>{partnersPageHero.body}</T>
+          </p>
+          <div className="partners-page__action">
+            <Button variant="solid" href={partnersPageHero.ctaHref} dot="start">
+              {partnersPageHero.ctaLabel}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Bodies — title @ y=988, list @ y=1206 */}
+      <div className="partners-page__bodies" aria-labelledby="partners-accrediting-title">
+        <div className="partners-page__inset">
+          <RevealLines id="partners-accrediting-title" as="h2" className="partners-page__bodies-title">
+            Our partners &amp; accrediting bodies
+          </RevealLines>
+        </div>
+
+        <div className="partners-page__list">
+          {partnerBodies.map((body) => (
+            <article key={body.name} className="partners-row">
+              <div className="partners-page__inset">
+                <div className="partners-row__header">
+                  <h3 className="partners-row__name">
+                    <T>{body.name}</T>
+                  </h3>
+                  <p className="partners-row__role">
+                    <T>{body.description}</T>
+                  </p>
+                </div>
+                <PartnerClientStrip />
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+

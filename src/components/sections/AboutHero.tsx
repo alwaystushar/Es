@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { aboutHero } from "@/data/about";
 import { Button } from "@/components/ui/Button";
-import { FieldWash } from "@/components/ui/FieldWash";
 import { LocalizedImage } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
@@ -13,6 +12,7 @@ import { gsap, registerGsap } from "@/lib/gsap";
 export function AboutHero() {
   const section = useRef<HTMLElement>(null);
   const pin = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
   const field = useRef<HTMLDivElement>(null);
   const media = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -20,46 +20,73 @@ export function AboutHero() {
   useIsomorphicLayoutEffect(() => {
     const root = section.current;
     const pinEl = pin.current;
+    const contentEl = content.current;
     const fieldEl = field.current;
     const mediaEl = media.current;
-    if (!root || !pinEl || !fieldEl || !mediaEl || reduced) return;
+    if (!root || !pinEl || !contentEl || !fieldEl || !mediaEl || reduced) return;
     if (window.matchMedia("(max-width: 48rem)").matches) return;
 
     registerGsap();
     const context = gsap.context(() => {
-      const wrap = mediaEl.parentElement;
+      const wrap = mediaEl.parentElement as HTMLElement;
       const startSize = () => {
-        const room = wrap?.clientHeight || pinEl.clientHeight * 0.45;
-        return Math.min(room * 0.98, pinEl.clientWidth * 0.3, 408);
+        const pinTop = pinEl.getBoundingClientRect().top;
+        const contentBottom = contentEl.getBoundingClientRect().bottom - pinTop;
+        const padBottom = parseFloat(getComputedStyle(pinEl).paddingBottom) || 0;
+        const room = pinEl.clientHeight - contentBottom - padBottom - 48;
+        return Math.min(Math.max(room, 220), pinEl.clientWidth * 0.2835, 408);
       };
-      const endWidth = () => Math.min(pinEl.clientWidth * 0.86, 1152);
-      const endHeight = () => Math.min((wrap?.clientHeight || pinEl.clientHeight * 0.55) * 0.98, 640);
+      const endWidth = () => wrap.clientWidth;
+      const endHeight = () => Math.min(pinEl.clientHeight * 0.78, wrap.clientHeight);
 
       gsap.set(fieldEl, { scale: 1, transformOrigin: "50% 50%" });
+      gsap.set(contentEl, { y: 0, opacity: 1, clearProps: "x" });
       gsap.set(mediaEl, {
-        y: Math.min(startSize() * 0.12, 40),
         width: startSize(),
         height: startSize(),
+        borderRadius: 0,
+      });
+      mediaEl.classList.add("is-masked");
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: root,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.55,
+          pin: pinEl,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            mediaEl.classList.toggle("is-masked", self.progress < 0.22);
+          },
+        },
       });
 
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: root,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.65,
-            pin: pinEl,
-            invalidateOnRefresh: true,
+      tl.to(
+        contentEl,
+        {
+          y: () => -pinEl.clientHeight * 0.72,
+          opacity: 0,
+          ease: "none",
+          duration: 0.7,
+        },
+        0,
+      )
+        .to(
+          fieldEl,
+          {
+            scale: 1.18,
+            ease: "none",
+            duration: 1,
           },
-        })
-        .to(fieldEl, { scale: 1.35, ease: "none", duration: 1 }, 0)
+          0,
+        )
         .to(
           mediaEl,
           {
-            y: 0,
             width: endWidth,
             height: endHeight,
+            borderRadius: 24,
             ease: "none",
             duration: 1,
           },
@@ -73,14 +100,16 @@ export function AboutHero() {
   return (
     <section ref={section} className="about-hero" aria-labelledby="about-hero-title">
       <div ref={pin} className="about-hero__pin">
-        <FieldWash />
+        <div className="about-hero__wash" aria-hidden="true" />
+        {/* Figma 3062:71282 — white stipple field, rotate 133.14° */}
         <div className="about-hero__field" aria-hidden="true">
           <div ref={field} className="about-hero__field-scale">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={aboutHero.field} alt="" width={2055} height={2020} />
           </div>
         </div>
 
-        <div className="about-hero__content">
+        <div ref={content} className="about-hero__content">
           <div className="about-hero__copy">
             <RevealLines id="about-hero-title" as="h1" className="about-hero__title" playOnMount>
               {aboutHero.title}
@@ -90,19 +119,19 @@ export function AboutHero() {
             </RevealLines>
           </div>
           <div className="about-hero__action">
-            <Button>Explore Programs</Button>
+            <Button href="/programs">Explore Programs</Button>
           </div>
         </div>
 
         <div className="about-hero__media-wrap">
-          <div ref={media} className="about-hero__media">
+          <div ref={media} className="about-hero__media is-masked">
             <LocalizedImage
               src={aboutHero.image}
               alt={aboutHero.imageAlt}
               fill
               priority
               quality={90}
-              sizes="(max-width: 48rem) 90vw, 72rem"
+              sizes="(max-width: 48rem) 90vw, 82rem"
             />
           </div>
         </div>

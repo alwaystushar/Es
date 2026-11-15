@@ -12,7 +12,7 @@ import { gsap, registerGsap } from "@/lib/gsap";
 export function AboutFoundations() {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
-  const cards = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
   const [index, setIndex] = useState(0);
@@ -21,18 +21,24 @@ export function AboutFoundations() {
   useIsomorphicLayoutEffect(() => {
     const root = section.current;
     const stageEl = stage.current;
-    const cardsEl = cards.current;
+    const trackEl = track.current;
     const bar = progress.current;
-    if (!root || !stageEl || !cardsEl || reduced) return;
+    if (!root || !stageEl || !trackEl || reduced) return;
     if (window.matchMedia("(max-width: 48rem)").matches) return;
 
-    const items = Array.from(cardsEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
+    const items = Array.from(trackEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
     if (!items.length) return;
 
     registerGsap();
     const context = gsap.context(() => {
-      gsap.set(items, { autoAlpha: 0, y: 48 });
-      gsap.set(items[0], { autoAlpha: 1, y: 0 });
+      const distance = () => {
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (!first || !last) return 0;
+        return last.offsetTop - first.offsetTop;
+      };
+
+      gsap.set(trackEl, { y: 0 });
       if (bar) gsap.set(bar, { scaleY: 1 / total });
 
       const tl = gsap.timeline({
@@ -50,19 +56,19 @@ export function AboutFoundations() {
         },
       });
 
-      items.forEach((card, i) => {
-        if (i === 0) return;
-        const prev = items[i - 1];
-        const at = i - 1;
-        tl.to(prev, { autoAlpha: 0, y: -36, ease: "none", duration: 1 }, at).to(
-          card,
-          { autoAlpha: 1, y: 0, ease: "none", duration: 1 },
-          at,
-        );
-        if (bar) {
-          tl.to(bar, { scaleY: (i + 1) / total, ease: "none", duration: 1 }, at);
-        }
-      });
+      tl.to(
+        trackEl,
+        {
+          y: () => -distance(),
+          ease: "none",
+          duration: 1,
+        },
+        0,
+      );
+
+      if (bar) {
+        tl.to(bar, { scaleY: 1, ease: "none", duration: 1 }, 0);
+      }
     }, root);
 
     return () => context.revert();
@@ -90,32 +96,34 @@ export function AboutFoundations() {
           </div>
         </div>
 
-        <div ref={cards} className="about-foundations__cards">
-          {aboutFoundations.map((item, i) => (
-            <article
-              key={item.title}
-              className="about-foundations__card"
-              aria-hidden={i === index ? undefined : true}
-            >
-              <div className="about-foundations__media">
-                <LocalizedImage
-                  src={item.image}
-                  alt={item.alt}
-                  fill
-                  quality={90}
-                  sizes="(max-width: 48rem) 100vw, 33rem"
-                />
-              </div>
-              <div className="about-foundations__detail">
-                <h3>
-                  <T>{item.title}</T>
-                </h3>
-                <p>
-                  <T>{item.description}</T>
-                </p>
-              </div>
-            </article>
-          ))}
+        <div className="about-foundations__cards">
+          <div ref={track} className="about-foundations__track">
+            {aboutFoundations.map((item, i) => (
+              <article
+                key={item.title}
+                className="about-foundations__card"
+                aria-hidden={i === index ? undefined : true}
+              >
+                <div className="about-foundations__media">
+                  <LocalizedImage
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    quality={90}
+                    sizes="(max-width: 48rem) 100vw, 33rem"
+                  />
+                </div>
+                <div className="about-foundations__detail">
+                  <h3>
+                    <T>{item.title}</T>
+                  </h3>
+                  <p>
+                    <T>{item.description}</T>
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

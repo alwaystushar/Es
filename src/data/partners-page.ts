@@ -1,13 +1,16 @@
 export const partnersPageHero = {
   eyebrow: "Partners & Accreditations",
   title: "When expertise comes together, learning goes further",
-  body: "We collaborate with local and global specialist organizations to deliver programs informed by established expertise, methodologies and professional standards.",
+  body: "We collaborate with local and global specialist organizations to deliver programs informed by established expertise, methodologies and professional recognition.",
+  ctaLabel: "Sign In",
+  ctaHref: "/signin",
 } as const;
 
 export const partnerBodies = [
   {
     name: "BPTrends Associates",
-    description: "Business process management — selected program accreditation and BPT-PS certification pathway.",
+    description:
+      "Business process management — selected program accreditation and BPT-PS certification pathway.",
   },
   {
     name: "The Grove Consultants International",
@@ -15,6 +18,7 @@ export const partnerBodies = [
   },
   {
     name: "ISACA",
-    description: "IT governance, information security and professional qualifications such as CISM, CISA and CRISC.",
+    description:
+      "IT governance, information security and professional qualifications such as CISM, CISA and CRISC.",
   },
 ] as const;

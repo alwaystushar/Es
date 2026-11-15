@@ -60,7 +60,6 @@ export function AboutExperts() {
           >
             {aboutExperts.map((expert, index) => {
               const open = index === active;
-              const indexLabel = String(index + 1).padStart(2, "0");
 
               return (
                 <SwiperSlide key={`${expert.name}-${index}`} className={open ? "is-open" : undefined}>
@@ -89,7 +88,6 @@ export function AboutExperts() {
                         height={625}
                       />
                       <div className="about-expert__copy">
-                        <span className="about-expert__index">{indexLabel}</span>
                         <h3>
                           <T>{expert.name}</T>
                         </h3>

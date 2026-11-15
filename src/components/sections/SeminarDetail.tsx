@@ -45,44 +45,49 @@ export function SeminarDetail({ seminar }: SeminarDetailProps) {
     <>
       <section className="seminar-detail-hero" data-header-tone="light" aria-labelledby="seminar-detail-title">
         <div className="seminar-detail-hero__bg" aria-hidden="true">
-          <LocalizedImage src={seminar.image} alt="" fill priority quality={90} sizes="100vw" />
+          <LocalizedImage
+            src="/assets/images/seminars/detail-hero.webp"
+            alt=""
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+          />
         </div>
         <div className="seminar-detail-hero__shade" aria-hidden="true" />
 
-        <div className="seminar-detail-hero__inner">
-          <div className="section-container">
-            <div className="seminar-detail-hero__content">
-              <Eyebrow light>Seminars</Eyebrow>
-              <RevealLines id="seminar-detail-title" as="h1" className="seminar-detail-hero__title" playOnMount>
-                {seminar.title}
-              </RevealLines>
-              <p className="seminar-detail-hero__body">
-                <T>{seminar.description}</T>
-              </p>
-              <Button href="/programs" variant="solid" className="seminar-detail-hero__cta" dot="start">
-                Explore Programs
-              </Button>
-            </div>
+        <div className="section-container seminar-detail-hero__inner">
+          <div className="seminar-detail-hero__content">
+            <Eyebrow light>Seminars</Eyebrow>
+            <RevealLines id="seminar-detail-title" as="h1" className="seminar-detail-hero__title" playOnMount>
+              {seminar.title}
+            </RevealLines>
+            <p className="seminar-detail-hero__body">
+              <T>{seminar.description}</T>
+            </p>
+            <Button href="/programs" variant="solid" className="seminar-detail-hero__cta" dot="start">
+              Explore Programs
+            </Button>
+          </div>
 
-            <div className="seminar-detail-hero__meta">
-              <div className="seminar-detail-hero__meta-bar">
-                <span className="seminar-detail-hero__meta-item">
-                  <Icon src="/assets/icons/person.svg" width={20} height={20} />
-                  <T>{seminar.trainer}</T>
-                </span>
-                <span className="seminar-detail-hero__meta-item">
-                  <Icon src="/assets/icons/calendar.svg" width={20} height={20} />
-                  <T>{seminar.date}</T>
-                </span>
-                <span className="seminar-detail-hero__meta-item">
-                  <Icon src="/assets/icons/clock.svg" width={20} height={20} />
-                  <T>{seminar.time}</T>
-                </span>
-                <span className="seminar-detail-hero__meta-item">
-                  <Icon src="/assets/icons/globe.svg" width={20} height={20} />
-                  <T>{seminar.location}</T>
-                </span>
-              </div>
+          <div className="seminar-detail-hero__meta">
+            <div className="seminar-detail-hero__meta-bar">
+              <span className="seminar-detail-hero__meta-item">
+                <Icon src="/assets/icons/person.svg" width={20} height={20} />
+                <T>{seminar.trainer}</T>
+              </span>
+              <span className="seminar-detail-hero__meta-item">
+                <Icon src="/assets/icons/calendar.svg" width={20} height={20} />
+                <T>{seminar.date}</T>
+              </span>
+              <span className="seminar-detail-hero__meta-item">
+                <Icon src="/assets/icons/clock.svg" width={20} height={20} />
+                <T>{seminar.time}</T>
+              </span>
+              <span className="seminar-detail-hero__meta-item">
+                <Icon src="/assets/icons/globe.svg" width={20} height={20} />
+                <T>{seminar.location}</T>
+              </span>
             </div>
           </div>
         </div>

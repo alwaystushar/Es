@@ -32,6 +32,9 @@ export default async function ExpertPage({ params }: PageProps) {
       <Journey
         title="Looking for training for your team?"
         body="We can tailor learning objectives, content and activities to your organization's needs and target audience."
+        primaryLabel="Request a Team Proposal"
+        primaryHref="/contact"
+        secondaryLabel=""
       />
     </main>
   );

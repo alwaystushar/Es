@@ -14,9 +14,9 @@ export const seminarSubjectAreas = [
 
 export const seminarHero = {
   title: "Expert conversations that broaden your perspective",
-  body: "Join industry experts for in-depth conversations on leadership, strategy, and professional development.",
-  image: "/assets/images/seminars/hero.png",
-  imageAlt: "Seminar presenter speaking at an industry event",
+  body: "Join specialist-led seminars exploring important workplace topics and sharing ideas that strengthen professional knowledge and performance.",
+  image: "/assets/images/seminars/hero.webp",
+  imageAlt: "Professionals seated in a seminar amphitheatre",
 } as const;
 
 export const seminarCatalog = [
@@ -28,7 +28,7 @@ export const seminarCatalog = [
     date: "Dec 2nd, 2026",
     time: "4 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-a.png",
+    image: "/assets/images/seminars/card-a.webp",
     alt: "Seminar presenter speaking at an event",
     filter: "Upcoming" as SeminarFilter,
     about:
@@ -44,7 +44,7 @@ export const seminarCatalog = [
     date: "Dec 9th, 2026",
     time: "2 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-b.png",
+    image: "/assets/images/seminars/card-b.webp",
     alt: "Leadership workshop participants collaborating",
     filter: "Upcoming" as SeminarFilter,
     about:
@@ -60,7 +60,7 @@ export const seminarCatalog = [
     date: "Dec 16th, 2026",
     time: "3 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-a.png",
+    image: "/assets/images/seminars/card-a.webp",
     alt: "Professionals reviewing policy documents",
     filter: "Upcoming" as SeminarFilter,
     about:
@@ -76,7 +76,7 @@ export const seminarCatalog = [
     date: "Jan 6th, 2027",
     time: "10 Am",
     location: "Online",
-    image: "/assets/images/seminars/card-b.png",
+    image: "/assets/images/seminars/card-b.webp",
     alt: "Executive team reviewing process maps",
     filter: "Upcoming" as SeminarFilter,
     about:
@@ -92,7 +92,7 @@ export const seminarCatalog = [
     date: "Nov 10th, 2026",
     time: "11 Am",
     location: "Online",
-    image: "/assets/images/seminars/card-a.png",
+    image: "/assets/images/seminars/card-a.webp",
     alt: "Professional reviewing performance dashboards",
     filter: "Past Seminars" as SeminarFilter,
     about:
@@ -108,7 +108,7 @@ export const seminarCatalog = [
     date: "Oct 28th, 2026",
     time: "2 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-b.png",
+    image: "/assets/images/seminars/card-b.webp",
     alt: "Professionals in a communication skills workshop",
     filter: "Past Seminars" as SeminarFilter,
     about:

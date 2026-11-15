@@ -102,10 +102,7 @@ export default async function ProgramPage({ params }: PageProps) {
         compareAt={program.compareAt}
         expert={trainer}
       />
-      <Journey
-        title="Two Development Paths. One Goal: Stronger Performance."
-        body="Choose the path that fits — whether you're developing your own skills or seeking training for your organization."
-      />
+      <Journey variant="about" />
     </main>
   );
 }

@@ -139,11 +139,11 @@ export function ProgramsCatalog() {
                       <T>Fees</T>
                     </span>
                     <div className="program-list-card__price">
-                      <Icon src="/assets/icons/riyal.svg" width={21} height={22} />
+                      <Icon src="/assets/icons/riyal-green.svg" width={19} height={20} />
                       <strong>{program.price}</strong>
                       <span className="program-list-card__compare">
-                        <Icon src="/assets/icons/riyal.svg" width={11} height={11} />
-                        {program.compareAt}
+                        <Icon src="/assets/icons/riyal-muted.svg" width={11} height={11} />
+                        <span>{program.compareAt}</span>
                       </span>
                     </div>
                   </div>

@@ -11,7 +11,7 @@ export function ProgramsTeamCta() {
       </div>
       <div className="journey__shade" aria-hidden="true" />
       <div className="journey__glow" aria-hidden="true" />
-      <div className="journey__content journey__content--wide">
+      <div className="journey__content journey__content--programs">
         <RevealLines id="programs-team-title" as="h2" className="section-title">
           {programsTeamCta.title}
         </RevealLines>

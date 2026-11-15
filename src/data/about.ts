@@ -3,7 +3,7 @@ export const aboutHero = {
   body: "ES Learning is a Saudi company dedicated to capability development and stronger performance. Our practical programs draw on global methodologies",
   image: "/assets/images/about/hero-classroom.png",
   imageAlt: "Learners in a classroom workshop",
-  field: "/assets/images/journey-field.svg",
+  field: "/assets/images/about/hero-field.svg",
   mask: "/assets/images/about/hero-mask.svg",
 } as const;
 

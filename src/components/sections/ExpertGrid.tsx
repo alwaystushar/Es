@@ -12,6 +12,7 @@ type ExpertGridProps = {
 export function ExpertGrid({ experts }: ExpertGridProps) {
   return (
     <section className="expert-grid" aria-labelledby="expert-grid-title">
+      <div className="expert-grid__wash" aria-hidden="true" />
       <div className="section-container">
         <div className="expert-grid__intro">
           <RevealLines id="expert-grid-title" as="h2" className="expert-grid__title">
@@ -25,24 +26,23 @@ export function ExpertGrid({ experts }: ExpertGridProps) {
         <ul className="expert-cards" role="list">
           {experts.map((expert) => (
             <li key={expert.slug}>
-              <Link href={`/experts/${expert.slug}`} className="expert-card card-hover">
-                <div className="expert-card__media reveal-image">
-                  <Image
-                    src={expert.photo}
-                    alt={expert.photoAlt}
-                    fill
-                    sizes="(max-width: 48rem) 50vw, 25vw"
-                    style={{ objectFit: "cover", objectPosition: "center top" }}
-                  />
+              <Link href={`/experts/${expert.slug}`} className="expert-card">
+                <div className="expert-card__media">
+                  <div className="expert-card__backdrop" aria-hidden="true" />
+                  <div className="expert-card__photo">
+                    <Image
+                      src={expert.photo}
+                      alt={expert.photoAlt}
+                      fill
+                      sizes="(max-width: 48rem) 50vw, 25vw"
+                      className="expert-card__img"
+                    />
+                    <div className="expert-card__shade" aria-hidden="true" />
+                  </div>
                 </div>
                 <div className="expert-card__body">
-                  <div className="expert-card__info">
-                    <p className="expert-card__name">{expert.name}</p>
-                    <p className="expert-card__role">{expert.role}</p>
-                  </div>
-                  <span className="expert-card__link" aria-hidden="true">
-                    <T>View Profile</T>
-                  </span>
+                  <p className="expert-card__name">{expert.name}</p>
+                  <p className="expert-card__role">{expert.role}</p>
                 </div>
               </Link>
             </li>
@@ -50,7 +50,9 @@ export function ExpertGrid({ experts }: ExpertGridProps) {
         </ul>
 
         <div className="expert-grid__action">
-          <Button variant="outline" href="/experts">Load More Experts</Button>
+          <Button variant="solid" href="/programs">
+            Load More Programs
+          </Button>
         </div>
       </div>
     </section>

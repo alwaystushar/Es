@@ -7,7 +7,7 @@ import { T } from "@/i18n/locale";
 function ContactIcon({ src }: { src: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt="" width={32} height={32} style={{ width: "2rem", height: "2rem" }} />
+    <img src={src} alt="" width={24} height={24} />
   );
 }
 

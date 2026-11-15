@@ -24,6 +24,7 @@ export function Journey({
 }: JourneyProps) {
   const heading = variant === "about" ? aboutJourney.title : title;
   const copy = variant === "about" ? aboutJourney.body : body;
+  const showSecondary = Boolean(secondaryLabel);
 
   return (
     <section className="journey" id="contact" data-header-tone="light" aria-labelledby="journey-title">
@@ -45,9 +46,11 @@ export function Journey({
           <Button variant="white" href={primaryHref} dot="start">
             {primaryLabel}
           </Button>
-          <Button variant="outline-light" href={secondaryHref} dot="start">
-            {secondaryLabel}
-          </Button>
+          {showSecondary ? (
+            <Button variant="outline-light" href={secondaryHref} dot="start">
+              {secondaryLabel}
+            </Button>
+          ) : null}
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PartnersHero, PartnersAccrediting } from "@/components/sections/PartnersPage";
+import { PartnersSection } from "@/components/sections/PartnersPage";
 import { Journey } from "@/components/sections/Journey";
 
 export const metadata: Metadata = {
@@ -10,8 +10,7 @@ export const metadata: Metadata = {
 export default function PartnersPage() {
   return (
     <main id="main">
-      <PartnersHero />
-      <PartnersAccrediting />
+      <PartnersSection />
       <Journey />
     </main>
   );

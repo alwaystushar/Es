@@ -1,26 +1,31 @@
 import { Button } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { FieldWash } from "@/components/ui/FieldWash";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { LocalizedImage } from "@/i18n/locale";
+import { LocalizedImage, T } from "@/i18n/locale";
 import { seminarHero } from "@/data/seminars";
 
 export function SeminarsHero() {
   return (
-    <section className="seminars-hero" aria-labelledby="seminars-hero-title">
-      <FieldWash />
+    <section className="seminars-hero" data-header-tone="default" aria-labelledby="seminars-hero-title">
+      <div className="seminars-hero__wash" aria-hidden="true" />
+      <div className="seminars-hero__field" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/images/seminars/hero-field.svg" alt="" width={1390} height={1619} />
+      </div>
 
       <div className="section-container seminars-hero__inner">
         <div className="seminars-hero__copy">
-          <Eyebrow>Seminars</Eyebrow>
-          <RevealLines id="seminars-hero-title" as="h1" className="seminars-hero__title" playOnMount>
-            {seminarHero.title}
-          </RevealLines>
-          <RevealLines as="p" className="seminars-hero__body" playOnMount duration={0.7} stagger={0.08}>
-            {seminarHero.body}
-          </RevealLines>
+          <div className="seminars-hero__text">
+            <RevealLines id="seminars-hero-title" as="h1" className="seminars-hero__title" playOnMount>
+              {seminarHero.title}
+            </RevealLines>
+            <p className="seminars-hero__body">
+              <T>{seminarHero.body}</T>
+            </p>
+          </div>
           <div className="seminars-hero__action">
-            <Button href="/seminars#catalog">Explore Seminars</Button>
+            <Button href="/programs" variant="solid">
+              Explore Programs
+            </Button>
           </div>
         </div>
 
@@ -33,6 +38,7 @@ export function SeminarsHero() {
             quality={90}
             sizes="(max-width: 48rem) 100vw, 50vw"
           />
+          <span className="seminars-hero__media-shade" aria-hidden="true" />
         </div>
       </div>
     </section>
