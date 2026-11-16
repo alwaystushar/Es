@@ -30,11 +30,14 @@ export function AboutHero() {
     const context = gsap.context(() => {
       const wrap = mediaEl.parentElement as HTMLElement;
       const startSize = () => {
+        /* Figma resting square 408.301 @ 1440 — shrink on short viewports, keep air under CTA */
+        const ideal = pinEl.clientWidth * (408.301 / 1440);
         const pinTop = pinEl.getBoundingClientRect().top;
         const contentBottom = contentEl.getBoundingClientRect().bottom - pinTop;
         const padBottom = parseFloat(getComputedStyle(pinEl).paddingBottom) || 0;
-        const room = pinEl.clientHeight - contentBottom - padBottom - 48;
-        return Math.min(Math.max(room, 220), pinEl.clientWidth * 0.2835, 408);
+        const minGap = pinEl.clientWidth * (56 / 1440);
+        const room = pinEl.clientHeight - contentBottom - padBottom - minGap;
+        return Math.min(Math.max(room, ideal * 0.55), ideal);
       };
       const endWidth = () => wrap.clientWidth;
       const endHeight = () => Math.min(pinEl.clientHeight * 0.78, wrap.clientHeight);

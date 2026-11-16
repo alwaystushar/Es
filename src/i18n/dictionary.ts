@@ -6,11 +6,140 @@ export const dictionary: Record<string, string> = {
   "Sign In": "تسجيل الدخول",
   "Open menu": "فتح القائمة",
   "Close menu": "إغلاق القائمة",
+  Home: "الرئيسية",
   "About Us": "من نحن",
+  "For Organizations": "للمؤسسات",
   "Training Programs": "البرامج التدريبية",
   Seminars: "الندوات",
   "Knowledge Hub": "مركز المعرفة",
+  Partners: "الشركاء",
   "Contact Us": "تواصل معنا",
+  All: "الكل",
+  "Insights that bring workplace challenges into focus": "رؤى تضع تحديات بيئة العمل في دائرة الضوء",
+  "Explore ES Learning articles, updates and resources that help build capabilities and strengthen performance.":
+    "استكشف مقالات إي إس ليرنينغ وتحديثاتها ومواردها التي تساعد على بناء القدرات وتعزيز الأداء.",
+  "Search the Knowledge Hub": "ابحث في مركز المعرفة",
+  "Submit search": "إرسال البحث",
+  "Filter articles by category": "تصفية المقالات حسب الفئة",
+  "Featured Content": "محتوى مميز",
+  "Latest Content": "أحدث المحتوى",
+  "Search Results": "نتائج البحث",
+  "No articles match your search. Try a different keyword or filter.":
+    "لا توجد مقالات تطابق بحثك. جرّب كلمة مفتاحية أو تصفية مختلفة.",
+  "Turn insight into your next step": "حوّل الرؤية إلى خطوتك التالية",
+  "Explore training programs or discover our organizational learning solutions.":
+    "استكشف البرامج التدريبية أو اكتشف حلول التعلّم المؤسسي لدينا.",
+  "Articles & Insights": "مقالات ورؤى",
+  "ES Learning News": "أخبار إي إس ليرنينغ",
+  "Events & Participation": "الفعاليات والمشاركة",
+  Resources: "الموارد",
+  "Published:": "تاريخ النشر:",
+  "Read time:": "مدة القراءة:",
+  "Content Type": "نوع المحتوى",
+  Topic: "الموضوع",
+  Published: "تاريخ النشر",
+  Share: "مشاركة",
+  "Share on X": "مشاركة على إكس",
+  "Share on LinkedIn": "مشاركة على لينكدإن",
+  News: "أخبار",
+  "Training & Development": "التدريب والتطوير",
+  Introduction: "مقدمة",
+  "What this means for teams": "ماذا يعني هذا للفرق",
+  "Key takeaway": "الخلاصة الرئيسية",
+  "Related Content": "محتوى ذو صلة",
+  "Copy link": "نسخ الرابط",
+  "Link copied": "تم نسخ الرابط",
+  "4 min": "٤ دقائق",
+  "12 November 2026": "١٢ نوفمبر ٢٠٢٦",
+  "08/05/2026": "٠٨/٠٥/٢٠٢٦",
+  "12/06/2026": "١٢/٠٦/٢٠٢٦",
+  "21/07/2026": "٢١/٠٧/٢٠٢٦",
+  "05/08/2026": "٠٥/٠٨/٢٠٢٦",
+  "10/08/2026": "١٠/٠٨/٢٠٢٦",
+  "02/09/2026": "٠٢/٠٩/٢٠٢٦",
+  "15/09/2026": "١٥/٠٩/٢٠٢٦",
+  "20/10/2026": "٢٠/١٠/٢٠٢٦",
+  "28/10/2026": "٢٨/١٠/٢٠٢٦",
+  "12/11/2026": "١٢/١١/٢٠٢٦",
+  "Hands-on practice is now a core part of program design.": "الممارسة العملية أصبحت جزءًا أساسيًا من تصميم البرامج.",
+  "The best training leaves behind tools people use, not just notes they keep.":
+    "أفضل تدريب يترك أدوات يستخدمها الناس، لا مجرد ملاحظات يحتفظون بها.",
+  "Training is shifting from attendance to applied results": "التدريب يتحول من الحضور إلى النتائج التطبيقية",
+  "More organizations now judge a program by what teams do afterward.":
+    "تحكم المزيد من المؤسسات على البرنامج بما تفعله الفرق بعده.",
+  "More organizations now judge a program by what teams do afterward, and that is changing how learning is designed, delivered and measured.":
+    "تحكم المزيد من المؤسسات على البرنامج بما تفعله الفرق بعده، وهذا يغيّر تصميم التعلّم وتقديمه وقياسه.",
+  "Approved content opens with a clear introduction. Here, the idea is simple: the value of training is judged by how knowledge is applied at work, not by how many sessions were attended.":
+    "يبدأ المحتوى المعتمد بمقدمة واضحة. الفكرة بسيطة: قيمة التدريب تُقاس بتطبيق المعرفة في العمل، لا بعدد الجلسات التي حُضرِت.",
+  "Employers are asking sharper questions about learning. Instead of counting hours completed, they want to see better meetings, clearer policies and decisions made with stronger evidence. Programs that pair teaching with real practice are the ones people remember and use.":
+    "يسأل أصحاب العمل أسئلة أدق عن التعلّم. بدل عدّ الساعات المكتملة، يريدون اجتماعات أفضل وسياسات أوضح وقرارات مبنية على أدلة أقوى. البرامج التي تجمع بين التعليم والممارسة هي التي يتذكرها الناس ويستخدمونها.",
+  "Teams benefit most when a program starts from a real work challenge, gives people tools they can use the next day, and checks progress after the course ends. This is how a Knowledge Hub stays useful beyond a blog: each piece connects an idea to something practical.":
+    "تستفيد الفرق أكثر حين يبدأ البرنامج من تحدٍ عملي حقيقي، ويمنح الناس أدوات يستخدمونها في اليوم التالي، ويتابع التقدم بعد انتهاء الدورة. هكذا يبقى مركز المعرفة مفيدًا أكثر من مدونة: كل قطعة تربط فكرة بشيء عملي.",
+  "Teams benefit most when a program starts from a real work challenge, gives people tools they can use the next day, and checks progress after the course ends.":
+    "تستفيد الفرق أكثر حين يبدأ البرنامج من تحدٍ عملي حقيقي، ويمنح الناس أدوات يستخدمونها في اليوم التالي، ويتابع التقدم بعد انتهاء الدورة.",
+  "Learners practising together at a laptop": "متعلمون يتدرّبون معًا أمام حاسوب محمول",
+  "Professionals collaborating in a training room": "مهنيون يتعاونون في قاعة تدريب",
+  "Boosting productivity with artificial intelligence: Why do some people work 8 hours and accomplish more than you?":
+    "تعزيز الإنتاجية بالذكاء الاصطناعي: لماذا يعمل بعض الأشخاص ٨ ساعات وينجزون أكثر منك؟",
+  "Explore how AI tools can reshape productivity in the modern workplace.":
+    "استكشف كيف يمكن لأدوات الذكاء الاصطناعي أن تعيد تشكيل الإنتاجية في بيئة العمل الحديثة.",
+  "The rise of AI-assisted workflows has changed how professionals organize their time and manage their output. High performers aren't necessarily working harder — they are working with better systems, and AI is becoming a central part of those systems.":
+    "غيّر صعود سير العمل المدعوم بالذكاء الاصطناعي طريقة تنظيم المهنيين لوقتهم وإدارة مخرجاتهم. أصحاب الأداء العالي لا يعملون بالضرورة بجهد أكبر — بل يعملون بأنظمة أفضل، والذكاء الاصطناعي أصبح جزءًا أساسيًا منها.",
+  "From automating repetitive tasks to surfacing insights faster, AI tools allow individuals and teams to focus their attention where it truly matters. Understanding how to integrate these tools into your daily workflow is now a core professional skill.":
+    "من أتمتة المهام المتكررة إلى إبراز الرؤى بسرعة أكبر، تتيح أدوات الذكاء الاصطناعي للأفراد والفرق تركيز انتباههم حيث يهم حقًا. وفهم كيفية دمج هذه الأدوات في سير عملك اليومي أصبح مهارة مهنية أساسية.",
+  "Professional working with AI tools in a modern office": "مهني يعمل بأدوات الذكاء الاصطناعي في مكتب حديث",
+  "Workshop Facilitation Essentials": "أساسيات تيسير ورش العمل",
+  "Practical tools to lead workshops that generate real outcomes.":
+    "أدوات عملية لقيادة ورش عمل تحقق نتائج حقيقية.",
+  "Effective facilitation is both a skill and a mindset. The best facilitators create environments where ideas surface naturally and decisions emerge from genuine consensus rather than dominant voices.":
+    "التيسير الفعّال مهارة وعقلية معًا. أفضل الميسّرين يخلقون بيئات تظهر فيها الأفكار بشكل طبيعي، وتخرج القرارات من توافق حقيقي لا من أصوات مهيمنة.",
+  "Learn how to design an agenda that moves a group forward, manage energy in the room, handle difficult dynamics, and document outputs in a way participants can actually act on. Our facilitation programs are rooted in internationally recognized methodologies.":
+    "تعلّم كيف تصمّم جدول أعمال يدفع المجموعة إلى الأمام، وتدير طاقة القاعة، وتتعامل مع الديناميكيات الصعبة، وتوثّق المخرجات بطريقة يمكن للمشاركين العمل بها فعليًا. برامج التيسير لدينا متجذرة في منهجيات معترف بها دوليًا.",
+  "Workshop group discussing in a meeting room": "مجموعة ورشة عمل تناقش في غرفة اجتماعات",
+  "Saudi Workplace Learning Trends in 2026": "اتجاهات تعلّم بيئة العمل السعودية في ٢٠٢٦",
+  "What professionals across the Kingdom are prioritizing this year.":
+    "ما الذي يعطيه المهنيون في أنحاء المملكة أولوية هذا العام.",
+  "Learning investment in the Kingdom continues to rise, with organizations increasingly focused on building capability from within. This year, three themes stand out: leadership development, digital skills, and process excellence.":
+    "يستمر الاستثمار في التعلّم في المملكة بالارتفاع، مع تركيز متزايد للمؤسسات على بناء القدرات من الداخل. هذا العام تبرز ثلاثة محاور: تطوير القيادة، والمهارات الرقمية، وتميز العمليات.",
+  "ES Learning has seen growing demand for programs that connect global methodologies to the Saudi workplace context — practical, structured learning that professionals can apply the moment they return to their desks.":
+    "شهدت إي إس ليرنينغ طلبًا متزايدًا على برامج تربط المنهجيات العالمية بسياق بيئة العمل السعودية — تعلّم عملي منظم يمكن للمهنيين تطبيقه فور عودتهم إلى مكاتبهم.",
+  "Professionals in a modern office setting": "مهنيون في بيئة مكتبية حديثة",
+  "Policy Writing That Actually Works": "كتابة سياسات تؤتي ثمارها فعليًا",
+  "Design policies that people understand, follow, and find useful.":
+    "صمّم سياسات يفهمها الناس ويتبعونها ويجدونها مفيدة.",
+  "Many organizational policies fail not because of bad content, but because of poor structure and inaccessible language. A policy no one reads or understands is effectively no policy at all.":
+    "تفشل كثير من السياسات المؤسسية لا بسبب محتوى سيئ، بل بسبب بنية ضعيفة ولغة صعبة الفهم. السياسة التي لا يقرأها أحد أو لا يفهمها أحد ليست سياسة فعليًا.",
+  "Good policy writing is a design challenge as much as a writing one. It requires understanding your audience, structuring information logically, and testing clarity with real users before publication. Our policy development programs teach exactly this approach.":
+    "كتابة السياسات الجيدة تحدٍ تصميمي بقدر ما هي تحدٍ كتابي. تتطلب فهم جمهورك، وتنظيم المعلومات منطقيًا، واختبار الوضوح مع مستخدمين حقيقيين قبل النشر. برامج تطوير السياسات لدينا تعلّم هذا النهج تحديدًا.",
+  "Person reviewing a policy document": "شخص يراجع وثيقة سياسة",
+  "ES Learning Annual Learning Summit 2026": "قمة إي إس ليرنينغ السنوية للتعلّم ٢٠٢٦",
+  "Join us for a day of insights, connections, and practical learning.":
+    "انضم إلينا ليوم من الرؤى والتواصل والتعلّم العملي.",
+  "The ES Learning Annual Learning Summit brings together professionals, practitioners, and organizational leaders for a focused day of learning and dialogue. This year's theme is Building Organizations That Learn — exploring how teams can embed continuous development into their culture.":
+    "تجمع قمة إي إس ليرنينغ السنوية للتعلّم المهنيين والممارسين وقادة المؤسسات ليوم مركّز من التعلّم والحوار. موضوع هذا العام هو بناء مؤسسات تتعلّم — واستكشاف كيف يمكن للفرق دمج التطوير المستمر في ثقافتها.",
+  "Expect keynote sessions, breakout workshops, and genuine conversation with peers who share your commitment to growth. Spaces are limited.":
+    "توقّع جلسات رئيسية وورش عمل متخصصة وحوارًا حقيقيًا مع زملاء يشاركونك الالتزام بالنمو. المقاعد محدودة.",
+  "Conference attendees at an annual summit": "حضور مؤتمر في قمة سنوية",
+  "Governance Essentials for Project Teams": "أساسيات الحوكمة لفرق المشاريع",
+  "Practical frameworks for oversight, accountability, and decision-making.":
+    "أطر عملية للإشراف والمساءلة واتخاذ القرار.",
+  "Project governance is not about adding bureaucracy — it's about creating clarity. When a team knows who makes which decisions, how progress is reported, and what happens when things go off track, they can focus energy on delivery rather than politics.":
+    "حوكمة المشاريع ليست إضافة بيروقراطية — بل صناعة وضوح. عندما يعرف الفريق من يتخذ أي قرار، وكيف يُبلَّغ عن التقدم، وماذا يحدث عند الانحراف عن المسار، يمكنه تركيز طاقته على التسليم لا على السياسة.",
+  "This guide walks you through the core governance structures every project team should have in place, drawing on frameworks from our Technology Governance and Project Management programs.":
+    "يرشدك هذا الدليل عبر هياكل الحوكمة الأساسية التي ينبغي أن تتوفر لدى كل فريق مشروع، مستندًا إلى أطر من برامج حوكمة التقنية وإدارة المشاريع لدينا.",
+  "Team reviewing governance documents": "فريق يراجع وثائق الحوكمة",
+  "Whether you're stepping into a new role or deepening your expertise, understanding your learning direction is essential. The right path is not always obvious, but with the right tools and guidance, you can make confident choices that align with your strengths and ambitions.":
+    "سواء كنت تنتقل إلى دور جديد أو تعمّق خبرتك، فإن فهم اتجاه تعلّمك أمر أساسي. المسار الصحيح ليس دائمًا واضحًا، لكن بالأدوات والإرشاد المناسبين يمكنك اتخاذ خيارات واثقة تتوافق مع نقاط قوتك وطموحاتك.",
+  "Start by assessing where you are today and where you want to be in three to five years. Map out the skills and knowledge required, then look for structured learning that bridges that gap. ES Learning programs are designed with this progression in mind.":
+    "ابدأ بتقييم موقعك اليوم وأين تريد أن تكون خلال ثلاث إلى خمس سنوات. ارسم المهارات والمعرفة المطلوبة، ثم ابحث عن تعلّم منظم يسد تلك الفجوة. برامج إي إس ليرنينغ مصممة مع هذا التدرج في الاعتبار.",
+  "Organizations that succeed in translating strategy into measurable results share a commitment to clear objectives and disciplined follow-through. Setting strategy is only the beginning — the real challenge is execution.":
+    "المؤسسات التي تنجح في تحويل الاستراتيجية إلى نتائج قابلة للقياس تتشارك الالتزام بأهداف واضحة ومتابعة منضبطة. وضع الاستراتيجية مجرد البداية — والتحدي الحقيقي هو التنفيذ.",
+  "This means defining meaningful indicators, building accountability into your team's processes, and creating a culture where performance conversations are regular and constructive. Our Strategy & Performance Measurement programs give you the tools to do exactly this.":
+    "يعني ذلك تعريف مؤشرات ذات معنى، وبناء المساءلة في عمليات فريقك، وصناعة ثقافة تكون فيها محادثات الأداء منتظمة وبناءة. برامج الاستراتيجية وقياس الأداء لدينا تمنحك الأدوات للقيام بذلك تحديدًا.",
+  "Process improvement starts with understanding how work actually flows through your organization. Many inefficiencies are invisible to the people who work within them every day — they become normalized until someone maps them out clearly.":
+    "يبدأ تحسين العمليات بفهم كيف يتدفق العمل فعليًا عبر مؤسستك. كثير من أوجه عدم الكفاءة غير مرئية لمن يعملون ضمنها يوميًا — تصبح أمرًا معتادًا حتى يرسمها أحد بوضوح.",
+  "Use process documentation, stakeholder interviews, and value stream analysis to identify where time and effort are wasted. Then design simpler, smarter ways of working that your team will actually adopt.":
+    "استخدم توثيق العمليات ومقابلات أصحاب المصلحة وتحليل تدفق القيمة لتحديد أين يُهدر الوقت والجهد. ثم صمّم طرق عمل أبسط وأذكى يتبناها فريقك فعليًا.",
   "Terms & Condition": "الشروط والأحكام",
   "Privacy Policy": "سياسة الخصوصية",
   "Quality Policy": "سياسة الجودة",
@@ -131,6 +260,22 @@ export const dictionary: Record<string, string> = {
   "Improve processes, reduce complexity, and work smarter.": "حسّن العمليات، وقلّل التعقيد، واعمل بذكاء أكبر.",
   "Two professionals shaking hands in an office": "مهنيان يتصافحان في مكتب",
   Partners: "الشركاء",
+  "Partners & Accreditations": "الشركاء والاعتمادات",
+  "When expertise comes together, learning goes further": "عندما تتكامل الخبرات، يمضي التعلّم أبعد",
+  "We collaborate with local and global specialist organizations to deliver programs informed by established expertise, methodologies and professional recognition.":
+    "نتعاون مع مؤسسات متخصصة محلية وعالمية لتقديم برامج تستند إلى خبرات ومنهجيات واعتراف مهني راسخ.",
+  "Our partners & accrediting bodies": "شركاؤنا وجهات الاعتماد",
+  "BPTrends Associates": "بي بي تريندز أسوشيتس",
+  "Business process management — selected program accreditation and BPT-PS certification pathway.":
+    "إدارة عمليات الأعمال — اعتماد برامج مختارة ومسار شهادة BPT-PS.",
+  "The Grove Consultants International": "ذا غروف كونسلتنتس إنترناشونال",
+  "Visual strategic planning — Strategic Visioning methodology.":
+    "التخطيط الاستراتيجي البصري — منهجية الرؤية الاستراتيجية.",
+  ISACA: "آيزاكا",
+  "IT governance, information security and professional qualifications such as CISM, CISA and CRISC.":
+    "حوكمة تقنية المعلومات وأمن المعلومات والمؤهلات المهنية مثل CISM وCISA وCRISC.",
+  "Partner organisations including Aramco, Saudi Customs, SABIC, SCHS, Bank Albilad, and MHRSD":
+    "مؤسسات شريكة تشمل أرامكو والجمارك السعودية وسابك وهيئة التخصصات الصحية وبنك البلاد ووزارة الموارد البشرية والتنمية الاجتماعية",
   "Our Global Partners": "شركاؤنا العالميون",
   "Our global partners": "شركاؤنا العالميون",
   "We collaborate with specialist organizations to deliver programs grounded in global methodologies and standards.":

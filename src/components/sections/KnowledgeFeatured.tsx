@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { RevealImage } from "@/components/animation/RevealImage";
-import { T } from "@/i18n/locale";
+import { LocalizedImage, T } from "@/i18n/locale";
 import type { KnowledgeArticle } from "@/data/knowledge";
 
 type KnowledgeFeaturedProps = {
@@ -21,19 +20,21 @@ export function KnowledgeFeatured({ main, side }: KnowledgeFeaturedProps) {
           {/* Main large card */}
           <Link href={`/knowledge/${main.slug}`} className="kh-featured__main">
             <RevealImage className="kh-featured__main-image">
-              <Image
+              <LocalizedImage
                 src={main.image}
                 alt={main.alt}
                 fill
                 quality={90}
                 sizes="(max-width: 56rem) 100vw, 50vw"
               />
-              <span className="kh-badge" aria-label={main.categoryLabel}>
+              <span className="kh-badge">
                 <T>{main.categoryLabel}</T>
               </span>
             </RevealImage>
             <div className="kh-featured__main-body">
-              <span className="kh-featured__main-date">{main.date}</span>
+              <span className="kh-featured__main-date">
+                <T>{main.date}</T>
+              </span>
               <h3 className="kh-featured__main-title">
                 <T>{main.title}</T>
               </h3>
@@ -45,19 +46,21 @@ export function KnowledgeFeatured({ main, side }: KnowledgeFeaturedProps) {
             {side.map((article) => (
               <Link key={article.slug} href={`/knowledge/${article.slug}`} className="kh-side-card">
                 <RevealImage className="kh-side-card__image">
-                  <Image
+                  <LocalizedImage
                     src={article.image}
                     alt={article.alt}
                     fill
                     quality={90}
                     sizes="(max-width: 56rem) 100vw, 25vw"
                   />
-                  <span className="kh-badge" aria-label={article.categoryLabel}>
+                  <span className="kh-badge">
                     <T>{article.categoryLabel}</T>
                   </span>
                 </RevealImage>
                 <div className="kh-side-card__body">
-                  <span className="kh-side-card__date">{article.date}</span>
+                  <span className="kh-side-card__date">
+                    <T>{article.date}</T>
+                  </span>
                   <h3 className="kh-side-card__title">
                     <T>{article.title}</T>
                   </h3>

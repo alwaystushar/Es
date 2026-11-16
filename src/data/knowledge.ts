@@ -8,6 +8,17 @@ export const knowledgeCategories = [
 
 export type KnowledgeCategorySlug = (typeof knowledgeCategories)[number]["slug"];
 
+export type KnowledgeArticleSection = {
+  heading: string;
+  body: string;
+};
+
+export type KnowledgeArticleFigure = {
+  image: string;
+  caption: string;
+  alt: string;
+};
+
 export type KnowledgeArticle = {
   slug: string;
   category: Exclude<KnowledgeCategorySlug, "all">;
@@ -18,9 +29,54 @@ export type KnowledgeArticle = {
   body: string;
   image: string;
   alt: string;
+  publishedLabel?: string;
+  readTime?: string;
+  contentType?: string;
+  topic?: string;
+  lead?: string;
+  intro?: string;
+  sections?: KnowledgeArticleSection[];
+  figure?: KnowledgeArticleFigure;
+  takeaway?: string;
+  heroImage?: string;
 };
 
 export const knowledgeArticles: KnowledgeArticle[] = [
+  {
+    slug: "training-applied-results",
+    category: "articles-insights",
+    categoryLabel: "Articles & Insights",
+    title: "Training is shifting from attendance to applied results",
+    date: "12/11/2026",
+    publishedLabel: "12 November 2026",
+    readTime: "4 min",
+    contentType: "News",
+    topic: "Training & Development",
+    excerpt: "More organizations now judge a program by what teams do afterward.",
+    lead: "More organizations now judge a program by what teams do afterward, and that is changing how learning is designed, delivered and measured.",
+    intro:
+      "Approved content opens with a clear introduction. Here, the idea is simple: the value of training is judged by how knowledge is applied at work, not by how many sessions were attended.",
+    sections: [
+      {
+        heading: "Introduction",
+        body: "Employers are asking sharper questions about learning. Instead of counting hours completed, they want to see better meetings, clearer policies and decisions made with stronger evidence. Programs that pair teaching with real practice are the ones people remember and use.",
+      },
+      {
+        heading: "What this means for teams",
+        body: "Teams benefit most when a program starts from a real work challenge, gives people tools they can use the next day, and checks progress after the course ends. This is how a Knowledge Hub stays useful beyond a blog: each piece connects an idea to something practical.",
+      },
+    ],
+    figure: {
+      image: "/assets/images/knowledge/detail/figure.webp",
+      caption: "Hands-on practice is now a core part of program design.",
+      alt: "Learners practising together at a laptop",
+    },
+    takeaway: "The best training leaves behind tools people use, not just notes they keep.",
+    heroImage: "/assets/images/knowledge/detail/hero.webp",
+    body: "Approved content opens with a clear introduction. Here, the idea is simple: the value of training is judged by how knowledge is applied at work, not by how many sessions were attended.\n\nEmployers are asking sharper questions about learning. Instead of counting hours completed, they want to see better meetings, clearer policies and decisions made with stronger evidence. Programs that pair teaching with real practice are the ones people remember and use.\n\nTeams benefit most when a program starts from a real work challenge, gives people tools they can use the next day, and checks progress after the course ends.",
+    image: "/assets/images/knowledge/detail/related.webp",
+    alt: "Professionals collaborating in a training room",
+  },
   {
     slug: "choose-your-career-path",
     category: "articles-insights",
@@ -62,7 +118,7 @@ export const knowledgeArticles: KnowledgeArticle[] = [
     date: "05/08/2026",
     excerpt: "Explore how AI tools can reshape productivity in the modern workplace.",
     body: "The rise of AI-assisted workflows has changed how professionals organize their time and manage their output. High performers aren't necessarily working harder — they are working with better systems, and AI is becoming a central part of those systems.\n\nFrom automating repetitive tasks to surfacing insights faster, AI tools allow individuals and teams to focus their attention where it truly matters. Understanding how to integrate these tools into your daily workflow is now a core professional skill.",
-    image: "/assets/images/knowledge/article-cover.png",
+    image: "/assets/images/knowledge/detail/related.webp",
     alt: "Professional working with AI tools in a modern office",
   },
   {

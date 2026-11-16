@@ -478,9 +478,23 @@
 }
 
 .desktop-nav__links {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-5);
+}
+
+.desktop-nav__dot {
+  position: absolute;
+  left: 0;
+  bottom: 0.05rem;
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
 }
 
 .nav-link {
@@ -490,6 +504,7 @@
   line-height: var(--line-height-tight);
   white-space: nowrap;
   padding-block: 0.35rem;
+  padding-bottom: 0.55rem;
   cursor: pointer;
   transition: color 0.4s var(--ease-standard);
 }
@@ -538,6 +553,10 @@
 .site-header.is-on-dark .nav-link:hover,
 .site-header.is-on-dark .nav-link[aria-current="page"] {
   color: var(--color-white);
+}
+
+.site-header.is-on-dark .desktop-nav__dot {
+  background: var(--color-white);
 }
 
 .site-header.is-on-dark .lang-button {
@@ -1871,7 +1890,8 @@
   min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
-  padding: 11.75rem var(--container-padding) 2.8125rem; /* ~187px content top */
+  /* Figma Content y=187.55; media sits 45px from bottom */
+  padding: calc(100vw * 187.55 / 1440) var(--container-padding) calc(100vw * 45 / 1440);
   background: #f9fcfb;
 }
 
@@ -1895,8 +1915,8 @@
 */
 .about-hero__field {
   position: absolute;
-  top: 6.73125rem;
-  left: calc(50% - 1.8125rem);
+  top: calc(100vw * 107.7 / 1440);
+  left: calc(50% - calc(100vw * 29 / 1440));
   z-index: 0;
   display: flex;
   align-items: center;
@@ -1930,15 +1950,16 @@
 
 .about-hero__content {
   position: absolute;
-  top: 11.75rem;
+  top: calc(100vw * 187.55 / 1440);
   left: 0;
   right: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  width: min(calc(100% - 2 * var(--container-padding)), 41.5rem);
+  gap: calc(100vw * 32 / 1440); /* Figma Content gap 32 */
+  /* Figma Content w=664 */
+  width: min(calc(100% - 2 * var(--container-padding)), calc(100vw * 664 / 1440));
   margin-inline: auto;
   text-align: center;
   will-change: transform, opacity;
@@ -1947,23 +1968,25 @@
 .about-hero__copy {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: calc(100vw * 20 / 1440); /* Figma Heading+Body gap 20 */
   width: 100%;
 }
 
 .about-hero__title {
   margin: 0;
-  color: var(--color-ink);
-  font-size: 3.75rem;
-  font-weight: 400;
+  width: 100%;
+  color: #1b2a22;
+  font-size: calc(100vw * 60 / 1440); /* Figma H2 60 */
+  font-weight: var(--font-weight-regular);
   line-height: 1.15;
 }
 
 .about-hero__body {
   margin: 0;
-  color: var(--color-text);
-  font-size: 1.25rem;
-  font-weight: 400;
+  width: 100%;
+  color: #4a5a51;
+  font-size: calc(100vw * 20 / 1440); /* Figma B4 20 */
+  font-weight: var(--font-weight-regular);
   line-height: 1.5;
   opacity: 0.7;
 }
@@ -1989,23 +2012,18 @@
 .about-hero__media {
   position: relative;
   flex: none;
-  width: 25.5rem;
-  height: 25.5rem;
+  /* Figma mask 408.301 — resting square */
+  width: calc(100vw * 408.301 / 1440);
+  height: calc(100vw * 408.301 / 1440);
   overflow: hidden;
   will-change: width, height, border-radius;
   border-radius: 0;
   transform-origin: center center;
 }
 
+/* Resting state is a full square — overflow:hidden clips. Mask kept for future organic shapes. */
 .about-hero__media.is-masked {
-  mask-image: url("/assets/images/about/hero-mask.svg");
-  mask-size: 100% 100%;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  -webkit-mask-image: url("/assets/images/about/hero-mask.svg");
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
+  border-radius: 0;
 }
 
 .about-hero__media img {
@@ -2013,26 +2031,28 @@
   object-position: center;
 }
 
+/* About foundations — Figma 3062:71294 (1440×825) */
 .about-foundations {
   position: relative;
-  background: var(--color-background);
+  background: #f9fcfb;
 }
 
 .about-foundations__stage {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 32.875rem);
-  column-gap: 4.5rem;
+  /* Left copy ~630, right cards 526; rail on center */
+  grid-template-columns: minmax(0, 1fr) minmax(0, calc(100vw * 526 / 1440));
+  column-gap: calc(100vw * 72 / 1440);
   align-items: center;
   min-height: 100vh;
-  padding-block: 5rem;
+  padding-block: calc(100vw * 80 / 1440);
 }
 
 .about-foundations__rail {
   position: absolute;
-  inset-inline-start: 50%;
-  top: 5rem;
-  bottom: 5rem;
+  inset-inline-start: calc(50% + calc(100vw * 15.24 / 1440));
+  top: calc(100vw * 80 / 1440);
+  height: calc(100vw * 664 / 1440);
   width: 0.125rem;
   transform: translateX(-50%);
   pointer-events: none;
@@ -2050,8 +2070,8 @@
 }
 
 .about-foundations__rail-fill {
-  background: var(--color-primary);
-  transform: scaleY(0.2);
+  background: #1f6f4e;
+  transform: scaleY(0.15);
   transform-origin: top center;
   will-change: transform;
 }
@@ -2060,32 +2080,33 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: min(41.5rem, calc(100vh - 12rem));
-  /* Figma heading frame 459px — keeps 3-line break */
-  max-width: 28.7rem;
+  /* Figma left column h=664 */
+  height: min(calc(100vw * 664 / 1440), calc(100vh - 10rem));
+  /* Figma heading frame 459 — 3-line title break */
+  max-width: calc(100vw * 459 / 1440);
 }
 
 .about-foundations__heading {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: calc(100vw * 20 / 1440);
   width: 100%;
 }
 
 .about-foundations__title {
   margin: 0;
   width: 100%;
-  color: var(--color-ink);
-  font-size: 3.375rem;
-  font-weight: 400;
+  color: #1b2a22;
+  font-size: calc(100vw * 54 / 1440);
+  font-weight: var(--font-weight-regular);
   line-height: 1.15;
 }
 
 .about-foundations__count {
   position: relative;
   display: block;
-  width: 4.5rem;
-  height: 2.875rem;
+  width: calc(100vw * 72 / 1440);
+  height: calc(100vw * 46 / 1440);
   flex: none;
   align-self: start;
 }
@@ -2094,28 +2115,28 @@
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
-  width: 2.875rem;
-  height: 2.875rem;
+  width: calc(100vw * 45.9 / 1440);
+  height: calc(100vw * 45.9 / 1440);
   border: 0.0625rem solid rgba(27, 42, 34, 0.28);
   border-radius: 50%;
 }
 
 .about-foundations__count-current {
   position: absolute;
-  inset-block-start: 0.62rem;
-  inset-inline-start: 1.06rem;
-  color: var(--color-ink);
-  font-size: 1.5rem;
+  inset-block-start: calc(100vw * 9.95 / 1440);
+  inset-inline-start: calc(100vw * 16.95 / 1440);
+  color: #1b2a22;
+  font-size: calc(100vw * 24 / 1440);
   font-weight: 300;
   line-height: 1.1;
 }
 
 .about-foundations__count-total {
   position: absolute;
-  inset-block-start: 1.93rem;
-  inset-inline-start: 3.17rem;
-  color: var(--color-ink);
-  font-size: 0.875rem;
+  inset-block-start: calc(100vw * 30.95 / 1440);
+  inset-inline-start: calc(100vw * 50.7 / 1440);
+  color: #1b2a22;
+  font-size: calc(100vw * 14 / 1440);
   font-weight: 300;
   line-height: 1.1;
   opacity: 0.42;
@@ -2125,8 +2146,8 @@
 .about-foundations__cards {
   position: relative;
   width: 100%;
-  max-width: 32.875rem;
-  height: min(41.5rem, calc(100vh - 12rem));
+  max-width: calc(100vw * 526 / 1440);
+  height: min(calc(100vw * 664 / 1440), calc(100vh - 10rem));
   overflow: hidden;
 }
 
@@ -2142,19 +2163,23 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 3.75rem;
+  /* Figma gap 60 between media and copy */
+  gap: calc(100vw * 60 / 1440);
   width: 100%;
   flex: none;
-  height: min(41.5rem, calc(100vh - 12rem));
+  height: min(calc(100vw * 664 / 1440), calc(100vh - 10rem));
+  overflow: hidden;
 }
 
 .about-foundations__media {
   position: relative;
   width: 100%;
-  height: 27.75rem;
+  /* Figma media h=444 */
+  height: calc(100vw * 444 / 1440);
+  max-height: calc(100% - 8rem);
   overflow: hidden;
   border-radius: 0.75rem;
-  background: var(--color-primary);
+  background: #1f6f4e;
   flex: none;
 }
 
@@ -2162,18 +2187,26 @@
   object-fit: cover;
 }
 
+.about-foundations__detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 16 — Figma */
+  width: 100%;
+  flex: none;
+}
+
 .about-foundations__detail h3 {
-  margin: 0 0 1rem;
-  color: var(--color-ink);
-  font-size: 2.25rem;
-  font-weight: 400;
+  margin: 0;
+  color: #1b2a22;
+  font-size: calc(100vw * 36 / 1440);
+  font-weight: var(--font-weight-regular);
   line-height: 1.2;
 }
 
 .about-foundations__detail p {
   margin: 0;
-  color: var(--color-ink);
-  font-size: 1.125rem;
+  color: #1b2a22;
+  font-size: calc(100vw * 18 / 1440);
   line-height: 1.5;
   opacity: 0.7;
 }
@@ -4618,8 +4651,7 @@
 }
 
 .knowledge-hub,
-.knowledge-article,
-.partners-page {
+.knowledge-article {
   padding-block: calc(var(--header-height) + var(--header-offset) + 2.5rem) 4rem;
 }
 
@@ -4649,7 +4681,6 @@
 }
 
 .knowledge-hub__title,
-.partners-page__title,
 .contact-hero__title,
 .expert-profile-hero__title,
 .knowledge-article__title {
@@ -4661,7 +4692,6 @@
 }
 
 .knowledge-hub__body,
-.partners-page__body,
 .expert-profile-hero__body {
   margin: 0;
   color: var(--color-text);
@@ -4690,7 +4720,6 @@
 
 .knowledge-hub__featured,
 .knowledge-hub__latest,
-.partners-page__bodies,
 .experts-directory,
 .expert-profile,
 .contact-panel,
@@ -4701,7 +4730,6 @@
 
 .knowledge-hub__featured h2,
 .knowledge-hub__latest h2,
-.partners-page__bodies h2,
 .experts-directory__title,
 .expert-profile h2,
 .contact-faq__title {
@@ -5842,7 +5870,7 @@
   position: relative;
   /* Natural content height; floor from Figma frame so field has room */
   min-height: calc(100vw * 2257 / 1440);
-  padding-bottom: 5rem;
+  padding-block: 0 5rem;
   background: #f9fcfb;
   overflow: hidden;
 }
@@ -5892,14 +5920,17 @@
 }
 
 /*
-  Figma Vector 3047:57716 — same rotate/size as contact/journey.
-  Figma AABB sits at y≈1489 (off-canvas x), but the visible stipple
-  arch belongs in the upper half (behind hero → into title), then
-  the white overlay fades it for the partner rows.
+  Figma Vector 3084:114069 — same structure as .contact-hero__field:
+  wrapper 2879.081×2880.688, left calc(50% - 26px), translateX(-50%)
+  img 2054.93×2019.99, rotate 133.14° — no non-uniform scale
+
+  Figma reports the rotated AABB at y≈1488, but the visible stipple dome
+  peaks at the hero CTA. Anchor the wrapper so the arc meets Sign In —
+  not through the title (too high) or under the list (too low).
 */
 .partners-page__field {
   position: absolute;
-  top: 1.57rem;
+  top: calc(100vw * 560 / 1440);
   left: calc(50% - 1.625rem);
   z-index: 0;
   display: flex;
@@ -5921,7 +5952,7 @@
   transform: rotate(133.14deg);
 }
 
-/* Figma 3047:57717 White Overlay — from transparent → #f9fcfb */
+/* Figma 3084:114070 White Overlay — from transparent → #f9fcfb */
 .partners-page__overlay {
   position: absolute;
   left: 0;
@@ -5937,25 +5968,43 @@
   );
 }
 
-/* Hero copy block — Figma Container y=180, h=464 */
+/* Hero copy — Figma Container 3084:114088 @ y=180, h=464, inner w=796 */
 .partners-page__hero {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(100vw * 180 / 1440);
-  padding-bottom: calc(100vw * (987.855 - 644) / 1440); /* space to title @ 988 */
-  min-height: calc(100vw * 644 / 1440);
+  justify-content: flex-start;
+  /* Container y=180 + centered inner frame y=60.5 → copy starts @ 240.5 */
+  padding-top: calc(100vw * 240.5 / 1440);
+  /* Bodies title starts @ 987.855; hero content ends ~644 */
+  padding-bottom: calc(100vw * (987.855 - 644) / 1440);
 }
 
 .partners-page__hero-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem; /* 40 */
+  gap: 2.5rem; /* 40 — block to CTA */
   text-align: center;
-  width: min(100%, calc(100vw * 554 / 1440));
+  width: min(100%, calc(100vw * 796 / 1440));
+}
+
+.partners-page__hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* 24 — heading group to body */
+  width: 100%;
+}
+
+.partners-page__hero-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem; /* 20 — eyebrow to title */
+  width: 100%;
 }
 
 .partners-page__hero-layout .eyebrow {
@@ -5964,6 +6013,9 @@
 
 .partners-page__title {
   margin: 0;
+  /* Width matches Figma 796 so wrap stays: “When expertise comes / together, …” */
+  width: 100%;
+  max-width: calc(100vw * 796 / 1440);
   font-size: calc(100vw * 54 / 1440);
   font-weight: var(--font-weight-regular);
   line-height: 1.15;
@@ -5972,8 +6024,10 @@
 
 .partners-page__body {
   margin: 0;
+  width: 100%;
+  max-width: calc(100vw * 796 / 1440);
   color: #4a5a51;
-  font-size: 1.25rem; /* 20 */
+  font-size: calc(100vw * 20 / 1440);
   line-height: 1.5;
   opacity: 0.7;
 }
@@ -5986,6 +6040,7 @@
 .partners-page__bodies {
   position: relative;
   z-index: 2;
+  padding-block: 0;
 }
 
 /* Figma inset ~180 start / logos span 1191 */
@@ -7757,92 +7812,421 @@ a.contact-detail__value:hover {
 }
 
 /* =========================================================
-   Article Detail Page
+   Article Detail — Knowledge Hub (Figma 3084:119643)
    ========================================================= */
 
-.article-detail {
-  padding-top: calc(var(--header-height) + var(--header-offset) + var(--space-12));
-  padding-bottom: var(--section-spacing);
-}
-
-.article-detail__cover {
+.article-hero {
   position: relative;
-  width: 100%;
-  max-width: 82rem;
-  aspect-ratio: 2 / 1;
+  height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
-  border-radius: 1rem;
-  margin-bottom: var(--space-10);
-  background: var(--color-areas);
+  background: #f9fcfb;
 }
 
-.article-detail__cover > span,
-.article-detail__cover img {
-  position: absolute !important;
+.article-hero__wash {
+  position: absolute;
   inset: 0;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.article-detail__meta {
+.article-hero__glow {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+
+.article-hero__glow--a {
+  inset-inline-start: calc(100vw * -228.39 / 1440);
+  top: calc(100vw * 170.53 / 1440);
+  width: calc(100vw * 756.14 / 1440);
+  height: auto;
+}
+
+.article-hero__glow--b {
+  inset-inline-start: calc(100vw * 129.21 / 1440);
+  top: calc(100vw * 213.15 / 1440);
+  width: calc(100vw * 1014.91 / 1440);
+  height: auto;
+}
+
+.article-hero__glow--c {
+  inset-inline-start: calc(100vw * 56.48 / 1440);
+  top: calc(100vw * 338.37 / 1440);
+  width: calc(100vw * 1306.94 / 1440);
+  height: auto;
+}
+
+.article-hero__glow--d {
+  inset-inline-start: calc(100vw * 825.09 / 1440);
+  top: calc(100vw * 155.76 / 1440);
+  width: calc(100vw * 756.14 / 1440);
+  height: auto;
+}
+
+.article-hero__stage {
+  --article-ring: calc(100vw * 1080.848 / 1440);
+  --article-photo: calc(100vw * 1067.582 / 1440);
+  position: absolute;
+  inset-inline-start: calc(100% * 742.78 / 1440);
+  top: calc(100vw * -97.24 / 1440);
+  z-index: 1;
+  width: calc(100% * 1085.4375 / 1440);
+  height: calc(100vw * 1094.8867 / 1440);
+  pointer-events: none;
+}
+
+.article-hero__ring {
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% * 14.039 / 1094.8867);
+  width: var(--article-ring);
+  height: var(--article-ring);
+  max-width: none;
+}
+
+.article-hero__photo {
+  position: absolute;
+  inset-inline-start: calc(100% * 17.855 / 1085.4375);
+  top: 0;
+  width: var(--article-photo);
+  height: var(--article-photo);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.article-hero__photo-img {
+  object-fit: cover;
+  object-position: 42% 40%;
+  transform: scale(1.18);
+  transform-origin: 42% 40%;
+}
+
+.article-hero__photo-shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.article-hero__layout {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-6);
+  height: 100%;
+  min-height: 100%;
+  padding-block: calc(var(--header-height) + var(--header-offset) + 4rem) 4rem;
 }
 
-.article-detail__category {
+.article-hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: min(100%, calc(100vw * 618 / 1440));
+}
+
+.article-hero__title {
+  margin: 0;
+  color: #1b2a22;
+  font-size: calc(100vw * 54 / 1440);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.article-hero__lead {
+  margin: 0;
+  color: #818f87;
+  font-size: calc(100vw * 20 / 1440);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.article-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  padding-top: 1.5rem;
+}
+
+.article-hero__meta p {
+  margin: 0;
+  color: #7a8780;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.article-hero__meta span {
+  color: #111e15;
+  font-weight: 400;
+}
+
+.article-body {
+  background: #f9fcfb;
+  padding-block: 5.5rem 2.5rem;
+}
+
+.article-body__grid {
+  display: grid;
+  grid-template-columns: calc(100vw * 280 / 1440) minmax(0, calc(100vw * 740 / 1440));
+  gap: calc(100vw * 52 / 1440);
+  align-items: start;
+  justify-content: start;
+}
+
+.article-sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + var(--header-offset) + 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 1.75rem;
+  border: 0.0417rem solid #e1e9e5;
+  border-radius: 1.5rem;
+  background: var(--color-white);
+}
+
+.article-sidebar__block + .article-sidebar__block {
+  padding-top: 1.375rem;
+}
+
+.article-sidebar__label {
+  margin: 0;
+  color: #1f6f4e;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.article-sidebar__value {
+  margin: 0.375rem 0 0;
+  color: #111e15;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.article-share {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.375rem;
+}
+
+.article-share__btn {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem var(--space-3);
-  background: var(--color-areas);
-  color: var(--color-primary);
-  border-radius: var(--radius-pill);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-}
-
-.article-detail__date {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-muted);
-}
-
-.article-detail__title {
-  margin: 0 0 var(--space-8);
-  font-size: var(--font-size-hero);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-tight);
-  color: var(--color-ink);
-  max-width: 20ch;
-}
-
-.article-detail__body {
-  font-size: var(--font-size-md);
-  line-height: var(--line-height-body);
-  color: var(--color-text);
-  max-width: 52rem;
-}
-
-.article-detail__body p {
-  margin: 0 0 var(--space-5);
-}
-
-.article-detail__back {
-  margin-top: var(--space-12);
-}
-
-.article-detail__back-link {
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-medium);
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border: 0.0417rem solid #111e15;
+  border-radius: 50%;
+  background: transparent;
+  color: #111e15;
+  cursor: pointer;
   text-decoration: none;
-  transition: color var(--duration-fast) var(--ease-standard);
+  transition:
+    background-color 0.3s var(--ease-standard),
+    color 0.3s var(--ease-standard);
 }
 
-.article-detail__back-link:hover {
-  color: var(--color-primary-dark);
+.article-share__btn:hover {
+  background: #111e15;
+}
+
+.article-share__btn:hover img {
+  filter: brightness(0) invert(1);
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100vw * 740 / 1440);
+}
+
+.article-content__intro {
+  margin: 0;
+  color: #4a5a51;
+  font-size: calc(100vw * 24 / 1440);
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.article-content__section {
+  display: flex;
+  flex-direction: column;
+}
+
+.article-content__heading {
+  margin: 3.5rem 0 0;
+  color: #1f6f4e;
+  font-size: calc(100vw * 32 / 1440);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.article-content__text {
+  margin: 1.5rem 0 0;
+  color: #3d4d45;
+  font-size: calc(100vw * 18 / 1440);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.article-content__figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 3.5rem 0 0;
+}
+
+.article-content__figure-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 740 / 416.25;
+  overflow: hidden;
+  border-radius: 1.75rem;
+}
+
+.article-content__figure figcaption {
+  margin: 0;
+  color: #7a8780;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.article-takeaway {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 3.5rem;
+  min-height: 12.5rem;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: #1f6f4e;
+}
+
+.article-takeaway__field {
+  position: absolute;
+  inset-inline-start: calc(50% + 24rem);
+  top: -22.5rem;
+  z-index: 0;
+  width: calc(100vw * 1534.6 / 1440);
+  height: auto;
+  max-width: none;
+  transform: translateX(-50%) rotate(133.14deg);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.article-takeaway__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, #1f6f4e 12.77%, rgba(31, 111, 78, 0) 147%);
+  pointer-events: none;
+}
+
+.article-takeaway__content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  width: min(100%, calc(100vw * 564 / 1440));
+  padding: 2.625rem 2.5rem;
+}
+
+.article-related .kh-badge {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--color-white);
+  backdrop-filter: blur(8px);
+}
+
+.article-takeaway__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--color-white);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.article-takeaway__dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 0.1875rem;
+  background: #9fcb51;
+}
+
+.article-takeaway__text {
+  margin: 0;
+  color: var(--color-white);
+  font-size: calc(100vw * 28 / 1440);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.article-related {
+  background: var(--color-white);
+  padding-block: 4rem;
+}
+
+.article-related__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.article-related__title {
+  margin: 0;
+  color: #18372e;
+  font-size: calc(100vw * 32 / 1440);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.article-related__cta {
+  flex: none;
+  height: 2.55rem;
+  min-height: 2.55rem;
+  padding-inline: 1.4rem;
+}
+
+.article-related__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 64rem) {
+  .article-body__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+  }
+
+  .article-sidebar__block + .article-sidebar__block {
+    padding-top: 0;
+  }
+
+  .article-hero__stage {
+    opacity: 0.95;
+  }
+
+  .article-content {
+    max-width: none;
+  }
 }
 
 /* =========================================================
@@ -7889,8 +8273,65 @@ a.contact-detail__value:hover {
     font-size: var(--font-size-3xl);
   }
 
-  .article-detail__title {
-    font-size: var(--font-size-3xl);
+  .article-hero {
+    height: auto;
+    min-height: auto;
+  }
+
+  .article-hero__stage {
+    position: relative;
+    inset-inline-start: auto;
+    top: auto;
+    width: min(90vw, 28rem);
+    height: min(90vw, 28rem);
+    margin: 0 auto 2rem;
+  }
+
+  .article-hero__layout {
+    height: auto;
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: calc(var(--header-height) + var(--header-offset) + 2rem);
+  }
+
+  .article-hero__copy {
+    width: 100%;
+  }
+
+  .article-hero__title {
+    font-size: 2.25rem;
+  }
+
+  .article-hero__lead,
+  .article-content__intro,
+  .article-content__heading,
+  .article-content__text,
+  .article-takeaway__text,
+  .article-related__title {
+    font-size: 1.125rem;
+  }
+
+  .article-content__heading {
+    font-size: 1.5rem;
+  }
+
+  .article-content__intro {
+    font-size: 1.25rem;
+  }
+
+  .article-body__grid,
+  .article-related__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content {
+    max-width: none;
+  }
+
+  .article-related__head {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   /* Seminars mobile */

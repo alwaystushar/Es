@@ -51,16 +51,20 @@ export function PartnersSection() {
       {/* White fade over field into partner list — Figma 3047:57717 */}
       <div className="partners-page__overlay" aria-hidden="true" />
 
-      {/* Hero copy — Figma Container 3047:57735 @ y=180, h=464 */}
+      {/* Hero copy — Figma Container 3084:114088 @ y=180, h=464, w=796 */}
       <div className="partners-page__hero">
         <div className="section-container partners-page__hero-layout">
-          <Eyebrow>{partnersPageHero.eyebrow}</Eyebrow>
-          <RevealLines id="partners-hero-title" as="h1" className="partners-page__title" playOnMount>
-            {partnersPageHero.title}
-          </RevealLines>
-          <p className="partners-page__body">
-            <T>{partnersPageHero.body}</T>
-          </p>
+          <div className="partners-page__hero-copy">
+            <div className="partners-page__hero-heading">
+              <Eyebrow>{partnersPageHero.eyebrow}</Eyebrow>
+              <RevealLines id="partners-hero-title" as="h1" className="partners-page__title" playOnMount>
+                {partnersPageHero.title}
+              </RevealLines>
+            </div>
+            <p className="partners-page__body">
+              <T>{partnersPageHero.body}</T>
+            </p>
+          </div>
           <div className="partners-page__action">
             <Button variant="solid" href={partnersPageHero.ctaHref} dot="start">
               {partnersPageHero.ctaLabel}
@@ -72,8 +76,8 @@ export function PartnersSection() {
       {/* Bodies — title @ y=988, list @ y=1206 */}
       <div className="partners-page__bodies" aria-labelledby="partners-accrediting-title">
         <div className="partners-page__inset">
-          <RevealLines id="partners-accrediting-title" as="h2" className="partners-page__bodies-title">
-            Our partners &amp; accrediting bodies
+          <RevealLines id="partners-accrediting-title" as="h2" className="partners-page__bodies-title" playOnMount>
+            Our partners & accrediting bodies
           </RevealLines>
         </div>
 

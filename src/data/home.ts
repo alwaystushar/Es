@@ -1,8 +1,11 @@
 export const navigation = [
+  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Training Programs", href: "/programs" },
+  { label: "For Organizations", href: "/organization" },
+  { label: "Programs", href: "/programs" },
   { label: "Seminars", href: "/seminars" },
   { label: "Knowledge Hub", href: "/knowledge" },
+  { label: "Partners", href: "/partners" },
   { label: "Contact Us", href: "/contact" },
 ] as const;
 

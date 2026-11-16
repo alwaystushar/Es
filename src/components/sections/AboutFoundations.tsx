@@ -85,7 +85,7 @@ export function AboutFoundations() {
         <div className="about-foundations__copy">
           <div className="about-foundations__heading">
             <Eyebrow>What Sets ES Learning Apart?</Eyebrow>
-            <RevealLines id="about-foundations-title" as="h2" className="about-foundations__title">
+            <RevealLines id="about-foundations-title" as="h2" className="about-foundations__title" playOnMount>
               Four foundations of our learning experience
             </RevealLines>
           </div>

@@ -1,8 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { RevealImage } from "@/components/animation/RevealImage";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { T } from "@/i18n/locale";
+import { LocalizedImage, T } from "@/i18n/locale";
 import type { KnowledgeArticle } from "@/data/knowledge";
 
 type KnowledgeLatestProps = {
@@ -35,19 +34,21 @@ export function KnowledgeLatest({ articles, title = "Latest Content" }: Knowledg
           {articles.map((article) => (
             <Link key={article.slug} href={`/knowledge/${article.slug}`} className="kh-card card-hover">
               <RevealImage className="kh-card__image">
-                <Image
+                <LocalizedImage
                   src={article.image}
                   alt={article.alt}
                   fill
                   quality={90}
                   sizes="(max-width: 40rem) 100vw, (max-width: 56rem) 50vw, 33vw"
                 />
-                <span className="kh-badge" aria-label={article.categoryLabel}>
+                <span className="kh-badge">
                   <T>{article.categoryLabel}</T>
                 </span>
               </RevealImage>
               <div className="kh-card__body">
-                <span className="kh-card__date">{article.date}</span>
+                <span className="kh-card__date">
+                  <T>{article.date}</T>
+                </span>
                 <h3 className="kh-card__title">
                   <T>{article.title}</T>
                 </h3>
