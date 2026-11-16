@@ -259,7 +259,6 @@ export const dictionary: Record<string, string> = {
   "Make Work More Efficient": "اجعل العمل أكثر كفاءة",
   "Improve processes, reduce complexity, and work smarter.": "حسّن العمليات، وقلّل التعقيد، واعمل بذكاء أكبر.",
   "Two professionals shaking hands in an office": "مهنيان يتصافحان في مكتب",
-  Partners: "الشركاء",
   "Partners & Accreditations": "الشركاء والاعتمادات",
   "When expertise comes together, learning goes further": "عندما تتكامل الخبرات، يمضي التعلّم أبعد",
   "We collaborate with local and global specialist organizations to deliver programs informed by established expertise, methodologies and professional recognition.":
