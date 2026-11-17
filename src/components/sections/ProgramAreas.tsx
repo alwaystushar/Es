@@ -28,7 +28,7 @@ export function ProgramAreas() {
   /* CSS stacks areas at 72rem — pin only when the split layout is intact */
   const isTabletDown = useMediaQuery(MQ_TABLET);
   const { locale } = useLocale();
-  const forced = !reduced && !isTabletDown;
+  const forced = !reduced && isTabletDown === false;
   const [generation, setGeneration] = useState(0);
 
   useIsomorphicLayoutEffect(() => {

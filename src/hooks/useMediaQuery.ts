@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
-/** Live `matchMedia` flag — updates on viewport changes (orientation / resize). */
-export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+/**
+ * Live `matchMedia` flag — updates on viewport changes (orientation / resize).
+ * Starts as `null` until measured so callers can skip GSAP until the MQ is known.
+ */
+export function useMediaQuery(query: string): boolean | null {
+  const [matches, setMatches] = useState<boolean | null>(null);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const mq = window.matchMedia(query);
     const apply = () => setMatches(mq.matches);
     apply();

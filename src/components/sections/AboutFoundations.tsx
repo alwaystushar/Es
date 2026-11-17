@@ -27,7 +27,7 @@ export function AboutFoundations() {
     const stageEl = stage.current;
     const trackEl = track.current;
     const bar = progress.current;
-    if (!root || !stageEl || !trackEl || reduced || isTabletDown) return;
+    if (!root || !stageEl || !trackEl || reduced || isTabletDown !== false) return;
 
     const items = Array.from(trackEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
     if (!items.length) return;

@@ -53,7 +53,7 @@ export function AboutMission() {
       !bodyA ||
       !bodyB ||
       reduced ||
-      isTabletDown
+      isTabletDown !== false
     ) {
       return;
     }

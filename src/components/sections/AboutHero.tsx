@@ -27,35 +27,48 @@ export function AboutHero() {
     const contentEl = content.current;
     const fieldEl = field.current;
     const mediaEl = media.current;
-    if (!root || !pinEl || !contentEl || !fieldEl || !mediaEl || reduced || isPhone) return;
+    /* Wait until MQ is known so we never mount pin GSAP on phone, then tear it down */
+    if (!root || !pinEl || !contentEl || !fieldEl || !mediaEl || reduced || isPhone !== false) {
+      return;
+    }
 
     registerGsap();
     const context = gsap.context(() => {
       const wrap = mediaEl.parentElement as HTMLElement;
 
-      const startSize = () => {
-        const ideal = pinEl.clientWidth * (408.301 / 1440);
-        const styles = getComputedStyle(pinEl);
-        const padY =
-          (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
-        const gap = pinEl.clientWidth * (40 / 1440);
-        const room = pinEl.clientHeight - contentEl.offsetHeight - padY - gap;
-        return Math.round(Math.min(ideal, Math.max(room, 0)));
-      };
+      const startSize = () => Math.round(pinEl.clientWidth * (408.301 / 1440));
       const endWidth = () => Math.round(pinEl.clientWidth - pinEl.clientWidth * (64 / 1440));
       const endHeight = () => Math.round(pinEl.clientHeight * 0.92);
+      /*
+       * Cold start: sit fully under the centered copy (not overlapping),
+       * then rise to the pin center before the scale opens.
+       * Media is absolute at 50%/50% with xPercent/yPercent -50, so `y` is
+       * an offset from the true center.
+       */
+      const startY = () => {
+        const size = startSize();
+        const gap = pinEl.clientWidth * (40 / 1440);
+        /* Park ~20% lower under the copy so more of the notch reads below the CTA */
+        return Math.round((contentEl.offsetHeight / 2 + gap + size / 2) * 1.2);
+      };
 
       const applyStart = () => {
-        wrap.classList.remove("is-expanded");
         mediaEl.classList.add("is-masked");
-        gsap.set(contentEl, { y: 0, opacity: 1, clearProps: "x" });
-        gsap.set(wrap, { alignItems: "flex-end" });
+        wrap.classList.remove("is-expanded");
         const size = startSize();
+        gsap.set(contentEl, { y: 0, opacity: 1, clearProps: "x" });
         gsap.set(mediaEl, {
+          left: "50%",
+          top: "50%",
+          xPercent: -50,
+          yPercent: -50,
+          x: 0,
+          y: startY(),
           width: size,
           height: size,
           borderRadius: 0,
-          clearProps: "maxWidth,maxHeight",
+          opacity: 1,
+          clearProps: "maxWidth,maxHeight,margin",
         });
       };
 
@@ -70,44 +83,65 @@ export function AboutHero() {
           scrub: 0.55,
           pin: pinEl,
           invalidateOnRefresh: true,
+          anticipatePin: 1,
           onRefresh: (self) => {
-            if (self.progress < 0.01) applyStart();
+            if (self.progress < 0.02) applyStart();
           },
           onUpdate: (self) => {
-            mediaEl.classList.toggle("is-masked", self.progress < 0.38);
-            wrap.classList.toggle("is-expanded", self.progress > 0.4);
-            wrap.style.alignItems = self.progress > 0.42 ? "center" : "flex-end";
+            /* Keep the notch until the image has risen and begun opening */
+            mediaEl.classList.toggle("is-masked", self.progress < 0.52);
+            wrap.classList.toggle("is-expanded", self.progress >= 0.42);
           },
         },
       });
 
-      /* 1) Text leaves — 2) then the same image opens to cover the stage */
-      tl.to(
-        contentEl,
+      /*
+       * Cold pose is keyed at t=0. fromTo immediateRender was wiping `y`
+       * before the rise tween, which caused flicker / stuck overlap.
+       * 1) Copy leaves  2) Image rises to center  3) Same image opens wide
+       */
+      tl.fromTo(
+        mediaEl,
         {
-          y: () => -pinEl.clientHeight * 0.85,
-          opacity: 0,
+          y: () => startY(),
+          width: () => startSize(),
+          height: () => startSize(),
+          borderRadius: 0,
+          opacity: 1,
+        },
+        {
+          y: 0,
+          width: () => startSize(),
+          height: () => startSize(),
+          borderRadius: 0,
+          opacity: 1,
           ease: "none",
-          duration: 0.38,
+          duration: 0.4,
+          immediateRender: true,
         },
         0,
       )
-        .to(fieldEl, { scale: 1.18, ease: "none", duration: 1 }, 0)
-        .fromTo(
-          mediaEl,
+        .to(
+          contentEl,
           {
-            width: () => startSize(),
-            height: () => startSize(),
-            borderRadius: 0,
+            y: () => -pinEl.clientHeight * 0.85,
+            opacity: 0,
+            ease: "none",
+            duration: 0.34,
           },
+          0,
+        )
+        .to(fieldEl, { scale: 1.18, ease: "none", duration: 1 }, 0)
+        .to(
+          mediaEl,
           {
             width: endWidth,
             height: endHeight,
             borderRadius: 28,
             ease: "none",
-            duration: 0.62,
+            duration: 0.6,
           },
-          0.38,
+          0.4,
         );
 
       requestAnimationFrame(() => {
