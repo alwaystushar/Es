@@ -3,9 +3,11 @@
 import { useRef } from "react";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { dictionary } from "@/i18n/dictionary";
 import { useLocale } from "@/i18n/locale";
+import { MQ_TABLET } from "@/lib/breakpoints";
 import { afterPageAppear } from "@/lib/page-appear";
 import { cn } from "@/lib/utils";
 import type { RevealTag } from "@/types/components";
@@ -34,17 +36,24 @@ export function RevealLines({
   const ref = useRef<HTMLElement>(null);
   const playedRef = useRef(false);
   const reduced = useReducedMotion();
+  const isTabletDown = useMediaQuery(MQ_TABLET);
   const { locale, ready } = useLocale();
   const arabic = dictionary[children] ?? children;
   const active = locale === "ar" ? arabic : children;
 
   useIsomorphicLayoutEffect(() => {
     const element = ref.current;
-    if (!element || !ready) return;
+    if (!element || !ready || isTabletDown === null) return;
 
     const prefersReduced = reduced || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) {
+    /* Mobile/tablet: skip line-mask slide — ScrollTrigger often leaves yPercent stuck and titles look “broken” */
+    if (prefersReduced || isTabletDown) {
+      playedRef.current = true;
       element.classList.add("is-ready");
+      /* Restore plain text if a prior desktop split left masks behind */
+      if (element.querySelector(".line-mask")) {
+        element.textContent = active;
+      }
       return;
     }
 
@@ -148,7 +157,7 @@ export function RevealLines({
         .filter((trigger) => trigger.trigger === element)
         .forEach((trigger) => trigger.kill());
     };
-  }, [active, duration, playOnMount, ready, reduced, stagger, triggerStart]);
+  }, [active, duration, isTabletDown, playOnMount, ready, reduced, stagger, triggerStart]);
 
   return (
     <Tag ref={ref as never} id={id} className={cn("reveal-lines", className)}>

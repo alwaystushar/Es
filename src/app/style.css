@@ -3607,6 +3607,34 @@
 }
 
 @media (max-width: 72rem) {
+  /*
+   * Mobile/tablet rem floor — desktop (>72rem) keeps html/body at 1vw.
+   * Without this, 1vw rem collapses to ~4px on phones and type/layout become unusable.
+   */
+  html {
+    font-size: 16px !important;
+  }
+
+  body {
+    font-size: 16px !important;
+  }
+
+  /* RevealLines safety — never leave masked titles translated off-screen */
+  .reveal-lines:not(.is-ready) {
+    visibility: visible;
+  }
+
+  .line-mask {
+    overflow: visible;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .line-inner {
+    transform: none !important;
+    translate: none !important;
+  }
+
   :root {
     --container-padding: 2.5rem;
     --section-spacing: 4rem;
@@ -3622,6 +3650,38 @@
 
   .stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__layout {
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .hero__title {
+    font-size: 2.75rem;
+  }
+
+  .section-title,
+  .section-title--display,
+  .partners__title,
+  .journey__content h2,
+  .journey__content--wide h2,
+  .journey__content--programs h2 {
+    font-size: 2.5rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .why-grid {
+    flex-wrap: wrap;
+  }
+
+  .why-card,
+  .why-card:hover,
+  .why-card:focus-visible {
+    flex: 1 1 calc(50% - 0.5rem);
+    width: auto;
+    flex-basis: calc(50% - 0.5rem);
   }
 
   .site-footer > .section-container,
@@ -3668,10 +3728,24 @@
     height: auto;
     min-height: 0;
     gap: 2.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-foundations__heading,
+  .about-foundations__title {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .about-hero__content {
+    width: 100%;
+    max-width: 100%;
   }
 
   .about-foundations__cards {
     height: auto;
+    max-width: 100%;
     overflow: visible;
   }
 
@@ -3681,7 +3755,31 @@
   }
 
   .about-foundations__card {
+    height: auto;
     min-height: 0;
+  }
+
+  .about-foundations__media {
+    height: 16rem;
+    max-height: none;
+  }
+
+  .about-foundations__detail h3 {
+    font-size: 1.75rem;
+  }
+
+  .about-foundations__detail p {
+    font-size: 1rem;
+  }
+
+  .about-foundations__count {
+    width: 4.5rem;
+    height: 2.875rem;
+  }
+
+  .about-foundations__count-ring {
+    width: 2.875rem;
+    height: 2.875rem;
   }
 
   .about-mission__pin {
@@ -4538,6 +4636,79 @@
     grid-template-columns: 1fr;
   }
 
+  /* Clip decorative washes/fields that intentionally extend past the viewport */
+  .hero,
+  .areas,
+  .programs,
+  .programs-catalog,
+  .seminars-hero,
+  .seminars-catalog,
+  .knowledge-page,
+  .knowledge,
+  .partners-page,
+  .partners,
+  .contact-hero,
+  .contact-section,
+  .experts-hero,
+  .experts-directory,
+  .about-hero,
+  .about-foundations,
+  .about-mission,
+  .about-values,
+  .about-experts,
+  .journey,
+  .impact,
+  .why,
+  .signin-page,
+  .article-hero {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  .programs-catalog__wash,
+  .knowledge-page__wash,
+  .partners-page__wash,
+  .contact-hero__wash,
+  .expert-grid__wash,
+  .article-hero__wash,
+  .seminars-hero__wash,
+  .about-hero__wash {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    padding-top: calc(var(--header-height) + var(--header-offset));
+  }
+
+  .hero__layout {
+    gap: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(9, 22, 14, 0.55) 0%,
+      rgba(9, 22, 14, 0.78) 45%,
+      rgba(9, 22, 14, 0.92) 100%
+    );
+  }
+
+  [dir="rtl"] .hero__shade {
+    transform: none;
+  }
+
+  .why-grid {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 2rem;
+    margin-inline-start: 0 !important;
+  }
+
   .why-grid:has(.why-card:last-child:hover),
   .why-grid:has(.why-card:last-child:focus-visible) {
     margin-inline-start: 0;
@@ -4546,10 +4717,11 @@
   .why-card,
   .why-card:hover,
   .why-card:focus-visible {
+    flex: 1 1 auto;
     flex-basis: auto;
     width: 100%;
     height: auto;
-    min-height: 25rem;
+    min-height: 0;
   }
 
   .why-card__copy,
@@ -4564,24 +4736,49 @@
   .why-card:focus-visible h3 {
     flex-basis: auto;
     width: 100%;
+    max-width: 100%;
+    white-space: normal;
   }
 
+  .why-card h3 .loc-en {
+    white-space: normal;
+  }
+
+  .section-title,
+  .section-title--display,
+  .reveal-lines.section-title,
+  .why__intro .section-title,
+  .programs__intro .section-title,
+  .areas .section-title,
+  .knowledge .section-title,
+  .partners__title,
+  .journey__content h2 {
+    white-space: normal !important;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .section-title .loc-en,
+  .reveal-lines .loc-en {
+    white-space: normal !important;
+  }
+
+  /* Always readable on touch — no hover-only expand */
   .why-card__copy p,
   .why-card:hover .why-card__copy p,
   .why-card:focus-visible .why-card__copy p {
     width: 100%;
-    max-height: 0;
+    max-width: 100%;
+    max-height: none;
     margin-inline-start: 0;
-  }
-
-  .why-card:hover .why-card__copy p,
-  .why-card:focus-visible .why-card__copy p {
-    max-height: 8rem;
-    margin-top: var(--space-4);
+    margin-top: 0.75rem;
+    opacity: 1;
+    overflow: visible;
   }
 
   .why-card__detail {
     width: auto;
+    max-width: 100%;
   }
 
   .knowledge__top,
@@ -4622,6 +4819,16 @@
   .why__intro,
   .programs__intro {
     width: 100%;
+    max-width: 100%;
+  }
+
+  .why__intro .section-title,
+  .programs__intro .section-title,
+  .programs__intro .section-copy,
+  .why__intro .section-copy {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
   }
 
   .btn:not(.icon-button):not(.lang-button):not(.audience__trigger):not(.menu-toggle) {
@@ -4753,7 +4960,14 @@
   }
 
   .journey__content h2 {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+  }
+
+  .journey__content--wide,
+  .journey__content--programs,
+  .journey__body {
+    width: 100%;
+    max-width: 100%;
   }
 
   .journey__actions {
@@ -4764,6 +4978,317 @@
   .journey__actions .btn:first-child,
   .journey__actions .btn:last-child {
     min-width: 0;
+  }
+
+  .impact__photo {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .impact__text,
+  .section-copy,
+  .partners__title,
+  .interior__title,
+  .interior__lede {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .interior__title {
+    font-size: 2.25rem;
+  }
+
+  .program-card {
+    flex-basis: 85vw;
+    height: 24rem;
+  }
+
+  .areas__heading,
+  .areas__split,
+  .knowledge__top,
+  .partners__top {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .areas__heading {
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  .areas__split {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .areas .section-title,
+  .areas .section-title--display {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .areas .section-copy {
+    font-size: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .areas-swiper .swiper-slide {
+    width: min(20rem, 88%);
+    margin-inline-end: 1rem;
+  }
+
+  .area-card {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .area-card h3 {
+    font-size: 1.35rem;
+  }
+
+  .programs__note,
+  .programs__action {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .programs__note,
+  .programs__note a,
+  .programs__note span {
+    white-space: normal;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .journey__field {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .journey__glow {
+    display: none;
+  }
+
+  .about-foundations__card,
+  .about-foundations__cards {
+    height: auto;
+    max-width: 100%;
+  }
+
+  .about-foundations__title,
+  .about-experts__title,
+  .about-mission__title,
+  .about-values__title,
+  .about-hero__title,
+  .programs-catalog__title,
+  .hero__title {
+    font-size: 2.25rem;
+  }
+
+  .about-foundations__detail h3 {
+    font-size: 1.5rem;
+  }
+
+  .about-foundations__detail p {
+    font-size: 1rem;
+  }
+
+  .about-mission__globe {
+    width: min(100%, 20rem);
+  }
+
+  .site-header {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .plain-card,
+  .form-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Knowledge hub page — usable at phone without waiting for 40rem */
+  .kh-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .kh-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kh-side-card {
+    flex-direction: column;
+  }
+
+  .kh-side-card__image {
+    flex: 0 0 12rem;
+    width: 100%;
+  }
+
+  .knowledge-page-hero__title {
+    font-size: 2.25rem;
+  }
+
+  .knowledge-page-filters {
+    flex-wrap: wrap;
+  }
+
+  .article-hero {
+    height: auto;
+    min-height: 0;
+  }
+
+  .article-hero__stage {
+    position: relative;
+    inset-inline-start: auto;
+    top: auto;
+    width: min(90vw, 22rem);
+    height: min(90vw, 22rem);
+    margin: 0 auto 1.5rem;
+  }
+
+  .article-hero__layout {
+    height: auto;
+    min-height: 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: calc(var(--header-height) + var(--header-offset) + 2rem);
+  }
+
+  .article-hero__copy,
+  .article-hero__title {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .article-hero__title {
+    font-size: 2rem;
+  }
+
+  .article-body__grid,
+  .article-related__grid,
+  .article-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .partners-page__title,
+  .partners-page__body,
+  .contact-hero__title,
+  .experts-hero__title {
+    font-size: 2.25rem;
+    max-width: 100%;
+  }
+
+  .partners-page__field,
+  .contact-hero__field,
+  .experts-hero__stage {
+    max-width: 100%;
+  }
+
+  .signin-page {
+    padding-inline: 1rem;
+  }
+
+  .signin__card {
+    border-radius: 1.25rem;
+  }
+
+  .signin__panel {
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  .signin__steps {
+    grid-template-columns: 1fr;
+  }
+
+  .signin__form-side {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .signin__title {
+    font-size: 1.75rem;
+  }
+
+  .site-header__bar {
+    width: min(100% - (var(--container-padding) * 2), var(--content-width));
+    margin-inline: auto;
+    gap: 0.75rem;
+  }
+
+  .brand-cluster {
+    gap: 0.75rem;
+  }
+
+  .programs-catalog__chip,
+  .seminars-catalog__chip {
+    font-size: 0.875rem;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .programs-catalog__title {
+    font-size: 2.25rem;
+  }
+
+  .program-viewport {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .about-experts__intro,
+  .about-experts__title {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .impact__intro,
+  .impact__copy,
+  .impact__story {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .impact__label {
+    font-size: 0.875rem;
+  }
+
+  .knowledge__top {
+    gap: 1rem;
+  }
+
+  .knowledge .section-title {
+    font-size: 2rem;
+  }
+
+  .article-card h3,
+  .area-card h3 {
+    overflow-wrap: break-word;
+  }
+
+  .contact-page-form,
+  .contact-section__info,
+  .faq-section {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .partners-row__name,
+  .partners-row__role,
+  .seminar-list-card__title,
+  .program-list-card__body h2 {
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 }
 
@@ -7335,7 +7860,7 @@ a.contact-detail__value:hover {
 @media (max-width: 72rem) {
   .expert-grid__intro,
   .contact-section__layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .expert-cards {
@@ -7526,8 +8051,25 @@ a.contact-detail__value:hover {
   }
 
   /* Seminars / contact — lift phone stacking into 48rem (was 40rem-only) */
+  .seminars-hero {
+    min-height: 0;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .seminars-hero__field {
+    display: none;
+  }
+
   .seminars-hero__inner {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .seminars-hero__copy,
+  .seminars-hero__text {
+    width: 100%;
+    max-width: 100%;
   }
 
   .seminars-hero__title {
@@ -7535,6 +8077,7 @@ a.contact-detail__value:hover {
   }
 
   .seminars-hero__media {
+    width: 100%;
     max-width: 100%;
     aspect-ratio: 664 / 470;
     height: auto;
@@ -7542,6 +8085,35 @@ a.contact-detail__value:hover {
 
   .seminars-hero__body {
     font-size: 1.125rem;
+  }
+
+  .seminar-detail-hero__content {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .partners-page__hero-layout,
+  .partners-page__title,
+  .partners-page__body,
+  .partners-page__bodies-title {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .partners-page__hero {
+    padding-top: calc(var(--header-height) + var(--header-offset) + 2rem);
+  }
+
+  .article-hero__copy,
+  .article-hero__title,
+  .article-hero__lead {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .article-body__grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .seminars-catalog__topbar {
@@ -7648,8 +8220,16 @@ a.contact-detail__value:hover {
   }
 
   .contact-section__layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
+  }
+
+  .contact-section__info,
+  .contact-page-form,
+  .faq-section {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .contact-section__info {
@@ -8755,8 +9335,16 @@ a.contact-detail__value:hover {
   }
 
   .contact-section__layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
+  }
+
+  .contact-section__info,
+  .contact-page-form,
+  .faq-section {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
   }
 
   .contact-section__info {
@@ -8774,7 +9362,7 @@ a.contact-detail__value:hover {
   }
 
   .contact-field-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .faq-item__trigger {
@@ -8903,8 +9491,8 @@ a.contact-detail__value:hover {
 .seminars-catalog__subject-select .custom-select__trigger {
   width: auto;
   min-width: 12.375rem;
-  min-height: 3.25rem;
-  padding: 0.75rem 1rem;
+  min-height: 3.375rem;
+  padding: 0.875rem 1rem;
   gap: 1rem;
   border: 0.0625rem solid #1f6f4e;
   border-radius: 1rem;
@@ -8931,6 +9519,31 @@ a.contact-detail__value:hover {
 .seminars-catalog__subject-select .custom-select__menu {
   z-index: calc(var(--z-dropdown) + 2);
   min-width: 100%;
+}
+
+/* After subject-select base rules — MQ earlier in the file loses the cascade otherwise */
+@media (max-width: 48rem) {
+  .seminars-catalog__search {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+  }
+
+  .seminars-catalog__field {
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+  }
+
+  .seminars-catalog__subject-select,
+  .seminars-catalog__subject-select .custom-select__trigger {
+    flex: 0 0 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
 }
 
 .catalog-search-icon {
