@@ -4655,10 +4655,12 @@
     inset: auto;
     margin-top: 2rem;
     height: auto;
+    overflow: visible;
   }
 
   .about-hero__media {
     width: min(100%, 22rem);
+    max-width: 100%;
     height: min(70vw, 22rem);
   }
 
@@ -4667,19 +4669,60 @@
     opacity: 0.85;
   }
 
+  /* Home hero — wrap title/actions/audience; no horizontal overflow */
+  .hero__copy,
+  .hero__stack,
+  .hero__actions {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  .hero__body {
+    max-width: 100%;
+    font-size: 1.125rem;
+  }
+
+  .hero-audience {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+
   .about-values__grid {
     flex-direction: column;
   }
 
   .about-values__card {
     flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
   }
 
   .about-values__grid.is-hot .about-values__card.is-dimmed,
   .about-values__grid.is-hot .about-values__card.is-active {
     flex-grow: 1;
     height: auto;
-    min-height: 18rem;
+    min-height: 0;
+  }
+
+  /* Values copy stays readable without hover-only expand */
+  .about-values__copy {
+    gap: 1rem;
+  }
+
+  .about-values__card h3,
+  .about-values__card.is-active h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .about-values__card p,
+  .about-values__card.is-active p {
+    font-size: 1rem;
   }
 
   .programs-catalog__grid {
@@ -4696,6 +4739,16 @@
 
   .journey__content h2 {
     font-size: 2.5rem;
+  }
+
+  .journey__actions {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .journey__actions .btn:first-child,
+  .journey__actions .btn:last-child {
+    min-width: 0;
   }
 }
 
@@ -7357,8 +7410,12 @@ a.contact-detail__value:hover {
   }
 
   .expert-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  .experts-directory__grid {
+    grid-template-columns: 1fr;
   }
 
   .expert-profile-hero {
@@ -7432,6 +7489,174 @@ a.contact-detail__value:hover {
   .expert-grid__title,
   .program-tab-outcomes__title {
     font-size: 2.5rem;
+  }
+
+  /* Partners / program detail — constrain long titles & decorative fields */
+  .partners-page__title,
+  .partners-page__body,
+  .program-detail-hero__title {
+    max-width: 100%;
+  }
+
+  .partners-page__field,
+  .contact-hero__field {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .partners-row__name,
+  .partners-row__role {
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  /* Seminars / contact — lift phone stacking into 48rem (was 40rem-only) */
+  .seminars-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .seminars-hero__title {
+    font-size: 2.5rem;
+  }
+
+  .seminars-hero__media {
+    max-width: 100%;
+    aspect-ratio: 664 / 470;
+    height: auto;
+  }
+
+  .seminars-hero__body {
+    font-size: 1.125rem;
+  }
+
+  .seminars-catalog__topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .seminars-catalog__search {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: none;
+  }
+
+  .seminars-catalog__field {
+    width: 100%;
+  }
+
+  .seminars-catalog__subject-select,
+  .seminars-catalog__subject-select .custom-select__trigger {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .seminars-catalog__title {
+    font-size: 2.5rem;
+  }
+
+  .seminar-list-card {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .seminar-list-card__media {
+    min-height: 14rem;
+  }
+
+  .seminar-list-card__fade {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 35%,
+      rgba(255, 255, 255, 0.75) 72%,
+      #ffffff 100%
+    );
+  }
+
+  .seminar-list-card__body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .seminar-list-card__heading {
+    gap: 1rem;
+  }
+
+  .seminar-list-card__title {
+    font-size: 1.25rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .seminar-detail-hero {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .seminar-detail-hero__content {
+    align-self: end;
+    transform: none;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .seminar-detail-hero__inner {
+    padding-block: calc(var(--header-height) + var(--header-offset) + 2.5rem) 2rem;
+  }
+
+  .seminar-detail-hero__title {
+    font-size: 2.25rem;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .seminar-detail-hero__meta-bar {
+    gap: 1rem 1.5rem;
+  }
+
+  .seminar-detail-hero__shade {
+    background: linear-gradient(
+      180deg,
+      rgba(31, 111, 78, 0.55) 0%,
+      rgba(31, 111, 78, 0.92) 48%,
+      #1f6f4e 100%
+    );
+  }
+
+  [dir="rtl"] .seminar-detail-hero__shade {
+    transform: none;
+  }
+
+  .seminar-related__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-section__layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contact-section__info {
+    min-height: 0;
+    gap: 2rem;
+  }
+
+  .contact-section__heading,
+  .faq-section__title {
+    font-size: 2.25rem;
+  }
+
+  .contact-page-form {
+    padding: 1.5rem;
+  }
+
+  .faq-item__trigger {
+    padding-inline: 1.25rem;
+  }
+
+  .faq-item__answer p {
+    padding-inline: 1.25rem;
   }
 }
 
@@ -8721,4 +8946,427 @@ a.contact-detail__value:hover {
 
 [dir="rtl"] .custom-select.is-open .custom-select__chevron {
   transform: scaleX(-1) rotate(180deg);
+}
+
+/* =========================================================
+   Sign In / Join Us — split auth card
+   ========================================================= */
+
+.signin-page {
+  position: relative;
+  min-height: calc(100svh - var(--header-height) - var(--header-offset));
+  display: grid;
+  place-items: center;
+  padding: calc(var(--header-height) + var(--header-offset) + 2rem) var(--container-padding) 3rem;
+  background: #2a2f33;
+  overflow: hidden;
+}
+
+.signin {
+  width: min(100%, 68rem);
+}
+
+.signin__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  min-height: 38rem;
+  border-radius: 2.5rem;
+  overflow: hidden;
+  background: var(--color-white);
+  box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.28);
+}
+
+.signin__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 2rem;
+  color: var(--color-white);
+  background:
+    radial-gradient(ellipse 70% 55% at 18% 22%, rgba(159, 203, 81, 0.45), transparent 62%),
+    radial-gradient(ellipse 55% 50% at 88% 78%, rgba(255, 255, 255, 0.18), transparent 60%),
+    radial-gradient(ellipse 40% 40% at 70% 18%, rgba(159, 203, 81, 0.22), transparent 65%),
+    linear-gradient(160deg, #0f4d33 0%, #1f6f4e 48%, #2f8f66 100%);
+  overflow: hidden;
+}
+
+.signin__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 0.06rem, transparent 0.08rem);
+  background-size: 1.1rem 1.1rem;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.signin__brand,
+.signin__panel-copy,
+.signin__steps {
+  position: relative;
+  z-index: 1;
+}
+
+.signin__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-white);
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.01em;
+}
+
+.signin__panel-copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 22rem;
+}
+
+.signin__badge {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(0.5rem);
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.signin__panel-title {
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.15;
+}
+
+.signin__panel-lede {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.signin__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.signin__step {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.85rem 0.75rem;
+  border-radius: 1rem;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(0.5rem);
+  min-height: 7.5rem;
+}
+
+.signin__step.is-active {
+  background: var(--color-white);
+  border-color: transparent;
+  color: var(--color-ink);
+}
+
+.signin__step-num {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.signin__step.is-active .signin__step-num {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.signin__step-label {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  font-weight: var(--font-weight-medium);
+}
+
+.signin__form-side {
+  display: grid;
+  align-items: center;
+  padding: 2.25rem 2.5rem;
+  background: var(--color-white);
+}
+
+.signin__form {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+.signin__title {
+  margin: 0 0 0.5rem;
+  color: var(--color-ink);
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.15;
+}
+
+.signin-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.signin-field__label {
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.signin-field input {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.85rem;
+  background: #f3f5f4;
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.signin-field input:focus-visible {
+  box-shadow: 0 0 0 0.125rem rgba(31, 111, 78, 0.35);
+}
+
+.signin-field__phone {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding-inline: 0.85rem 0.35rem;
+  border-radius: 0.85rem;
+  background: #f3f5f4;
+}
+
+.signin-field__phone input {
+  flex: 1;
+  min-height: 0;
+  padding: 0.85rem 0.65rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.signin-field__dial {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.signin-field__flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.signin-field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.signin-field__with-icon {
+  position: relative;
+  display: block;
+}
+
+.signin-field__with-icon input {
+  padding-inline-end: 2.75rem;
+}
+
+.signin-field__check,
+.signin-field__eye {
+  position: absolute;
+  inset-inline-end: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+}
+
+.signin-field__eye {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.signin-field__eye:hover {
+  color: var(--color-ink);
+}
+
+.signin__hint {
+  margin: -0.25rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.signin__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3.25rem;
+  margin-top: 0.35rem;
+  padding: 0.85rem 1.25rem;
+  border: none;
+  border-radius: 0.85rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease-standard);
+}
+
+.signin__submit:hover {
+  background: var(--color-primary-dark);
+}
+
+.signin__switch {
+  margin: 0;
+  text-align: center;
+  color: var(--color-text);
+  font-size: 0.9375rem;
+}
+
+.signin__link {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.signin__link:hover {
+  text-decoration: underline;
+}
+
+.signin__divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.signin__divider::before,
+.signin__divider::after {
+  content: "";
+  height: 0.0625rem;
+  background: var(--color-border);
+}
+
+.signin__google {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  border: 0.0625rem solid var(--color-border);
+  border-radius: 0.85rem;
+  background: var(--color-white);
+  color: var(--color-ink);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.signin__legal {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.signin__legal a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+}
+
+.signin__legal a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 64rem) {
+  .signin__card {
+    grid-template-columns: 1fr;
+    border-radius: 1.75rem;
+  }
+
+  .signin__panel {
+    min-height: 18rem;
+    gap: 1.5rem;
+  }
+
+  .signin__steps {
+    grid-template-columns: 1fr;
+  }
+
+  .signin__step {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    min-height: 0;
+  }
+
+  .signin__form-side {
+    padding: 1.75rem 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 48rem) {
+  .signin-page {
+    padding-inline: 1rem;
+    padding-block-end: 2rem;
+    background: #22272b;
+  }
+
+  .signin__card {
+    border-radius: 1.25rem;
+  }
+
+  .signin-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .signin__panel-title {
+    font-size: 2rem;
+  }
 }

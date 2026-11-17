@@ -6,7 +6,9 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { LocalizedImage, T } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MQ_TABLET } from "@/lib/breakpoints";
 import { gsap, registerGsap } from "@/lib/gsap";
 
 export function AboutFoundations() {
@@ -15,6 +17,8 @@ export function AboutFoundations() {
   const track = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
+  /* CSS stacks foundations at 72rem — never pin a stacked layout */
+  const isTabletDown = useMediaQuery(MQ_TABLET);
   const [index, setIndex] = useState(0);
   const total = aboutFoundations.length;
 
@@ -23,8 +27,7 @@ export function AboutFoundations() {
     const stageEl = stage.current;
     const trackEl = track.current;
     const bar = progress.current;
-    if (!root || !stageEl || !trackEl || reduced) return;
-    if (window.matchMedia("(max-width: 48rem)").matches) return;
+    if (!root || !stageEl || !trackEl || reduced || isTabletDown) return;
 
     const items = Array.from(trackEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
     if (!items.length) return;
@@ -72,7 +75,7 @@ export function AboutFoundations() {
     }, root);
 
     return () => context.revert();
-  }, [reduced, total]);
+  }, [reduced, total, isTabletDown]);
 
   return (
     <section ref={section} className="about-foundations" aria-labelledby="about-foundations-title">

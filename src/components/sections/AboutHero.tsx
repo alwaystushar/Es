@@ -6,7 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { LocalizedImage } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MQ_PHONE } from "@/lib/breakpoints";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 
 export function AboutHero() {
@@ -16,6 +18,8 @@ export function AboutHero() {
   const field = useRef<HTMLDivElement>(null);
   const media = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  /* CSS unpins hero at 48rem — keep pin scroll desktop-only */
+  const isPhone = useMediaQuery(MQ_PHONE);
 
   useIsomorphicLayoutEffect(() => {
     const root = section.current;
@@ -23,8 +27,7 @@ export function AboutHero() {
     const contentEl = content.current;
     const fieldEl = field.current;
     const mediaEl = media.current;
-    if (!root || !pinEl || !contentEl || !fieldEl || !mediaEl || reduced) return;
-    if (window.matchMedia("(max-width: 48rem)").matches) return;
+    if (!root || !pinEl || !contentEl || !fieldEl || !mediaEl || reduced || isPhone) return;
 
     registerGsap();
     const context = gsap.context(() => {
@@ -114,7 +117,7 @@ export function AboutHero() {
     }, root);
 
     return () => context.revert();
-  }, [reduced]);
+  }, [reduced, isPhone]);
 
   return (
     <section ref={section} className="about-hero" aria-labelledby="about-hero-title">

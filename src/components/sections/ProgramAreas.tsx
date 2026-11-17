@@ -1,7 +1,7 @@
 "use client";
 
 import { FramedPhoto } from "@/components/ui/FramedPhoto";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { programAreas } from "@/data/home";
@@ -12,7 +12,9 @@ import { RevealImage } from "@/components/animation/RevealImage";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useDocumentDirection } from "@/hooks/useDocumentDirection";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MQ_TABLET } from "@/lib/breakpoints";
 import { T, tr, useLocale } from "@/i18n/locale";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import "swiper/css";
@@ -23,18 +25,11 @@ export function ProgramAreas() {
   const swiper = useRef<SwiperInstance | null>(null);
   const direction = useDocumentDirection();
   const reduced = useReducedMotion();
+  /* CSS stacks areas at 72rem — pin only when the split layout is intact */
+  const isTabletDown = useMediaQuery(MQ_TABLET);
   const { locale } = useLocale();
-  const [forced, setForced] = useState(false);
+  const forced = !reduced && !isTabletDown;
   const [generation, setGeneration] = useState(0);
-
-  useEffect(() => {
-    const apply = () => {
-      setForced(!reduced && !window.matchMedia("(max-width: 48rem)").matches);
-    };
-    apply();
-    window.addEventListener("resize", apply);
-    return () => window.removeEventListener("resize", apply);
-  }, [reduced]);
 
   useIsomorphicLayoutEffect(() => {
     if (!forced || generation === 0) return;

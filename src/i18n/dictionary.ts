@@ -341,6 +341,37 @@ export const dictionary: Record<string, string> = {
   "Enter a valid email and a password of at least 8 characters.":
     "أدخل بريدًا إلكترونيًا صحيحًا وكلمة مرور لا تقل عن ٨ أحرف.",
   "Your details look valid and are ready for sign-in.": "تبدو بياناتك صحيحة وجاهزة لتسجيل الدخول.",
+  "Join Us to Build": "انضم إلينا للبناء",
+  "Start your Journey": "ابدأ رحلتك",
+  "Follow these simple steps to set up your account.": "اتبع هذه الخطوات البسيطة لإنشاء حسابك.",
+  "Register your account": "سجّل حسابك",
+  "Set up your profile information": "أكمل معلومات ملفك الشخصي",
+  "Choose your learning path": "اختر مسار تعلّمك",
+  "Join Us": "انضم إلينا",
+  "Phone number": "رقم الجوال",
+  "Full Name": "الاسم الكامل",
+  Username: "اسم المستخدم",
+  "Your full name": "اسمك الكامل",
+  "Show password": "إظهار كلمة المرور",
+  "Hide password": "إخفاء كلمة المرور",
+  "At least 12 characters, no more than 20 characters. Uppercase letters, lowercase letters, numbers, and symbols.":
+    "١٢ حرفًا على الأقل ولا يزيد عن ٢٠. أحرف كبيرة وصغيرة وأرقام ورموز.",
+  Continue: "متابعة",
+  "Already have an account?": "هل لديك حساب بالفعل؟",
+  "Log in": "تسجيل الدخول",
+  "Don't have an account?": "ليس لديك حساب؟",
+  Or: "أو",
+  "Sign up with Google": "إنشاء حساب عبر Google",
+  "Sign in with Google": "تسجيل الدخول عبر Google",
+  "By signing up I confirm that I carefully have read and agree to the ES Learning":
+    "بالتسجيل أؤكد أنني قرأت ووافقت بعناية على",
+  and: "و",
+  "Complete phone, full name, and a valid username (3–20 characters).":
+    "أكمل رقم الجوال والاسم الكامل واسم مستخدم صالحًا (٣–٢٠ حرفًا).",
+  "Password must be 12–20 characters with mixed case, numbers, and symbols.":
+    "يجب أن تكون كلمة المرور ١٢–٢٠ حرفًا مع أحرف كبيرة وصغيرة وأرقام ورموز.",
+  "Your details look valid and are ready to create your account.":
+    "تبدو بياناتك صحيحة وجاهزة لإنشاء حسابك.",
   "Building capabilities for better performance": "بناء القدرات لأداء أفضل",
   "ES Learning is a Saudi company dedicated to capability development and stronger performance. Our practical programs draw on global methodologies":
     "إي إس ليرنينغ شركة سعودية متخصصة في تطوير القدرات وتعزيز الأداء. تعتمد برامجنا العملية على منهجيات عالمية",

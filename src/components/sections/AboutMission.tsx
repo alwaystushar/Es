@@ -5,7 +5,9 @@ import { aboutMission } from "@/data/about";
 import { dictionary } from "@/i18n/dictionary";
 import { useLocale } from "@/i18n/locale";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { MQ_TABLET } from "@/lib/breakpoints";
 import { gsap, registerGsap } from "@/lib/gsap";
 
 function localize(text: string, locale: string) {
@@ -23,6 +25,8 @@ export function AboutMission() {
   const bodyMission = useRef<HTMLSpanElement>(null);
   const bodyVision = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
+  /* CSS stacks mission at 72rem — never pin a stacked layout */
+  const isTabletDown = useMediaQuery(MQ_TABLET);
   const { locale } = useLocale();
 
   const missionTitle = localize(aboutMission.mission.title, locale);
@@ -39,10 +43,20 @@ export function AboutMission() {
     const titleB = titleVision.current;
     const bodyA = bodyMission.current;
     const bodyB = bodyVision.current;
-    if (!root || !pinEl || !titleSlotEl || !bodySlotEl || !titleA || !titleB || !bodyA || !bodyB || reduced) {
+    if (
+      !root ||
+      !pinEl ||
+      !titleSlotEl ||
+      !bodySlotEl ||
+      !titleA ||
+      !titleB ||
+      !bodyA ||
+      !bodyB ||
+      reduced ||
+      isTabletDown
+    ) {
       return;
     }
-    if (window.matchMedia("(max-width: 48rem)").matches) return;
 
     registerGsap();
     const context = gsap.context(() => {
@@ -81,7 +95,7 @@ export function AboutMission() {
     }, root);
 
     return () => context.revert();
-  }, [reduced, missionTitle, missionBody, visionTitle, visionBody]);
+  }, [reduced, isTabletDown, missionTitle, missionBody, visionTitle, visionBody]);
 
   return (
     <section ref={section} className="about-mission" data-header-tone="light" aria-labelledby="about-mission-title">
