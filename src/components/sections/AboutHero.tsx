@@ -7,7 +7,7 @@ import { LocalizedImage } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { gsap, registerGsap } from "@/lib/gsap";
+import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 
 export function AboutHero() {
   const section = useRef<HTMLElement>(null);
@@ -29,27 +29,35 @@ export function AboutHero() {
     registerGsap();
     const context = gsap.context(() => {
       const wrap = mediaEl.parentElement as HTMLElement;
-      const startSize = () => {
-        /* Figma resting square 408.301 @ 1440 — shrink on short viewports, keep air under CTA */
-        const ideal = pinEl.clientWidth * (408.301 / 1440);
-        const pinTop = pinEl.getBoundingClientRect().top;
-        const contentBottom = contentEl.getBoundingClientRect().bottom - pinTop;
-        const padBottom = parseFloat(getComputedStyle(pinEl).paddingBottom) || 0;
-        const minGap = pinEl.clientWidth * (56 / 1440);
-        const room = pinEl.clientHeight - contentBottom - padBottom - minGap;
-        return Math.min(Math.max(room, ideal * 0.55), ideal);
-      };
-      const endWidth = () => wrap.clientWidth;
-      const endHeight = () => Math.min(pinEl.clientHeight * 0.78, wrap.clientHeight);
 
-      gsap.set(fieldEl, { scale: 1, transformOrigin: "50% 50%" });
-      gsap.set(contentEl, { y: 0, opacity: 1, clearProps: "x" });
-      gsap.set(mediaEl, {
-        width: startSize(),
-        height: startSize(),
-        borderRadius: 0,
-      });
-      mediaEl.classList.add("is-masked");
+      const startSize = () => {
+        const ideal = pinEl.clientWidth * (408.301 / 1440);
+        const styles = getComputedStyle(pinEl);
+        const padY =
+          (parseFloat(styles.paddingTop) || 0) + (parseFloat(styles.paddingBottom) || 0);
+        const gap = pinEl.clientWidth * (40 / 1440);
+        const room = pinEl.clientHeight - contentEl.offsetHeight - padY - gap;
+        return Math.round(Math.min(ideal, Math.max(room, 0)));
+      };
+      const endWidth = () => Math.round(pinEl.clientWidth - pinEl.clientWidth * (64 / 1440));
+      const endHeight = () => Math.round(pinEl.clientHeight * 0.92);
+
+      const applyStart = () => {
+        wrap.classList.remove("is-expanded");
+        mediaEl.classList.add("is-masked");
+        gsap.set(contentEl, { y: 0, opacity: 1, clearProps: "x" });
+        gsap.set(wrap, { alignItems: "flex-end" });
+        const size = startSize();
+        gsap.set(mediaEl, {
+          width: size,
+          height: size,
+          borderRadius: 0,
+          clearProps: "maxWidth,maxHeight",
+        });
+      };
+
+      gsap.set(fieldEl, { scale: 1, transformOrigin: "50% 45%" });
+      applyStart();
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -59,42 +67,50 @@ export function AboutHero() {
           scrub: 0.55,
           pin: pinEl,
           invalidateOnRefresh: true,
+          onRefresh: (self) => {
+            if (self.progress < 0.01) applyStart();
+          },
           onUpdate: (self) => {
-            mediaEl.classList.toggle("is-masked", self.progress < 0.22);
+            mediaEl.classList.toggle("is-masked", self.progress < 0.38);
+            wrap.classList.toggle("is-expanded", self.progress > 0.4);
+            wrap.style.alignItems = self.progress > 0.42 ? "center" : "flex-end";
           },
         },
       });
 
+      /* 1) Text leaves — 2) then the same image opens to cover the stage */
       tl.to(
         contentEl,
         {
-          y: () => -pinEl.clientHeight * 0.72,
+          y: () => -pinEl.clientHeight * 0.85,
           opacity: 0,
           ease: "none",
-          duration: 0.7,
+          duration: 0.38,
         },
         0,
       )
-        .to(
-          fieldEl,
-          {
-            scale: 1.18,
-            ease: "none",
-            duration: 1,
-          },
-          0,
-        )
-        .to(
+        .to(fieldEl, { scale: 1.18, ease: "none", duration: 1 }, 0)
+        .fromTo(
           mediaEl,
+          {
+            width: () => startSize(),
+            height: () => startSize(),
+            borderRadius: 0,
+          },
           {
             width: endWidth,
             height: endHeight,
-            borderRadius: 24,
+            borderRadius: 28,
             ease: "none",
-            duration: 1,
+            duration: 0.62,
           },
-          0,
+          0.38,
         );
+
+      requestAnimationFrame(() => {
+        applyStart();
+        ScrollTrigger.refresh();
+      });
     }, root);
 
     return () => context.revert();
@@ -104,7 +120,6 @@ export function AboutHero() {
     <section ref={section} className="about-hero" aria-labelledby="about-hero-title">
       <div ref={pin} className="about-hero__pin">
         <div className="about-hero__wash" aria-hidden="true" />
-        {/* Figma 3062:71282 — white stipple field, rotate 133.14° */}
         <div className="about-hero__field" aria-hidden="true">
           <div ref={field} className="about-hero__field-scale">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,7 +149,7 @@ export function AboutHero() {
               fill
               priority
               quality={90}
-              sizes="(max-width: 48rem) 90vw, 82rem"
+              sizes="(max-width: 48rem) 90vw, 90vw"
             />
           </div>
         </div>

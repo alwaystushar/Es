@@ -1873,7 +1873,7 @@
   max-width: 31.97125rem;
 }
 
-/* About hero — Figma 3062:71265 (1440×1434 scroll story) */
+/* About hero — Figma 3062:71265 scroll story: pin stage, one image expands */
 .about-hero {
   position: relative;
   height: 280vh;
@@ -1882,16 +1882,15 @@
 
 .about-hero__pin {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
   align-items: center;
-  justify-content: flex-end;
+  justify-items: center;
   height: 100vh;
   min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
-  /* Figma Content y=187.55; media sits 45px from bottom */
-  padding: calc(100vw * 187.55 / 1440) var(--container-padding) calc(100vw * 45 / 1440);
+  padding: calc(100vw * 120 / 1440) var(--container-padding) calc(100vw * 45 / 1440);
   background: #f9fcfb;
 }
 
@@ -1900,7 +1899,6 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Figma BG Gradient 3062:71266 — lime blobs + soft green right */
   background:
     radial-gradient(ellipse 42% 52% at 6% 58%, rgba(159, 203, 81, 0.34), transparent 70%),
     radial-gradient(ellipse 58% 62% at 38% 68%, rgba(159, 203, 81, 0.22), transparent 72%),
@@ -1908,11 +1906,6 @@
     radial-gradient(ellipse 48% 55% at 90% 48%, rgba(31, 111, 78, 0.1), transparent 72%);
 }
 
-/*
-  Figma Vector 3062:71282:
-  wrapper top 107.7, left calc(50% - 29px), 2879×2880, translateX(-50%)
-  img 2054.93×2019.99, rotate 133.14° — white stipple (not lime journey field)
-*/
 .about-hero__field {
   position: absolute;
   top: calc(100vw * 107.7 / 1440);
@@ -1949,18 +1942,13 @@
 }
 
 .about-hero__content {
-  position: absolute;
-  top: calc(100vw * 187.55 / 1440);
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vw * 32 / 1440); /* Figma Content gap 32 */
-  /* Figma Content w=664 */
-  width: min(calc(100% - 2 * var(--container-padding)), calc(100vw * 664 / 1440));
-  margin-inline: auto;
+  gap: calc(100vw * 32 / 1440);
+  width: min(100%, calc(100vw * 664 / 1440));
   text-align: center;
   will-change: transform, opacity;
 }
@@ -1968,7 +1956,7 @@
 .about-hero__copy {
   display: flex;
   flex-direction: column;
-  gap: calc(100vw * 20 / 1440); /* Figma Heading+Body gap 20 */
+  gap: calc(100vw * 20 / 1440);
   width: 100%;
 }
 
@@ -1976,7 +1964,7 @@
   margin: 0;
   width: 100%;
   color: #1b2a22;
-  font-size: calc(100vw * 60 / 1440); /* Figma H2 60 */
+  font-size: calc(100vw * 60 / 1440);
   font-weight: var(--font-weight-regular);
   line-height: 1.15;
 }
@@ -1985,7 +1973,7 @@
   margin: 0;
   width: 100%;
   color: #4a5a51;
-  font-size: calc(100vw * 20 / 1440); /* Figma B4 20 */
+  font-size: calc(100vw * 20 / 1440);
   font-weight: var(--font-weight-regular);
   line-height: 1.5;
   opacity: 0.7;
@@ -2003,32 +1991,104 @@
   align-items: flex-end;
   justify-content: center;
   width: 100%;
-  flex: 1 1 auto;
   min-height: 0;
-  overflow: visible;
+  margin-top: calc(100vw * 40 / 1440);
+  overflow: hidden;
   pointer-events: none;
+}
+
+.about-hero__media-wrap.is-expanded {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin-top: 0;
+  padding: 0 var(--container-padding) calc(100vw * 45 / 1440);
+  align-items: center;
+  overflow: visible;
 }
 
 .about-hero__media {
   position: relative;
   flex: none;
-  /* Figma mask 408.301 — resting square */
   width: calc(100vw * 408.301 / 1440);
   height: calc(100vw * 408.301 / 1440);
+  max-width: 100%;
+  max-height: 100%;
   overflow: hidden;
-  will-change: width, height, border-radius;
   border-radius: 0;
-  transform-origin: center center;
+  transform-origin: center bottom;
+  will-change: width, height, border-radius;
 }
 
-/* Resting state is a full square — overflow:hidden clips. Mask kept for future organic shapes. */
 .about-hero__media.is-masked {
-  border-radius: 0;
+  mask-image: url("/assets/images/about/hero-mask.svg");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url("/assets/images/about/hero-mask.svg");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.about-hero__media.is-masked img {
+  position: absolute !important;
+  inset: unset !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 178.56% !important;
+  height: 128.68% !important;
+  max-width: none !important;
+  left: -48.08% !important;
+  top: -19.6% !important;
+  object-fit: cover;
+  object-position: left top;
+}
+
+.about-hero__media:not(.is-masked) {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.about-hero__media:not(.is-masked) img {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+  object-fit: cover;
+  object-position: center;
 }
 
 .about-hero__media img {
   object-fit: cover;
   object-position: center;
+}
+
+@media (max-height: 820px) {
+  .about-hero__pin {
+    padding-top: calc(100vw * 72 / 1440);
+  }
+
+  .about-hero__title {
+    font-size: calc(100vw * 44 / 1440);
+  }
+
+  .about-hero__body {
+    font-size: calc(100vw * 17 / 1440);
+  }
+
+  .about-hero__content {
+    gap: calc(100vw * 20 / 1440);
+  }
+
+  .about-hero__copy {
+    gap: calc(100vw * 12 / 1440);
+  }
+
+  .about-hero__media-wrap {
+    margin-top: calc(100vw * 24 / 1440);
+  }
 }
 
 /* About foundations — Figma 3062:71294 (1440×825) */
@@ -2051,8 +2111,9 @@
 .about-foundations__rail {
   position: absolute;
   inset-inline-start: calc(50% + calc(100vw * 15.24 / 1440));
+  /* Match the cards/copy column — not taller than the pinned stage content */
   top: calc(100vw * 80 / 1440);
-  height: calc(100vw * 664 / 1440);
+  height: min(calc(100vw * 664 / 1440), calc(100vh - 10rem));
   width: 0.125rem;
   transform: translateX(-50%);
   pointer-events: none;
@@ -2163,8 +2224,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  /* Figma gap 60 between media and copy */
-  gap: calc(100vw * 60 / 1440);
+  /* Tighter media→copy gap so title/body fit; Figma 60 is too tall on short pins */
+  gap: calc(100vw * 32 / 1440);
   width: 100%;
   flex: none;
   height: min(calc(100vw * 664 / 1440), calc(100vh - 10rem));
@@ -2174,9 +2235,9 @@
 .about-foundations__media {
   position: relative;
   width: 100%;
-  /* Figma media h=444 */
+  /* Figma media h=444 — shrink so detail text never clips */
   height: calc(100vw * 444 / 1440);
-  max-height: calc(100% - 8rem);
+  max-height: calc(100% - 10.25rem);
   overflow: hidden;
   border-radius: 0.75rem;
   background: #1f6f4e;
@@ -2209,6 +2270,17 @@
   font-size: calc(100vw * 18 / 1440);
   line-height: 1.5;
   opacity: 0.7;
+}
+
+@media (min-height: 900px) {
+  .about-foundations__card {
+    /* Figma gap 60 when the pin is tall enough */
+    gap: calc(100vw * 60 / 1440);
+  }
+
+  .about-foundations__media {
+    max-height: calc(100% - 11rem);
+  }
 }
 
 .about-mission {
@@ -2443,7 +2515,7 @@
 }
 
 .about-experts {
-  padding-block: 5rem 6rem;
+  padding-block: 5rem 9rem;
   background: var(--color-background);
   overflow: hidden;
 }
@@ -2530,7 +2602,8 @@
 
 .about-expert__media img {
   object-fit: cover;
-  object-position: center top;
+  /* Keep head below the crop edge */
+  object-position: center 40%;
 }
 
 .about-expert__panel {
@@ -4560,18 +4633,7 @@
   }
 
   .about-hero__content {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
     width: 100%;
-  }
-
-  .about-hero__media-wrap {
-    margin-top: 2rem;
-    height: auto;
-    flex: none;
-    align-items: center;
   }
 
   .about-hero__title,
@@ -4591,8 +4653,8 @@
   .about-hero__media-wrap {
     position: relative;
     inset: auto;
+    margin-top: 2rem;
     height: auto;
-    margin-top: 2.5rem;
   }
 
   .about-hero__media {
