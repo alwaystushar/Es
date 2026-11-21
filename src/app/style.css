@@ -468,13 +468,12 @@
   flex: none;
   gap: 2rem;
   padding: 0.25rem 0.25rem 0.25rem 2rem;
-  border: 0.0625rem solid rgba(27, 42, 34, 0.08);
+  border: 0;
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.82);
+  box-shadow: none;
   backdrop-filter: blur(0.75rem);
-  transition:
-    background-color 0.35s var(--ease-standard),
-    border-color 0.35s var(--ease-standard);
+  transition: background-color 0.35s var(--ease-standard);
 }
 
 .desktop-nav__links {
@@ -542,7 +541,8 @@
 
 .site-header.is-on-dark .desktop-nav {
   background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.22);
+  border: 0;
+  box-shadow: none;
 }
 
 .site-header.is-on-dark .nav-link,
