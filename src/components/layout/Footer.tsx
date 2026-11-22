@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { companyLinks, legalLinks } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/ui/Icon";
@@ -12,8 +13,13 @@ const socials = [
   { label: "ES Learning on Instagram", href: "https://www.instagram.com", icon: "/assets/icons/social-instagram.svg" },
 ];
 
+const AUTH_PATHS = new Set(["/signin", "/join"]);
+
 export function Footer() {
   const { locale } = useLocale();
+  const pathname = usePathname();
+
+  if (AUTH_PATHS.has(pathname)) return null;
 
   return (
     <footer className="site-footer" id="footer">

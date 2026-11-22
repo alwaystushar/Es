@@ -52,9 +52,8 @@ export function Hero({
             {titleLines ? (
               <h1 id="hero-title" className="hero__title">
                 <span className="loc-en">
-                  {titleLines.map((line, index) => (
-                    <span key={line}>
-                      {index > 0 ? <br /> : null}
+                  {titleLines.map((line) => (
+                    <span key={line} className="hero__title-line">
                       {line}
                     </span>
                   ))}

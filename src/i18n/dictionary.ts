@@ -348,6 +348,16 @@ export const dictionary: Record<string, string> = {
   "Set up your profile information": "أكمل معلومات ملفك الشخصي",
   "Choose your learning path": "اختر مسار تعلّمك",
   "Join Us": "انضم إلينا",
+  "Log In": "تسجيل الدخول",
+  Login: "تسجيل الدخول",
+  "Email address": "البريد الإلكتروني",
+  "Forgot Password?": "هل نسيت كلمة المرور؟",
+  "Enter your details to access your programs, session dates and certificates.":
+    "أدخل بياناتك للوصول إلى برامجك ومواعيد الجلسات والشهادات.",
+  "Create your account to access programs, session dates and certificates.":
+    "أنشئ حسابك للوصول إلى البرامج ومواعيد الجلسات والشهادات.",
+  "From learning to impact you can see": "من التعلم إلى أثر يمكن رؤيته",
+  "320 Total Reviews": "٣٢٠ تقييمًا",
   "Phone number": "رقم الجوال",
   "Full Name": "الاسم الكامل",
   Username: "اسم المستخدم",
