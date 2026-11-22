@@ -86,6 +86,7 @@ const NavLabel = memo(function NavLabel({
 
 export function Header() {
   const pathname = usePathname();
+  const isAuth = AUTH_PATHS.has(pathname);
   const [open, setOpen] = useState(false);
   const { locale, setLocale } = useLocale();
   const arabic = locale === "ar";
@@ -95,18 +96,16 @@ export function Header() {
   const toneRef = useRef(pathname === "/");
   const [menuPath, setMenuPath] = useState(pathname);
 
-  if (AUTH_PATHS.has(pathname)) {
-    return <AuthHeader />;
-  }
-
-  if (menuPath !== pathname) {
+  if (!isAuth && menuPath !== pathname) {
     setMenuPath(pathname);
     setOpen(false);
   }
 
-  if (open && hidden) setHidden(false);
+  if (!isAuth && open && hidden) setHidden(false);
 
   useEffect(() => {
+    if (isAuth) return;
+
     let last = window.scrollY;
     let frame = 0;
 
@@ -142,7 +141,11 @@ export function Header() {
       window.removeEventListener("resize", update);
       window.cancelAnimationFrame(frame);
     };
-  }, [open, pathname]);
+  }, [isAuth, open, pathname]);
+
+  if (isAuth) {
+    return <AuthHeader />;
+  }
 
   return (
     <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
