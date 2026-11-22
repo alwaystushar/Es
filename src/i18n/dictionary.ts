@@ -356,8 +356,6 @@ export const dictionary: Record<string, string> = {
     "أدخل بياناتك للوصول إلى برامجك ومواعيد الجلسات والشهادات.",
   "Create your account to access programs, session dates and certificates.":
     "أنشئ حسابك للوصول إلى البرامج ومواعيد الجلسات والشهادات.",
-  "From learning to impact you can see": "من التعلم إلى أثر يمكن رؤيته",
-  "320 Total Reviews": "٣٢٠ تقييمًا",
   "Phone number": "رقم الجوال",
   "Full Name": "الاسم الكامل",
   Username: "اسم المستخدم",
