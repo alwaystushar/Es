@@ -4,6 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/data/home";
+import { AuthHeader } from "@/components/layout/AuthHeader";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { T, tr, useLocale } from "@/i18n/locale";
@@ -11,6 +12,8 @@ import { dictionary } from "@/i18n/dictionary";
 import { gsap, registerGsap, SplitText } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+
+const AUTH_PATHS = new Set(["/signin", "/join"]);
 
 function isNavActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -91,6 +94,10 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const toneRef = useRef(pathname === "/");
   const [menuPath, setMenuPath] = useState(pathname);
+
+  if (AUTH_PATHS.has(pathname)) {
+    return <AuthHeader />;
+  }
 
   if (menuPath !== pathname) {
     setMenuPath(pathname);

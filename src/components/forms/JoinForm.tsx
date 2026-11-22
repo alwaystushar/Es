@@ -37,7 +37,7 @@ export function JoinForm() {
   };
 
   return (
-    <div className="signin">
+    <>
       <div className="signin__wash" aria-hidden="true">
         <img className="signin__glow signin__glow--a" src="/assets/images/auth/glow-a.svg" alt="" width={756} height={755} />
         <img className="signin__glow signin__glow--b" src="/assets/images/auth/glow-b.svg" alt="" width={1015} height={897} />
@@ -45,6 +45,7 @@ export function JoinForm() {
         <img className="signin__glow signin__glow--d" src="/assets/images/auth/glow-d.svg" alt="" width={756} height={707} />
       </div>
 
+      <div className="signin">
       <div className="signin__card">
         <div className="signin__form-side">
           <form className="signin__form" onSubmit={onSubmit} noValidate>
@@ -168,6 +169,7 @@ export function JoinForm() {
 
         <AuthPanel title="Start your Journey" />
       </div>
-    </div>
+      </div>
+    </>
   );
 }
