@@ -5,8 +5,9 @@ import type { NextConfig } from "next";
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  /* Off until Next.js client RSC navigation is stable — soft Link clicks were 404ing while refresh worked. */
+  cacheComponents: false,
+  partialPrefetching: false,
   images: {
     qualities: [75, 90],
   },
