@@ -19,13 +19,35 @@ import { T, tr, useLocale } from "@/i18n/locale";
 import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 import "swiper/css";
 
-export function ProgramAreas() {
+type AreaItem = {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  crop: { left: string; top: string; width: string; height: string };
+};
+
+type ProgramAreasProps = {
+  eyebrow?: string;
+  title?: string;
+  copy?: string;
+  areas?: readonly AreaItem[] | AreaItem[];
+  ctaHref?: string;
+};
+
+export function ProgramAreas({
+  eyebrow = "Program areas",
+  title = "Build the skills to perform better",
+  copy = "Explore specialized learning areas designed to build skills and knowledge directly relevant to your work.",
+  areas = programAreas,
+  ctaHref = "/programs",
+}: ProgramAreasProps) {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const swiper = useRef<SwiperInstance | null>(null);
   const direction = useDocumentDirection();
   const reduced = useReducedMotion();
-  /* CSS stacks areas at 72rem — pin only when the split layout is intact */
   const isTabletDown = useMediaQuery(MQ_TABLET);
   const { locale } = useLocale();
   const forced = !reduced && isTabletDown === false;
@@ -86,13 +108,13 @@ export function ProgramAreas() {
     <section className="areas" id="areas" aria-labelledby="areas-title" ref={section}>
       <div className="section-container">
         <div className="areas__heading">
-          <Eyebrow small>Program areas</Eyebrow>
+          <Eyebrow small>{eyebrow}</Eyebrow>
           <div className="areas__split">
             <RevealLines id="areas-title" as="h2" className="section-title section-title--display">
-              Build the skills to perform better
+              {title}
             </RevealLines>
             <RevealLines as="p" className="section-copy" duration={0.7} stagger={0.08}>
-              Explore specialized learning areas designed to build skills and knowledge directly relevant to your work.
+              {copy}
             </RevealLines>
           </div>
         </div>
@@ -113,7 +135,7 @@ export function ProgramAreas() {
               setGeneration((value) => value + 1);
             }}
           >
-            {programAreas.map((area) => (
+            {areas.map((area) => (
               <SwiperSlide key={area.slug}>
                 <article className="area-card">
                   <RevealImage className="area-card__media">
@@ -143,7 +165,7 @@ export function ProgramAreas() {
 
       <div className="section-container">
         <div className="areas__footer">
-          <Button dot="end">
+          <Button href={ctaHref} dot="end">
             View All Programs
           </Button>
           <div className="areas__arrows">

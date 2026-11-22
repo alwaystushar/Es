@@ -454,4 +454,74 @@ export const dictionary: Record<string, string> = {
   "We can tailor learning objectives, content and activities to your organization's needs and target audience.":
     "يمكننا تكييف أهداف التعلم والمحتوى والأنشطة وفق احتياجات مؤسستك والجمهور المستهدف.",
   "Request a Team Proposal": "اطلب مقترحًا للفريق",
+  "Request a Tailored Solution": "اطلب حلًا مخصصًا",
+  "Talk to Our Experts": "تحدث إلى خبرائنا",
+  "Learning designed to strengthen capabilities and performance":
+    "تعلّم مصمم لتعزيز القدرات وتحسين الأداء",
+  "We design learning around your organization's needs, building the skills required to improve performance and achieve its goals.":
+    "نصمّم التعلّم حول احتياجات مؤسستك، ونبني المهارات اللازمة لتحسين الأداء وتحقيق أهدافها.",
+  "Professionals studying together on amphitheater seating": "مهنيون يدرسون معًا على مقاعد مدرّج",
+  "Learning solutions built around your organization": "حلول تعليمية مبنية حول مؤسستك",
+  "From needs analysis to solution design and impact measurement, we tailor the approach to your organization and audience.":
+    "من تحليل الاحتياجات إلى تصميم الحل وقياس الأثر، نكيّف المنهج بما يناسب مؤسستك وجمهورك.",
+  "Talent & Capability Development": "تطوير المواهب والقدرات",
+  "Programs that develop essential skills and create clearer pathways for professional growth.":
+    "برامج تنمي المهارات الأساسية وتخلق مسارات أوضح للنمو المهني.",
+  "Customized Learning Journeys": "رحلات تعلم مخصصة",
+  "We create integrated learning journeys tailored to your audience and organizational objectives.":
+    "نصمم رحلات تعلم متكاملة مخصصة لجمهورك وأهداف مؤسستك.",
+  "Training Needs Analysis": "تحليل الاحتياجات التدريبية",
+  "We identify training needs and prioritize capability gaps before developing the plan.":
+    "نحدد الاحتياجات التدريبية ونرتب فجوات القدرات قبل وضع الخطة.",
+  "Training Impact Measurement": "قياس أثر التدريب",
+  "We evaluate what has been achieved and how learning translates into workplace performance.":
+    "نقيّم ما تحقق وكيف يتحول التعلم إلى أداء في بيئة العمل.",
+  "Coaching & Mentoring": "التوجيه والإرشاد",
+  "One-to-one coaching helps leaders and professionals develop and navigate workplace challenges.":
+    "يساعد التوجيه الفردي القادة والمهنيين على التطور ومواجهة تحديات العمل.",
+  "Leadership Development": "تطوير القيادات",
+  "We help leaders strengthen the skills needed to guide teams and make effective decisions.":
+    "نساعد القادة على تعزيز المهارات اللازمة لقيادة الفرق واتخاذ قرارات فعالة.",
+  "Why choose ES Learning for your team?": "لماذا تختار إي إس ليرنينغ لفريقك؟",
+  "Learning Tailored to Your Needs": "تعلّم مصمم وفق احتياجاتك",
+  "How We Work with You": "كيف نعمل معك",
+  "From needs analysis to impact measurement": "من تحليل الاحتياجات إلى قياس الأثر",
+  "Identify the Need": "تحديد الاحتياج",
+  "We identify the gap between current capabilities and desired performance.":
+    "نحدد الفجوة بين القدرات الحالية والأداء المطلوب.",
+  "Design the Solution": "تصميم الحل",
+  "We design the right program or integrated learning journey.":
+    "نصمم البرنامج المناسب أو رحلة التعلم المتكاملة.",
+  "Deliver the learning": "تقديم التعلم",
+  "Practical training delivered by experienced specialists.": "تدريب عملي يقدمه متخصصون ذوو خبرة.",
+  "Measure impact": "قياس الأثر",
+  "We review workplace application and training outcomes.": "نراجع تطبيق التعلم في العمل ونتائج التدريب.",
+  "Contact us": "تواصل معنا",
+  "What does your organization need to develop?": "ما الذي تحتاج مؤسستك إلى تطويره؟",
+  "Tell us about your need or challenge and our team will discuss the right next step.":
+    "أخبرنا عن احتياجك أو تحديك ويناقش فريقنا الخطوة التالية المناسبة.",
+  "Select your enquiry type and describe your main development needs.":
+    "اختر نوع الاستفسار ووصف احتياجات التطوير الرئيسية.",
+  "Organization Name": "اسم المؤسسة",
+  "Job Title": "المسمى الوظيفي",
+  "Business Email": "البريد الإلكتروني للعمل",
+  "Contact Number": "رقم التواصل",
+  "Select Enquiry Type": "اختر نوع الاستفسار",
+  "Training Need or Challenge": "الاحتياج التدريبي أو التحدي",
+  "Enter Training Need or Challenge": "أدخل الاحتياج التدريبي أو التحدي",
+  "Enter organization name": "أدخل اسم المؤسسة",
+  "Enter full name": "أدخل الاسم الكامل",
+  "Enter job title": "أدخل المسمى الوظيفي",
+  "Enter business email": "أدخل البريد الإلكتروني للعمل",
+  "Enter contact number": "أدخل رقم التواصل",
+  "Submit Enquiry": "إرسال الاستفسار",
+  "Custom Learning Program": "برنامج تعلم مخصص",
+  "Add your organization, name, a valid business email, and a training need of at least 12 characters.":
+    "أضف اسم مؤسستك واسمك وبريدًا عمل صالحًا واحتياجًا تدريبيًا لا يقل عن ١٢ حرفًا.",
+  "Professionals collaborating during a capability workshop": "مهنيون يتعاونون أثناء ورشة قدرات",
+  "Team reviewing a customized learning plan together": "فريق يراجع خطة تعلم مخصصة معًا",
+  "Facilitator presenting during a needs analysis session": "ميسّر يقدم أثناء جلسة تحليل احتياجات",
+  "Professionals reviewing training outcomes on a laptop": "مهنيون يراجعون نتائج التدريب على حاسوب محمول",
+  "Coach and professional in a mentoring conversation": "مدرب ومهني في محادثة إرشاد",
+  "Leaders collaborating in a development workshop": "قادة يتعاونون في ورشة تطوير",
 };

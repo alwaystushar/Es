@@ -1,6 +1,5 @@
 export const navigation = [
   { label: "About Us", href: "/about" },
-  { label: "For Organizations", href: "/organization" },
   { label: "Programs", href: "/programs" },
   { label: "Seminars", href: "/seminars" },
   { label: "Knowledge Hub", href: "/knowledge" },

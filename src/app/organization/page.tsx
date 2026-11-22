@@ -1,29 +1,52 @@
 import type { Metadata } from "next";
-import { ContactForm } from "@/components/forms/ContactForm";
-import { PageIntro } from "@/components/pages/PageIntro";
-import { T } from "@/i18n/locale";
+import { Hero } from "@/components/sections/Hero";
+import { Journey } from "@/components/sections/Journey";
+import { OrgEnquiry } from "@/components/sections/OrgEnquiry";
+import { OrgHowWeWork } from "@/components/sections/OrgHowWeWork";
+import { Partners } from "@/components/sections/Partners";
+import { ProgramAreas } from "@/components/sections/ProgramAreas";
+import { Why } from "@/components/sections/Why";
+import {
+  orgAreasIntro,
+  orgHero,
+  orgProgramAreas,
+  orgWhyIntro,
+  orgWhyItems,
+} from "@/data/organization";
 
-export const metadata: Metadata = { title: "For Organization" };
+export const metadata: Metadata = {
+  title: "For Organizations",
+  description:
+    "Learning designed to strengthen capabilities and performance. ES Learning designs tailored solutions around your organization's needs.",
+};
 
 export default function OrganizationPage() {
   return (
-    <PageIntro
-      title="Learning for your organization"
-      lede="Tell us what your organization wants to achieve, and we'll help you design a learning solution aligned with your goals."
-    >
-      <div className="detail-grid">
-        <article className="plain-card">
-          <h2>
-            <T>Programs grounded in practice</T>
-          </h2>
-          <p>
-            <T>
-              ES Learning brings global methodologies into the Saudi workplace, helping teams apply what they learn and create lasting impact.
-            </T>
-          </p>
-        </article>
-        <ContactForm intent="Design a learning solution" />
-      </div>
-    </PageIntro>
+    <main id="main">
+      <Hero
+        variant="organization"
+        title={orgHero.title}
+        titleLines={orgHero.titleLines}
+        body={orgHero.body}
+        image={orgHero.image}
+        alt={orgHero.alt}
+        primaryLabel={orgHero.primaryLabel}
+        primaryHref={orgHero.primaryHref}
+        secondaryLabel={orgHero.secondaryLabel}
+        secondaryHref={orgHero.secondaryHref}
+        showReviews={false}
+      />
+      <ProgramAreas
+        eyebrow={orgAreasIntro.eyebrow}
+        title={orgAreasIntro.title}
+        copy={orgAreasIntro.copy}
+        areas={orgProgramAreas}
+      />
+      <Why eyebrow={orgWhyIntro.eyebrow} title={orgWhyIntro.title} copy={null} items={orgWhyItems} />
+      <OrgHowWeWork />
+      <Partners />
+      <OrgEnquiry />
+      <Journey />
+    </main>
   );
 }
