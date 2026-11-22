@@ -10138,7 +10138,7 @@ a.contact-detail__value:hover {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: calc(100vw * 570 / 1440) minmax(0, 1fr);
+  grid-template-columns: 1fr 1fr;
   width: calc(100vw * 1130 / 1440);
   max-width: 100%;
   height: calc(100vw * 640 / 1440);
@@ -10465,7 +10465,7 @@ a.contact-detail__value:hover {
 }
 
 [dir="rtl"] .signin__card {
-  grid-template-columns: minmax(0, 1fr) 35.625rem;
+  grid-template-columns: 1fr 1fr;
 }
 
 [dir="rtl"] .signin__card .signin__panel {
@@ -10482,7 +10482,7 @@ a.contact-detail__value:hover {
   }
 
   .signin__card {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     width: 100%;
     height: auto;
     min-height: 40rem;
