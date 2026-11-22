@@ -1,5 +1,4 @@
 export const navigation = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "For Organizations", href: "/organization" },
   { label: "Programs", href: "/programs" },
@@ -104,6 +103,68 @@ export const programAreas = [
     image: "/assets/images/area-excellence.webp",
     alt: "Professional using a tablet with a coastal view behind him",
     crop: { left: "-9.11%", top: "-6.88%", width: "109.11%", height: "119.14%" },
+  },
+] as const;
+
+export const homeFeaturedPrograms = [
+  {
+    slug: "bpm-professional",
+    badge: "Exclusive to ES Learning",
+    category: "Process & Policy Management",
+    title: "Business Process Management Professional",
+    description:
+      "From process management fundamentals to analysis, future-state design and actionable recommendations.",
+    image: "/assets/images/programs/home-card-bpm.webp",
+    alt: "Two professionals reviewing documents together",
+    rating: "4.8",
+    reviews: "(61)",
+    duration: "5 days",
+    price: "8,400",
+    compareAt: "10,000",
+  },
+  {
+    slug: "advanced-bpm",
+    badge: "Exclusive to ES Learning",
+    category: "Process & Policy Management",
+    title: "Advanced Business Process Management",
+    description:
+      "Advanced tools for process analysis, complex problem-solving and consulting project management.",
+    image: "/assets/images/programs/home-card-advanced-bpm.webp",
+    alt: "Professional presenting against a digital analytics backdrop",
+    rating: "4.8",
+    reviews: "(61)",
+    duration: "5 days",
+    price: "8,400",
+    compareAt: "10,000",
+  },
+  {
+    slug: "service-innovation-design",
+    badge: "Public Program",
+    category: "Innovation & Entrepreneurship",
+    title: "Service Innovation & Design",
+    description: "Understand market needs and develop stronger services through prototyping and testing.",
+    image: "/assets/images/programs/home-card-innovation.webp",
+    alt: "Professionals collaborating around a table in a bright office",
+    rating: "4.8",
+    reviews: "(61)",
+    duration: "5 days",
+    price: "1,500",
+    compareAt: "2,000",
+  },
+  {
+    slug: "process-documentation-pdxel",
+    badge: "Public Program",
+    category: "Process & Policy Management",
+    title: "Professional Process Documentation (PDxel)",
+    description:
+      "A practical approach to capturing, documenting and modeling processes using BPMN 2.0 and EPC.",
+    image: "/assets/images/programs/home-card-pdxel.webp",
+    alt: "Three colleagues talking and laughing in an office",
+    rating: "4.8",
+    reviews: "(61)",
+    duration: "5 days",
+    price: "1,500",
+    compareAt: "2,000",
   },
 ] as const;
 

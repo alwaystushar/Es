@@ -1,5 +1,5 @@
-import { FeaturedPrograms } from "@/components/sections/FeaturedPrograms";
 import { Hero } from "@/components/sections/Hero";
+import { HomePrograms } from "@/components/sections/HomePrograms";
 import { Impact } from "@/components/sections/Impact";
 import { Journey } from "@/components/sections/Journey";
 import { KnowledgeHub } from "@/components/sections/KnowledgeHub";
@@ -11,10 +11,10 @@ export default function HomePage() {
   return (
     <main id="main">
       <Hero />
+      <HomePrograms />
       <Impact />
       <Why />
       <ProgramAreas />
-      <FeaturedPrograms />
       <KnowledgeHub />
       <Partners />
       <Journey />

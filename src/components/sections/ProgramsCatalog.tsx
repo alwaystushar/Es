@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { CustomSelect } from "@/components/ui/CustomSelect";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
-import { Stars } from "@/components/ui/Stars";
+import { ProgramListCard } from "@/components/ui/ProgramListCard";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { LocalizedImage, T } from "@/i18n/locale";
+import { T } from "@/i18n/locale";
 
 const subjectOptions = programSubjectAreas.map((label) => ({
   value: label,
@@ -85,74 +85,7 @@ export function ProgramsCatalog() {
 
         <div className="programs-catalog__grid">
           {visible.map((program) => (
-            <article key={program.slug} className="program-list-card card-hover">
-              <div className="program-list-card__media">
-                <LocalizedImage
-                  src={program.image}
-                  alt={program.alt}
-                  fill
-                  quality={90}
-                  sizes="(max-width: 48rem) 100vw, 24rem"
-                />
-                <span className="program-list-card__overlay" aria-hidden="true" />
-                <span className="program-list-card__badge">
-                  <T>{program.badge}</T>
-                </span>
-              </div>
-              <div className="program-list-card__body">
-                <div className="program-list-card__content">
-                  <div className="program-list-card__heading">
-                    <p className="program-list-card__category">
-                      <T>{program.category}</T>
-                    </p>
-                    <h2>
-                      <T>{program.title}</T>
-                    </h2>
-                    <p className="program-list-card__copy">
-                      <T>{program.description}</T>
-                    </p>
-                  </div>
-                  <div className="program-list-card__meta">
-                    <div className="program-list-card__reviews">
-                      <span>{program.rating}</span>
-                      <Stars small />
-                      <span className="review-dot" aria-hidden="true" />
-                      <span>
-                        <T>{program.reviews}</T>
-                      </span>
-                    </div>
-                    <div className="program-list-card__duration">
-                      <Icon src="/assets/icons/clock.svg" width={16} height={16} />
-                      <span>
-                        <T>Duration</T>
-                      </span>
-                      <span className="review-dot" aria-hidden="true" />
-                      <span>
-                        <T>{program.duration}</T>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="program-list-card__footer">
-                  <div className="program-list-card__fees">
-                    <span>
-                      <T>Fees</T>
-                    </span>
-                    <div className="program-list-card__price">
-                      <Icon src="/assets/icons/riyal-green.svg" width={19} height={20} />
-                      <strong>{program.price}</strong>
-                      <span className="program-list-card__compare">
-                        <Icon src="/assets/icons/riyal-muted.svg" width={11} height={11} />
-                        <span>{program.compareAt}</span>
-                      </span>
-                    </div>
-                  </div>
-                  <Button href={`/programs/${program.slug}`} plain className="program-list-card__cta" dot="none">
-                    View Program
-                  </Button>
-                </div>
-              </div>
-            </article>
+            <ProgramListCard key={program.slug} program={program} />
           ))}
         </div>
 

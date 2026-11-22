@@ -3127,6 +3127,16 @@
   white-space: nowrap;
 }
 
+.program-list-card__badge--exclusive {
+  background: rgba(24, 152, 99, 0.4);
+  backdrop-filter: blur(0.22rem);
+}
+
+.program-list-card__badge--public {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(0.22rem);
+}
+
 .program-list-card__body {
   display: flex;
   flex: 1;
@@ -3156,7 +3166,8 @@
   line-height: normal;
 }
 
-.program-list-card__body h2 {
+.program-list-card__body h2,
+.program-list-card__body h3 {
   margin: 0;
   color: #1b2a22;
   font-size: 1.5rem;
@@ -3283,6 +3294,153 @@
 }
 
 .programs-catalog__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.home-programs {
+  position: relative;
+  padding-block: 5rem;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+.home-programs .field-wash {
+  z-index: 0;
+}
+
+.home-programs .section-container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-programs__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: min(100%, 49.1875rem);
+  margin-inline: auto;
+  margin-bottom: 2.4375rem;
+  text-align: center;
+}
+
+.home-programs__title {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 3.25rem;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.home-programs__copy {
+  margin: 0;
+  color: #818f87;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.home-programs__search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: min(100%, 41.875rem);
+  margin: 0 auto 4rem;
+  padding: 0.25rem 0.25rem 0.25rem 1rem;
+  border: 0.0625rem solid #dbebe4;
+  border-radius: 1rem;
+  background: var(--color-white);
+}
+
+.home-programs__field {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.home-programs__field input {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #4a5a51;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  outline: none;
+}
+
+.home-programs__field input::placeholder {
+  color: #818f87;
+}
+
+.home-programs__search-btn {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 4rem;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 0.875rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.home-programs__search-btn img {
+  filter: brightness(0) invert(1);
+}
+
+.home-programs__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.home-programs .program-list-card {
+  max-width: none;
+}
+
+.home-programs .program-list-card__media {
+  height: 11rem;
+}
+
+.home-programs .program-list-card__badge {
+  font-size: 0.66rem;
+}
+
+.home-programs .program-list-card__category {
+  font-size: 0.66rem;
+}
+
+.home-programs .program-list-card__body h3 {
+  font-size: 1.325rem;
+}
+
+.home-programs .program-list-card__copy {
+  font-size: 0.77rem;
+}
+
+.home-programs .program-list-card__reviews,
+.home-programs .program-list-card__duration {
+  font-size: 0.77rem;
+}
+
+.home-programs .program-list-card__price strong {
+  font-size: 1.54rem;
+}
+
+.home-programs .program-list-card__cta {
+  min-height: 2.5rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.77rem;
+}
+
+.home-programs__action {
   display: flex;
   justify-content: center;
   margin-top: 2.5rem;
@@ -3691,6 +3849,19 @@
   .about-experts__intro,
   .programs-catalog__grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-programs__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-programs__title {
+    font-size: clamp(2rem, 7vw, 3.25rem);
+  }
+
+  .home-programs__search {
+    width: 100%;
+    margin-bottom: 2.5rem;
   }
 
   .about-values > .section-container {
@@ -4932,7 +5103,8 @@
     font-size: 1rem;
   }
 
-  .programs-catalog__grid {
+  .programs-catalog__grid,
+  .home-programs__grid {
     grid-template-columns: 1fr;
   }
 
@@ -5271,7 +5443,8 @@
   .partners-row__name,
   .partners-row__role,
   .seminar-list-card__title,
-  .program-list-card__body h2 {
+  .program-list-card__body h2,
+  .program-list-card__body h3 {
     overflow-wrap: break-word;
     max-width: 100%;
   }

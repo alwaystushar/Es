@@ -425,9 +425,26 @@ export const dictionary: Record<string, string> = {
   "Public Programs": "البرامج العامة",
   "Supported by Hadaf": "مدعوم من هدف",
   "Exclusive to ES Learning": "حصري لإي إس ليرنينغ",
+  "Public Program": "برنامج عام",
   "Business Process Management Professional": "محترف إدارة عمليات الأعمال",
+  "Advanced Business Process Management": "إدارة عمليات الأعمال المتقدمة",
+  "Service Innovation & Design": "ابتكار وتصميم الخدمات",
+  "Professional Process Documentation (PDxel)": "التوثيق الاحترافي للعمليات (PDxel)",
   "From process management fundamentals to analysis, future-state design and actionable recommendations.":
     "من أساسيات إدارة العمليات إلى التحليل وتصميم الحالة المستقبلية والتوصيات القابلة للتنفيذ.",
+  "Advanced tools for process analysis, complex problem-solving and consulting project management.":
+    "أدوات متقدمة لتحليل العمليات وحل المشكلات المعقدة وإدارة مشاريع الاستشارات.",
+  "Understand market needs and develop stronger services through prototyping and testing.":
+    "افهم احتياجات السوق وطوّر خدمات أقوى عبر النماذج الأولية والاختبار.",
+  "A practical approach to capturing, documenting and modeling processes using BPMN 2.0 and EPC.":
+    "نهج عملي لالتقاط العمليات وتوثيقها ونمذجتها باستخدام BPMN 2.0 وEPC.",
+  "(61)": "(٦١)",
+  "Professional presenting against a digital analytics backdrop": "مهني يقدم أمام خلفية تحليلات رقمية",
+  "Professionals collaborating around a table in a bright office": "مهنيون يتعاونون حول طاولة في مكتب مضيء",
+  "Three colleagues talking and laughing in an office": "ثلاثة زملاء يتحدثون ويضحكون في مكتب",
+  "Search programs": "ابحث في البرامج",
+  "No programs match your search. Try adjusting the filters.":
+    "لا توجد برامج تطابق بحثك. حاول تعديل عوامل التصفية.",
   Duration: "المدة",
   "5 days": "٥ أيام",
   Fees: "الرسوم",
