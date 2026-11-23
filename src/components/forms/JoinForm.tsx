@@ -167,7 +167,7 @@ export function JoinForm() {
           </form>
         </div>
 
-        <AuthPanel title="Start your Journey" />
+        <AuthPanel title="Start your Journey" titleLines={["Start your", "Journey"]} />
       </div>
       </div>
     </>

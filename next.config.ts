@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   images: {
     qualities: [75, 90],
   },
+  async rewrites() {
+    return [{ source: "/portal", destination: "/portal/index.html" }];
+  },
   turbopack: {
     root: projectRoot,
     rules: {

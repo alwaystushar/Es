@@ -8,7 +8,6 @@ import { T, tr, useLocale } from "@/i18n/locale";
 export function SignInForm() {
   const { locale } = useLocale();
   const [error, setError] = useState("");
-  const [ready, setReady] = useState(false);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,14 +15,14 @@ export function SignInForm() {
     const email = String(data.get("email") ?? "").trim();
     const password = String(data.get("password") ?? "");
 
-    if (!email.includes("@") || password.length < 8) {
-      setReady(false);
-      setError("Enter a valid email and a password of at least 8 characters.");
+    if (!email || !password) {
+      setError("Enter your email and password.");
       return;
     }
 
     setError("");
-    setReady(true);
+    /* Demo auth — any credentials open the learner portal */
+    window.location.assign("/portal/index.html");
   };
 
   return (
@@ -72,7 +71,6 @@ export function SignInForm() {
                   autoComplete="current-password"
                   placeholder="••••••••"
                   required
-                  minLength={8}
                 />
               </label>
 
@@ -82,11 +80,6 @@ export function SignInForm() {
             </div>
 
             {error ? <p className="form-error">{tr(locale, error)}</p> : null}
-            {ready ? (
-              <p className="form-success">
-                <T>Your details look valid and are ready for sign-in.</T>
-              </p>
-            ) : null}
 
             <button type="submit" className="signin__submit">
               <T>Login</T>

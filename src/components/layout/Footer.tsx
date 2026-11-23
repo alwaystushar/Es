@@ -27,10 +27,16 @@ export function Footer() {
         <div className="site-footer__main">
           <div className="site-footer__brand">
             <Link href="/" aria-label={tr(locale, "ES Learning home")} className="site-footer__logo">
-              <Icon src="/assets/logos/logo.svg" width={92} height={92} />
+              <Icon src="/assets/logos/logo.svg" width={72} height={72} />
             </Link>
             <p className="site-footer__tagline">
-              <T>From learning to impact you can see</T>
+              <span className="loc-en">
+                <span className="site-footer__tagline-line">From learning to impact</span>
+                <span className="site-footer__tagline-line">you can see</span>
+              </span>
+              <span className="loc-ar">
+                <T>From learning to impact you can see</T>
+              </span>
             </p>
           </div>
 
