@@ -10,12 +10,13 @@ export type Expert = {
   programsDelivered: { title: string; description: string }[];
 };
 
+/** Figma 3129:55295 — four team cards on the Experts page */
 export const expertCatalog: Expert[] = [
   {
     slug: "imran-al-mikhlafi",
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
+    photo: "/assets/images/experts/card-1.webp",
     photoAlt: "Imran Al-Mikhlafi portrait",
     about:
       "Imran Al-Mikhlafi focuses on connecting strategic thinking with practical business performance. His proposed expert profile highlights the importance of translating organizational objectives into actionable plans, meaningful performance indicators, and measurable outcomes.",
@@ -57,7 +58,7 @@ export const expertCatalog: Expert[] = [
     slug: "imran-al-mikhlafi-2",
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
+    photo: "/assets/images/experts/card-2.webp",
     photoAlt: "Imran Al-Mikhlafi portrait",
     about: "Expert in business process management with years of practical experience.",
     qualifications: "Certified Business Process Professional (CBPP).",
@@ -72,7 +73,7 @@ export const expertCatalog: Expert[] = [
     slug: "imran-al-mikhlafi-3",
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
+    photo: "/assets/images/experts/card-3.webp",
     photoAlt: "Imran Al-Mikhlafi portrait",
     about: "Specialist in process improvement and organizational excellence.",
     qualifications: "Advanced Process Improvement Certification.",
@@ -87,7 +88,7 @@ export const expertCatalog: Expert[] = [
     slug: "imran-al-mikhlafi-4",
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
+    photo: "/assets/images/experts/card-4.webp",
     photoAlt: "Imran Al-Mikhlafi portrait",
     about: "Experienced facilitator specializing in team performance.",
     qualifications: "Certified Facilitator, International Association of Facilitators.",
@@ -98,66 +99,6 @@ export const expertCatalog: Expert[] = [
       { title: "Meeting & Workshop Facilitation", description: "Professional facilitation skills program." },
     ],
   },
-  {
-    slug: "imran-al-mikhlafi-5",
-    name: "Imran Al-Mikhlafi",
-    role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
-    photoAlt: "Imran Al-Mikhlafi portrait",
-    about: "Expert in governance and risk management frameworks.",
-    qualifications: "ISACA Certified Information Systems Auditor (CISA).",
-    areasOfExpertise: [
-      { title: "Technology Governance", description: "Aligning IT with organizational strategy." },
-    ],
-    programsDelivered: [
-      { title: "Project Governance", description: "Governance frameworks for project management." },
-    ],
-  },
-  {
-    slug: "imran-al-mikhlafi-6",
-    name: "Imran Al-Mikhlafi",
-    role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
-    photoAlt: "Imran Al-Mikhlafi portrait",
-    about: "Data analytics and business intelligence specialist.",
-    qualifications: "Microsoft Certified: Data Analyst Associate.",
-    areasOfExpertise: [
-      { title: "Data Analysis", description: "Turning data into actionable business insights." },
-    ],
-    programsDelivered: [
-      { title: "Data Analysis using Power BI", description: "Business intelligence with Power BI." },
-    ],
-  },
-  {
-    slug: "imran-al-mikhlafi-7",
-    name: "Imran Al-Mikhlafi",
-    role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
-    photoAlt: "Imran Al-Mikhlafi portrait",
-    about: "Policy development and management expert.",
-    qualifications: "Certified Policy Professional.",
-    areasOfExpertise: [
-      { title: "Policy Management", description: "Developing clear, effective organizational policies." },
-    ],
-    programsDelivered: [
-      { title: "Developing Internal Policies", description: "Policy design and implementation program." },
-    ],
-  },
-  {
-    slug: "imran-al-mikhlafi-8",
-    name: "Imran Al-Mikhlafi",
-    role: "Certified business process management expert",
-    photo: "/assets/images/experts/card-photo.webp",
-    photoAlt: "Imran Al-Mikhlafi portrait",
-    about: "Innovation and service design specialist.",
-    qualifications: "Certified Design Thinking Practitioner.",
-    areasOfExpertise: [
-      { title: "Innovation", description: "Applying design thinking to solve complex challenges." },
-    ],
-    programsDelivered: [
-      { title: "Innovation & Entrepreneurship", description: "Innovation methods and tools program." },
-    ],
-  },
 ];
 
 export const experts = expertCatalog;
@@ -165,6 +106,7 @@ export const experts = expertCatalog;
 export const expertsHero = {
   title: "Practitioner expertise at the heart of learning",
   body: "Our experts combine specialist knowledge with professional practice to create learning experiences grounded in real workplace challenges.",
+  image: "/assets/images/experts/hero-photo.webp",
 } as const;
 
 export function getExpert(slug: string) {

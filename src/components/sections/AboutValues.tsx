@@ -5,11 +5,7 @@ import { aboutValues } from "@/data/about";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FieldWash } from "@/components/ui/FieldWash";
 import { Icon } from "@/components/ui/Icon";
-import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
-
-const ICON_DEFAULT = "/assets/images/about/values/icon-ksa.svg";
-const ICON_HOVER = "/assets/images/about/values/icon-ksa-hover.svg";
 
 export function AboutValues() {
   const [active, setActive] = useState<number | null>(null);
@@ -22,9 +18,15 @@ export function AboutValues() {
       <div className="section-container">
         <div className="about-values__intro">
           <Eyebrow>Our Values</Eyebrow>
-          <RevealLines id="about-values-title" as="h2" className="about-values__title">
-            Our principles shape every learning experience
-          </RevealLines>
+          <h2 id="about-values-title" className="about-values__title">
+            <span className="loc-en">
+              <span className="about-values__title-line">Our principles shape every</span>
+              <span className="about-values__title-line">learning experience</span>
+            </span>
+            <span className="loc-ar">
+              <T>Our principles shape every learning experience</T>
+            </span>
+          </h2>
         </div>
         <ul
           className={["about-values__grid", active !== null ? "is-hot" : ""].filter(Boolean).join(" ")}
@@ -50,12 +52,7 @@ export function AboutValues() {
                 tabIndex={0}
               >
                 <span className="about-values__icon" aria-hidden="true">
-                  <Icon
-                    className="about-values__glyph"
-                    src={isActive ? ICON_HOVER : value.icon || ICON_DEFAULT}
-                    width={40}
-                    height={40}
-                  />
+                  <Icon className="about-values__glyph" src={value.icon} width={40} height={40} />
                 </span>
                 <div className="about-values__copy">
                   <h3>

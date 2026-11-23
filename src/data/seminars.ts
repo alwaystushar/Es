@@ -15,7 +15,9 @@ export const seminarSubjectAreas = [
 export const seminarHero = {
   title: "Expert conversations that broaden your perspective",
   body: "Join specialist-led seminars exploring important workplace topics and sharing ideas that strengthen professional knowledge and performance.",
-  image: "/assets/images/seminars/hero.webp",
+  cta: "Explore Programs",
+  ctaHref: "/programs",
+  image: "/assets/images/seminars/hero-photo.webp",
   imageAlt: "Professionals seated in a seminar amphitheatre",
 } as const;
 

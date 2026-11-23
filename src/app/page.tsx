@@ -15,8 +15,8 @@ export default function HomePage() {
       <Impact />
       <Why />
       <ProgramAreas />
-      <KnowledgeHub />
       <Partners />
+      <KnowledgeHub />
       <Journey />
     </main>
   );

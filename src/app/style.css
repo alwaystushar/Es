@@ -2414,7 +2414,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  max-width: 36rem;
+  max-width: 51.375rem; /* Figma Heading + Body w=822 */
   margin-bottom: 3.5rem;
 }
 
@@ -2425,6 +2425,11 @@
   font-weight: 400;
   font-synthesis: none;
   line-height: 1.15;
+}
+
+.about-values__title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .about-values__grid {
@@ -2533,7 +2538,8 @@
 .about-experts {
   padding-block: 5rem 9rem;
   background: var(--color-background);
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .about-experts__intro {
@@ -2565,29 +2571,38 @@
   overflow: visible;
 }
 
-.about-experts__swiper {
-  overflow: visible;
+/* Swiper defaults to overflow:hidden — that flattens the raised media’s top radius */
+.about-experts__swiper,
+.about-experts__swiper.swiper {
+  overflow: visible !important;
+}
+
+.about-experts__swiper .swiper-wrapper {
+  overflow: visible !important;
+  align-items: flex-end;
 }
 
 .about-experts__swiper .swiper-slide {
-  width: 14.3125rem;
+  width: 14.3125rem; /* inactive 229 */
   height: auto;
+  overflow: visible !important;
   transition: width 0.55s var(--ease-standard);
 }
 
 .about-experts__swiper .swiper-slide.is-open {
-  width: 43.4375rem;
+  width: 43.4375rem; /* active 695 */
 }
 
 .about-expert {
   position: relative;
   display: flex;
-  align-items: stretch;
+  align-items: flex-end;
   width: 100%;
-  height: 23.6875rem;
-  overflow: hidden;
-  border-radius: 1rem;
-  background: #f8ffe9;
+  height: 21.25rem; /* 340 */
+  overflow: visible;
+  border-radius: var(--radius-xl);
+  /* Figma 3129:52574 active body is white — not lime */
+  background: var(--color-white);
   cursor: pointer;
   outline: none;
 }
@@ -2596,14 +2611,15 @@
   background: var(--color-white);
 }
 
+/* Figma media stack: mint plate → lime glow → photo → shade */
 .about-expert__media {
   position: relative;
   z-index: 1;
   flex: 0 0 14.3125rem;
   width: 14.3125rem;
-  height: 100%;
-  overflow: hidden;
-  border-radius: 1rem;
+  height: 21.25rem;
+  overflow: hidden; /* needed for border-radius */
+  border-radius: var(--radius-xl); /* 16 — idle */
   transition:
     flex-basis 0.55s var(--ease-standard),
     width 0.55s var(--ease-standard),
@@ -2611,24 +2627,102 @@
 }
 
 .about-expert.is-open .about-expert__media {
-  flex-basis: 17.5rem;
-  width: 17.5rem;
-  border-radius: 1.5rem;
+  /* Same size as idle — do not widen the mint plate / bg on open */
+  flex-basis: 14.3125rem;
+  width: 14.3125rem;
+  height: 21.25rem;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
 }
 
-.about-expert__media img {
+.about-expert__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--color-expert-media); /* #e2f4ed */
+}
+
+.about-expert__glow {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: 175%;
+  height: auto;
+  max-width: none;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+/*
+ * PHOTO NEVER SCALES ON HOVER.
+ * Frame stays 229×340 always; open only widens the mint plate around it.
+ * Framing: about.ts imagePosition → --expert-pos-x / --expert-pos-y.
+ */
+.about-expert__photo {
+  position: absolute;
+  z-index: 2;
+  inset-block: 0;
+  inset-inline-start: 50%;
+  width: 14.3125rem;
+  height: 21.25rem;
+  translate: -50% 0;
+  overflow: hidden;
+  border-radius: inherit;
+  /* no width/height transition — size is constant */
+}
+
+.about-expert.is-open .about-expert__photo {
+  width: 14.3125rem;
+  height: 21.25rem;
+}
+
+.about-expert__photo img {
   object-fit: cover;
-  /* Keep head below the crop edge */
-  object-position: center 40%;
+  object-position: var(--expert-pos-x, 50%) var(--expert-pos-y, 50%);
+  width: 100%;
+  height: 100%;
+  /* Nudge from about.ts offsetX / offsetY — not a hover scale */
+  transform: translate(
+    var(--expert-offset-x, 0px),
+    var(--expert-offset-y, 0px)
+  ) !important;
+  scale: none;
+}
+
+.about-expert.is-open .about-expert__photo img {
+  object-fit: cover;
+  object-position: var(--expert-pos-x, 60%) var(--expert-pos-y, 50%);
+  transform: translate(
+    var(--expert-offset-x, 0px),
+    var(--expert-offset-y, 0px)
+  ) !important;
+  scale: none;
+}
+
+.about-expert__shade {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: #000;
+  opacity: 0.1;
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .about-expert__panel {
   position: relative;
+  z-index: 1;
   flex: none;
-  width: 25.9375rem;
+  width: 25.9375rem; /* 415 — fills remainder of 695 */
+  height: 100%;
   display: flex;
   align-items: flex-end;
-  padding: 0 2rem 2rem 2.5rem;
+  padding: 0 2rem 2rem; /* Figma pb/pr 32 */
+  overflow: hidden;
+  border-start-end-radius: var(--radius-xl);
+  border-end-end-radius: var(--radius-xl);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s var(--ease-standard) 0.12s;
@@ -2639,15 +2733,22 @@
   pointer-events: auto;
 }
 
+/* Figma glove 1 — 607×625 at card 408,-463 → panel-local 88,-463 */
 .about-expert__dots {
   position: absolute;
-  inset-inline-end: -4rem;
-  top: -18rem;
-  width: 37.9375rem;
-  height: auto;
-  max-width: none;
-  opacity: 0.2;
+  z-index: 0;
+  inset-inline-start: 5.5rem; /* 88px */
+  top: -28.9375rem; /* -463 */
+  width: 37.9375rem; /* 607 */
+  height: 39.0625rem; /* 625 */
+  background: #ecf5dc; /* sampled from Figma active card glove */
   pointer-events: none;
+  -webkit-mask-image: url("/assets/images/wash/dots.svg");
+  mask-image: url("/assets/images/wash/dots.svg");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
 
 .about-expert__copy {
@@ -2655,8 +2756,8 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  width: 21.4375rem;
+  gap: 1.25rem; /* 20 */
+  width: 21.4375rem; /* ~343 */
   flex: none;
 }
 
@@ -4286,9 +4387,19 @@
     width: min(90vw, 28rem);
   }
 
+  .about-expert__media,
   .about-expert.is-open .about-expert__media {
     flex-basis: 12.5rem;
     width: 12.5rem;
+    height: 21.25rem;
+    margin-block-start: 0;
+    overflow: hidden;
+  }
+
+  .about-expert__photo,
+  .about-expert.is-open .about-expert__photo {
+    width: 12.5rem;
+    height: 21.25rem;
   }
 
   .about-expert__panel {
@@ -4324,55 +4435,88 @@
 /* ─── Seminars Hero ──────────────────────────────────────────────── */
 
 /* Seminars hero — Figma 3047:46898 (1440×820) */
+/* Figma 3129:55412 — same circular-photo hero as Experts */
 .seminars-hero {
   position: relative;
-  min-height: calc(100vw * 820 / 1440);
   display: flex;
   align-items: center;
-  padding-block: calc(var(--header-height) + var(--header-offset) + 2rem) 4rem;
-  background: #ffffff;
+  height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
+  background: var(--color-primary);
+  color: var(--color-white);
 }
 
-.seminars-hero__wash {
+.seminars-hero__bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 48% 55% at 8% 58%, rgba(159, 203, 81, 0.34), transparent 72%),
-    radial-gradient(ellipse 55% 60% at 40% 68%, rgba(159, 203, 81, 0.2), transparent 74%),
-    radial-gradient(ellipse 50% 48% at 58% 78%, rgba(159, 203, 81, 0.1), transparent 70%),
-    radial-gradient(ellipse 45% 50% at 88% 42%, rgba(31, 111, 78, 0.08), transparent 72%);
+  overflow: hidden;
 }
 
-.seminars-hero__field {
-  position: absolute;
-  left: calc(50% + 20.21rem);
-  top: -19.136rem;
-  z-index: 0;
-  width: calc(100vw * 1390.488 / 1440);
-  height: calc(100vw * 1618.81 / 1440);
-  transform: translateX(-50%) scaleY(-1) rotate(180deg);
-  pointer-events: none;
-}
-
-.seminars-hero__field img {
+.seminars-hero__bg img {
   display: block;
   width: 100%;
   height: 100%;
-  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.32);
+  transform-origin: 28% 35%;
 }
 
-.seminars-hero__inner {
-  position: relative;
+/* Figma ellipse/mask: ring 1080.848, photo 1067.582, stage x≈698.28 */
+.seminars-hero__stage {
+  --seminars-ring: calc(100vw * 1080.848 / 1440);
+  --seminars-photo: calc(100vw * 1067.582 / 1440);
+  position: absolute;
+  inset-inline-start: calc(100% * 698.28 / 1440);
+  top: calc(100% * -97.45 / 900);
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, calc(100vw * 552 / 1440)) minmax(0, calc(100vw * 664 / 1440));
-  justify-content: space-between;
-  gap: 3rem;
+  width: calc(100% * 1085.4375 / 1440);
+  height: calc(100% * 1094.8867 / 900);
+  pointer-events: none;
+}
+
+.seminars-hero__ring {
+  position: absolute;
+  inset-inline-start: 0;
+  top: calc(100% * 14.039 / 1094.8867);
+  width: var(--seminars-ring);
+  height: var(--seminars-ring);
+  border-radius: 50%;
+  background: var(--color-secondary);
+}
+
+.seminars-hero__photo {
+  position: absolute;
+  inset-inline-start: calc(100% * 17.855 / 1085.4375);
+  top: 0;
+  width: var(--seminars-photo);
+  height: var(--seminars-photo);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.seminars-hero__photo-img {
+  object-fit: cover;
+  object-position: 52% 42%;
+  transform: scale(1.12);
+  transform-origin: 52% 42%;
+}
+
+.seminars-hero__photo-shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.seminars-hero__layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
   align-items: center;
-  /* width comes from .section-container — do not set width:100% */
+  padding-block: 5rem;
 }
 
 .seminars-hero__copy {
@@ -4380,7 +4524,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 2.5rem; /* 40 */
-  width: min(100%, calc(100vw * 552 / 1440));
+  width: min(100%, calc(100vw * 603 / 1440)); /* Figma content w=603 */
 }
 
 .seminars-hero__text {
@@ -4392,45 +4536,24 @@
 
 .seminars-hero__title {
   margin: 0;
-  color: var(--color-ink);
-  font-size: calc(100vw * 54 / 1440);
+  font-size: calc(100vw * 60 / 1440); /* Figma 60 */
   font-weight: var(--font-weight-regular);
   line-height: 1.15;
+  color: var(--color-white);
 }
 
 .seminars-hero__body {
   margin: 0;
-  color: var(--color-text);
+  color: var(--color-white);
   font-size: calc(100vw * 20 / 1440);
   line-height: 1.5;
   opacity: 0.7;
 }
 
-.seminars-hero__action {
-  margin-top: 0;
-}
-
-.seminars-hero__media {
-  position: relative;
-  width: 100%;
-  max-width: 41.5rem; /* 664 */
-  aspect-ratio: 664 / 470;
-  border-radius: 1.5rem; /* 24 */
-  overflow: hidden;
-  background: #0f4d33;
-  flex-shrink: 0;
-}
-
-.seminars-hero__media img {
-  object-fit: cover;
-  object-position: center;
-}
-
-.seminars-hero__media-shade {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-  pointer-events: none;
+.seminars-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 /* ─── Seminars Catalog ───────────────────────────────────────────── */
@@ -5118,7 +5241,6 @@
   .contact-hero__wash,
   .expert-grid__wash,
   .article-hero__wash,
-  .seminars-hero__wash,
   .about-hero__wash {
     left: 0;
     right: 0;
@@ -5369,6 +5491,10 @@
     width: 100%;
     max-width: 100%;
     flex-wrap: wrap;
+  }
+
+  .about-values__title-line {
+    white-space: normal;
   }
 
   .about-values__grid {
@@ -6370,10 +6496,8 @@
 
 .experts-hero__photo-img {
   object-fit: cover;
-  object-position: 48% 36%;
-  /* Tighter crop — Figma shows people larger in the circle */
-  transform: scale(1.28);
-  transform-origin: 48% 36%;
+  /* Figma 3129:55295 — favor the two foreground men (left-center) */
+  object-position: 28% 42%;
 }
 
 .experts-hero__photo-shade {
@@ -6515,28 +6639,80 @@
   position: absolute;
   inset-inline-start: -0.27%;
   top: 0;
+  z-index: 0;
   width: 100.6%;
   height: 90.24%; /* 379/420 */
   border-radius: 0.5rem;
-  background: #f8ffeb;
+  background: var(--color-expert-media); /* Figma #e2f4ed */
+}
+
+.expert-card__glow {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  width: 175%;
+  height: auto;
+  max-width: none;
+  translate: -50% -50%;
+  pointer-events: none;
 }
 
 .expert-card__photo {
   position: absolute;
+  z-index: 2;
   inset-inline-start: -6.88%; /* -21.48/312 */
   top: 3.79%; /* 15.9/420 */
   width: 107.57%; /* 335.613/312 */
   height: 95.89%; /* 402.735/420 */
 }
 
+/* Figma team-card photo frames — 3129:55334–55369 */
+.expert-card__photo--1 {
+  inset-inline-start: -17.98%; /* -56.11/312 */
+  top: 5.93%; /* 24.9/420 */
+  width: 129.77%; /* 404.873/312 */
+  height: 115.68%; /* 485.848/420 */
+}
+
+.expert-card__photo--2 {
+  inset-inline-start: -0.22%;
+  top: -6.85%; /* -28.75/420 */
+  width: 100.54%; /* 313.672/312 */
+  height: 90.54%; /* 380.251/420 */
+}
+
+.expert-card__photo--3 {
+  inset-inline-start: -8.48%;
+  top: -5.45%; /* -22.91/420 */
+  width: 116.95%; /* 364.895/312 */
+  height: 86.88%; /* 364.895/420 */
+}
+
+.expert-card__photo--4 {
+  inset-inline-start: -95.6%; /* -298.26/312 */
+  top: -8.64%; /* -36.28/420 */
+  width: 280.8%; /* 876.09/312 */
+  height: 208.59%; /* 876.09/420 */
+}
+
 .expert-card__img {
   object-fit: cover;
-  object-position: center top;
+  object-position: center 18%;
+}
+
+.expert-card__photo--1 .expert-card__img {
+  object-position: center 22%;
+}
+
+.expert-card__photo--4 .expert-card__img {
+  object-position: 62% 18%;
 }
 
 .expert-card__shade {
   position: absolute;
   inset: 0;
+  z-index: 3;
   background: rgba(0, 0, 0, 0.1);
   pointer-events: none;
 }
@@ -6546,15 +6722,32 @@
   inset-inline: 0;
   bottom: 0;
   top: 69.29%;
-  z-index: 1;
+  z-index: 4;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   padding: 1.5rem 1rem 1.25rem; /* 24 / 16 / 20 */
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(0.625rem);
   -webkit-backdrop-filter: blur(0.625rem);
+  overflow: hidden;
+}
+
+/* Figma: 85px stack clips View Profile under the role */
+.expert-card__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 5.3125rem; /* 85 */
+  width: 100%;
+  overflow: hidden;
+}
+
+.expert-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .expert-card__name {
@@ -6570,6 +6763,13 @@
   color: var(--color-text-muted);
   font-size: 1rem; /* 16 */
   line-height: 1.5;
+}
+
+.expert-card__link {
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  line-height: normal;
 }
 
 .expert-grid__action {
@@ -8362,7 +8562,8 @@ a.contact-detail__value:hover {
 }
 
 @media (max-width: 64rem) {
-  .experts-hero__stage {
+  .experts-hero__stage,
+  .seminars-hero__stage {
     inset-inline-start: 38%;
   }
 
@@ -8502,37 +8703,25 @@ a.contact-detail__value:hover {
     overflow-wrap: break-word;
   }
 
-  /* Seminars / contact — lift phone stacking into 48rem (was 40rem-only) */
+  /* Seminars circular hero — match experts stacking */
   .seminars-hero {
-    min-height: 0;
-    height: auto;
-    align-items: flex-start;
+    align-items: flex-end;
+    padding-bottom: 3rem;
   }
 
-  .seminars-hero__field {
-    display: none;
-  }
-
-  .seminars-hero__inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .seminars-hero__copy,
-  .seminars-hero__text {
-    width: 100%;
-    max-width: 100%;
+  .seminars-hero__stage {
+    inset-inline-start: 22%;
+    top: -8%;
+    transform: scale(0.62);
+    transform-origin: top center;
   }
 
   .seminars-hero__title {
     font-size: 2.5rem;
   }
 
-  .seminars-hero__media {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 664 / 470;
-    height: auto;
+  .seminars-hero__copy {
+    width: min(100%, 28rem);
   }
 
   .seminars-hero__body {
@@ -9669,18 +9858,8 @@ a.contact-detail__value:hover {
   }
 
   /* Seminars mobile */
-  .seminars-hero__inner {
-    grid-template-columns: 1fr;
-  }
-
   .seminars-hero__title {
-    font-size: 2.5rem;
-  }
-
-  .seminars-hero__media {
-    max-width: 100%;
-    aspect-ratio: 664 / 470;
-    height: auto;
+    font-size: 2.25rem;
   }
 
   .seminars-hero__body {

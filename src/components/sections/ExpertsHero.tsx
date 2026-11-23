@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
+import { expertsHero } from "@/data/experts";
 
 export function ExpertsHero() {
   return (
@@ -17,10 +18,11 @@ export function ExpertsHero() {
         <div className="experts-hero__ring" />
         <div className="experts-hero__photo">
           <Image
-            src="/assets/images/experts/hero-photo.webp"
+            src={expertsHero.image}
             alt=""
             fill
             priority
+            quality={92}
             sizes="70vw"
             className="experts-hero__photo-img"
           />

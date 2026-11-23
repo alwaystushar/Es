@@ -24,16 +24,27 @@ export function ExpertGrid({ experts }: ExpertGridProps) {
         </div>
 
         <ul className="expert-cards" role="list">
-          {experts.map((expert) => (
+          {experts.map((expert, index) => (
             <li key={expert.slug}>
               <Link href={`/experts/${expert.slug}`} className="expert-card">
                 <div className="expert-card__media">
                   <div className="expert-card__backdrop" aria-hidden="true" />
-                  <div className="expert-card__photo">
+                  {index > 0 ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      className="expert-card__glow"
+                      src="/assets/images/experts/card-glow.svg"
+                      alt=""
+                      width={680}
+                      height={779}
+                    />
+                  ) : null}
+                  <div className={`expert-card__photo expert-card__photo--${index + 1}`}>
                     <Image
                       src={expert.photo}
                       alt={expert.photoAlt}
                       fill
+                      quality={95}
                       sizes="(max-width: 48rem) 50vw, 25vw"
                       className="expert-card__img"
                     />
@@ -41,8 +52,19 @@ export function ExpertGrid({ experts }: ExpertGridProps) {
                   </div>
                 </div>
                 <div className="expert-card__body">
-                  <p className="expert-card__name">{expert.name}</p>
-                  <p className="expert-card__role">{expert.role}</p>
+                  <div className="expert-card__stack">
+                    <div className="expert-card__copy">
+                      <p className="expert-card__name">
+                        <T>{expert.name}</T>
+                      </p>
+                      <p className="expert-card__role">
+                        <T>{expert.role}</T>
+                      </p>
+                    </div>
+                    <span className="expert-card__link">
+                      <T>View Profile</T>
+                    </span>
+                  </div>
                 </div>
               </Link>
             </li>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { aboutExperts } from "@/data/about";
@@ -71,22 +71,38 @@ export function AboutExperts() {
                     onClick={() => setActive(index)}
                   >
                     <div className="about-expert__media">
-                      <LocalizedImage
-                        src={expert.image}
-                        alt={expert.name}
-                        fill
-                        quality={90}
-                        sizes="(max-width: 48rem) 70vw, 22rem"
+                      <span className="about-expert__bg" aria-hidden="true" />
+                      <img
+                        className="about-expert__glow"
+                        src="/assets/images/experts/card-glow.svg"
+                        alt=""
+                        width={680}
+                        height={779}
                       />
+                      <div
+                        className={`about-expert__photo about-expert__photo--${index + 1}`}
+                        style={
+                          {
+                            "--expert-pos-x": expert.imagePosition.x,
+                            "--expert-pos-y": expert.imagePosition.y,
+                            "--expert-offset-x": expert.imagePosition.offsetX,
+                            "--expert-offset-y": expert.imagePosition.offsetY,
+                          } as CSSProperties
+                        }
+                      >
+                        <LocalizedImage
+                          src={expert.image}
+                          alt={expert.name}
+                          fill
+                          quality={95}
+                          sizes="(max-width: 48rem) 70vw, 22rem"
+                        />
+                      </div>
+                      <span className="about-expert__shade" aria-hidden="true" />
                     </div>
                     <div className="about-expert__panel" aria-hidden={!open}>
-                      <img
-                        className="about-expert__dots"
-                        src="/assets/images/wash/dots.svg"
-                        alt=""
-                        width={607}
-                        height={625}
-                      />
+                      {/* Figma glove 1 — 408,-463 on card → 88,-463 inside panel @ 320 */}
+                      <span className="about-expert__dots" aria-hidden="true" />
                       <div className="about-expert__copy">
                         <h3>
                           <T>{expert.name}</T>

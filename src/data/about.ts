@@ -56,45 +56,55 @@ export const aboutValues = [
   {
     title: "Innovation",
     description: "We adapt our programs to evolving workplace needs.",
-    icon: "/assets/images/about/values/icon-ksa.svg",
+    icon: "/assets/images/about/values/icon-innovation.svg",
   },
   {
     title: "Integrity",
     description: "We deliver learning with honesty, clarity, and accountability.",
-    icon: "/assets/images/about/values/icon-ksa.svg",
+    icon: "/assets/images/about/values/icon-integrity.svg",
   },
   {
     title: "Excellence",
     description: "We hold every experience to a high standard of quality.",
-    icon: "/assets/images/about/values/icon-ksa.svg",
+    icon: "/assets/images/about/values/icon-excellence.svg",
   },
   {
     title: "Collaboration",
     description: "We learn with our partners to create stronger outcomes.",
-    icon: "/assets/images/about/values/icon-ksa.svg",
+    icon: "/assets/images/about/values/icon-collaboration.svg",
   },
 ] as const;
 
+/**
+ * imagePosition — tweak framing here only.
+ *   x / y     → object-position (left/right, top/bottom)
+ *   offsetX / offsetY → extra nudge in px/rem (use when x/y alone don’t move enough)
+ * Examples: { x: "50%", y: "20%" }  |  { x: "center", y: "top", offsetY: "1rem" }
+ */
 export const aboutExperts = [
   {
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    image: "/assets/images/experts/imran.png",
+    image: "/assets/images/experts/expert-about-1.webp",
+    imagePosition: { x: "50%", y: "50%", offsetX: "0px", offsetY: "2.25rem" },
   },
   {
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    image: "/assets/images/experts/imran.png",
+    image: "/assets/images/experts/expert-2.webp",
+    imagePosition: { x: "50%", y: "14%", offsetX: "0px", offsetY: "0px" },
   },
   {
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    image: "/assets/images/experts/imran.png",
+    image: "/assets/images/experts/expert-3.webp",
+    imagePosition: { x: "50%", y: "12%", offsetX: "0px", offsetY: "0px" },
   },
   {
     name: "Imran Al-Mikhlafi",
     role: "Certified business process management expert",
-    image: "/assets/images/experts/imran.png",
+    image: "/assets/images/experts/expert-about-4.webp",
+    imagePosition: { x: "50%", y: "14%", offsetX: "0px", offsetY: "0px" },
   },
 ] as const;
 

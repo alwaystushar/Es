@@ -198,21 +198,21 @@ export function SeminarDetail({ seminar }: SeminarDetailProps) {
                           <div className="seminar-list-card__meta">
                             <div className="seminar-list-card__meta-row">
                               <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/person.svg" width={16} height={16} />
+                                <Icon src="/assets/icons/seminars/meta-person.svg" width={16} height={16} />
                                 <T>{item.trainer}</T>
                               </span>
                             </div>
                             <div className="seminar-list-card__meta-row seminar-list-card__meta-row--details">
                               <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/clock.svg" width={16} height={16} />
+                                <Icon src="/assets/icons/seminars/meta-clock.svg" width={16} height={16} />
                                 <T>{item.time}</T>
                               </span>
                               <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/calendar.svg" width={16} height={16} />
+                                <Icon src="/assets/icons/seminars/meta-calendar.svg" width={16} height={16} />
                                 <T>{item.date}</T>
                               </span>
                               <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/program-detail/meta-globe.svg" width={16} height={16} />
+                                <Icon src="/assets/icons/seminars/meta-monitor.svg" width={16} height={16} />
                                 <T>{item.location}</T>
                               </span>
                             </div>
