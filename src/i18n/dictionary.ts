@@ -301,7 +301,7 @@ export const dictionary: Record<string, string> = {
   "15 days · 64 hours · SAR 2,000, reduced from SAR 2,500.":
     "١٥ يومًا · ٦٤ ساعة · ٢٠٠٠ ريال سعودي، بعد التخفيض من ٢٥٠٠ ريال سعودي.",
   "Enroll in this program": "التسجيل في هذا البرنامج",
-  Program: "برنامج",
+  Program: "البرنامج",
   Article: "مقال",
   "Talk to ES Learning": "تحدث إلى إي إس ليرنينغ",
   "Learning for your organization": "تعلّم لمؤسستك",
@@ -374,7 +374,6 @@ export const dictionary: Record<string, string> = {
   "Enter your details to complete the registration process.": "أدخل بياناتك لإكمال عملية التسجيل.",
   "Participant Details": "بيانات المشارك",
   "Registration Information": "معلومات التسجيل",
-  Program: "البرنامج",
   "Enter your full name in Arabic": "أدخل اسمك الكامل بالعربية",
   "Full Name in English": "الاسم الكامل بالإنجليزية",
   "Your English name will be printed on your certificate exactly as entered.":
@@ -534,7 +533,6 @@ export const dictionary: Record<string, string> = {
     "أخبرنا عن احتياجك أو تحديك ويناقش فريقنا الخطوة التالية المناسبة.",
   "Select your enquiry type and describe your main development needs.":
     "اختر نوع الاستفسار ووصف احتياجات التطوير الرئيسية.",
-  "Organization Name": "اسم المؤسسة",
   "Job Title": "المسمى الوظيفي",
   "Business Email": "البريد الإلكتروني للعمل",
   "Contact Number": "رقم التواصل",
