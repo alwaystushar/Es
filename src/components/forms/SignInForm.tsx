@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { AuthPanel } from "@/components/forms/AuthPanel";
 import { T, tr, useLocale } from "@/i18n/locale";
@@ -90,6 +91,13 @@ export function SignInForm() {
             <button type="submit" className="signin__submit">
               <T>Login</T>
             </button>
+
+            <p className="signin__switch">
+              <T>Don't have an account?</T>{" "}
+              <Link href="/join" className="signin__link">
+                <T>Sign up</T>
+              </Link>
+            </p>
           </form>
         </div>
 

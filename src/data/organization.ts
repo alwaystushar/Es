@@ -64,6 +64,7 @@ export const orgProgramAreas = [
 export const orgAreasIntro = {
   eyebrow: "Program areas",
   title: "Learning solutions built around your organization",
+  titleLines: ["Learning solutions built around", "your organization"] as const,
   copy: "From needs analysis to solution design and impact measurement, we tailor the approach to your organization and audience.",
 } as const;
 

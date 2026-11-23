@@ -48,8 +48,8 @@ export function AboutHero() {
       const startY = () => {
         const size = startSize();
         const gap = pinEl.clientWidth * (40 / 1440);
-        /* Park ~20% lower under the copy so more of the notch reads below the CTA */
-        return Math.round((contentEl.offsetHeight / 2 + gap + size / 2) * 1.2);
+        /* Park just under the copy — slight lift from the previous lower rest pose */
+        return Math.round(contentEl.offsetHeight / 2 + gap + size / 2);
       };
 
       const applyStart = () => {

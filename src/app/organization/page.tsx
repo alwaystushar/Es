@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
-import { Journey } from "@/components/sections/Journey";
 import { OrgEnquiry } from "@/components/sections/OrgEnquiry";
 import { OrgHowWeWork } from "@/components/sections/OrgHowWeWork";
 import { Partners } from "@/components/sections/Partners";
@@ -39,6 +38,7 @@ export default function OrganizationPage() {
       <ProgramAreas
         eyebrow={orgAreasIntro.eyebrow}
         title={orgAreasIntro.title}
+        titleLines={orgAreasIntro.titleLines}
         copy={orgAreasIntro.copy}
         areas={orgProgramAreas}
       />
@@ -46,7 +46,6 @@ export default function OrganizationPage() {
       <OrgHowWeWork />
       <Partners />
       <OrgEnquiry />
-      <Journey />
     </main>
   );
 }

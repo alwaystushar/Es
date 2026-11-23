@@ -171,7 +171,7 @@ export function ProgramDetail({ program }: ProgramDetailProps) {
                 <option>Online</option>
               </select>
             </label>
-            <Button href="/contact">Register Now</Button>
+            <Button href={`/register?program=${encodeURIComponent(program.slug)}`}>Register Now</Button>
             <Button href="/organization" variant="outline">
               Request a Team Proposal
             </Button>

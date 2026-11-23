@@ -22,6 +22,7 @@ const locationOptions = [
 ] as const;
 
 type ProgramDetailTabsProps = {
+  slug: string;
   title: string;
   price: string;
   compareAt?: string;
@@ -100,8 +101,8 @@ function TabEyebrow({ children }: { children: string }) {
   );
 }
 
-export function ProgramDetailTabs({ price, compareAt, expert }: ProgramDetailTabsProps) {
-  const [activeTab, setActiveTab] = useState<TabId>("learning-outcomes");
+export function ProgramDetailTabs({ slug, price, compareAt, expert }: ProgramDetailTabsProps) {
+  const [activeTab, setActiveTab] = useState<TabId>("overview");
   const [openFaq, setOpenFaq] = useState<string>(faqItems[0].id);
   const [sessionDate, setSessionDate] = useState("");
   const [sessionLocation, setSessionLocation] = useState("");
@@ -426,7 +427,12 @@ export function ProgramDetailTabs({ price, compareAt, expert }: ProgramDetailTab
               </div>
 
               <div className="program-register-card__actions">
-                <Button variant="solid" href="/signin" dot="none" className="program-register-card__btn-primary">
+                <Button
+                  variant="solid"
+                  href={`/register?program=${encodeURIComponent(slug)}`}
+                  dot="none"
+                  className="program-register-card__btn-primary"
+                >
                   Register Now
                 </Button>
                 <Button variant="outline" href="/contact" dot="none" className="program-register-card__btn-secondary">

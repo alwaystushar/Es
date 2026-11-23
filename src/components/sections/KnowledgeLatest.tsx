@@ -41,7 +41,8 @@ export function KnowledgeLatest({ articles, title = "Latest Content" }: Knowledg
                   quality={90}
                   sizes="(max-width: 40rem) 100vw, (max-width: 56rem) 50vw, 33vw"
                 />
-                <span className="kh-badge">
+                <span className="kh-card__tag">
+                  <span className="review-dot" aria-hidden="true" />
                   <T>{article.categoryLabel}</T>
                 </span>
               </RevealImage>
@@ -52,6 +53,12 @@ export function KnowledgeLatest({ articles, title = "Latest Content" }: Knowledg
                 <h3 className="kh-card__title">
                   <T>{article.title}</T>
                 </h3>
+                <p className="kh-card__excerpt">
+                  <T>{article.excerpt}</T>
+                </p>
+                <span className="kh-card__link">
+                  <T>Read Article</T>
+                </span>
               </div>
             </Link>
           ))}

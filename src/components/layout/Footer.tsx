@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { companyLinks, legalLinks } from "@/data/home";
+import { footerNavPrimary, footerNavSecondary, legalLinks } from "@/data/home";
 import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/ui/Icon";
 import { LocalizedImage, T, tr, useLocale } from "@/i18n/locale";
@@ -26,32 +26,43 @@ export function Footer() {
       <div className="section-container">
         <div className="site-footer__main">
           <div className="site-footer__brand">
-            <Link href="/" aria-label={tr(locale, "ES Learning home")}>
-              <Icon src="/assets/logos/logo.svg" width={48} height={48} />
+            <Link href="/" aria-label={tr(locale, "ES Learning home")} className="site-footer__logo">
+              <Icon src="/assets/logos/logo.svg" width={92} height={92} />
             </Link>
-          </div>
-          <nav aria-label={tr(locale, "Company")}>
-            <p className="footer-title">
-              <T>Company</T>
+            <p className="site-footer__tagline">
+              <T>From learning to impact you can see</T>
             </p>
-            <div className="footer-links">
-              {companyLinks.map((item) => (
+          </div>
+
+          <div className="site-footer__columns">
+            <nav className="site-footer__nav" aria-label={tr(locale, "Company")}>
+              {footerNavPrimary.map((item) => (
                 <Link key={item.label} href={item.href}>
                   <T>{item.label}</T>
                 </Link>
               ))}
-            </div>
-          </nav>
-          <div>
-            <p className="footer-title">
-              <T>Contact</T>
-            </p>
-            <div className="footer-contact">
-              <a href={siteConfig.phoneHref}>{siteConfig.phone}</a>
+            </nav>
+
+            <nav className="site-footer__nav" aria-label={tr(locale, "For Organization")}>
+              {footerNavSecondary.map((item) => (
+                <Link key={item.label} href={item.href}>
+                  <T>{item.label}</T>
+                </Link>
+              ))}
+            </nav>
+
+            <div className="site-footer__contact">
+              <a href={siteConfig.phoneHref}>{siteConfig.phone.replace(/\s/g, "")}</a>
               <a href={siteConfig.emailHref}>{siteConfig.email}</a>
               <div className="socials">
                 {socials.map((item) => (
-                  <a key={item.label} href={item.href} target="_blank" rel="noreferrer" aria-label={tr(locale, item.label)}>
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={tr(locale, item.label)}
+                  >
                     <Icon src={item.icon} width={20} height={20} />
                   </a>
                 ))}
@@ -63,20 +74,22 @@ export function Footer() {
         <div className="site-footer__badges">
           <LocalizedImage
             className="license"
-            src="/assets/images/license-tvtc.png"
+            src="/assets/images/footer/tvtc.png"
             alt="Technical and Vocational Training Corporation"
-            width={195}
-            height={101}
+            width={248}
+            height={140}
           />
           <div className="payment-badges">
-            <Icon src="/assets/logos/badge-iso.svg" alt="ISO 9001" width={46} height={57} />
-            <Icon src="/assets/logos/badge-iqnet.svg" alt="IQNET" width={49} height={49} />
-            <Icon src="/assets/logos/badge-mada.svg" alt="mada" width={77} height={25} />
-            <Icon src="/assets/logos/badge-visa.svg" alt="Visa" width={64} height={23} />
+            <Icon src="/assets/images/footer/badge-iso.svg" alt="ISO 9001" width={46} height={57} />
+            <Icon src="/assets/images/footer/badge-iqnet.svg" alt="IQNET" width={49} height={49} />
+            <Icon src="/assets/images/footer/badge-mada.svg" alt="mada" width={77} height={25} />
+            <Icon src="/assets/images/footer/badge-visa.svg" alt="Visa" width={64} height={23} />
           </div>
         </div>
+      </div>
 
-        <div className="site-footer__legal">
+      <div className="site-footer__legal">
+        <div className="section-container site-footer__legal-inner">
           <p>
             <T>© ES Learning 2026 All rights reserved.</T>
           </p>

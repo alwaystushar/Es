@@ -23,7 +23,13 @@ export function ProgramsCatalog() {
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();
     return programCatalog.filter((program) => {
-      const matchesFilter = filter === "All Programs" || program.badge === filter;
+      const matchesFilter =
+        filter === "All Programs" ||
+        (filter === "Public Programs" && program.badge.toLowerCase().includes("public")) ||
+        (filter === "Exclusive to ES Learning" &&
+          program.badge.toLowerCase().includes("exclusive")) ||
+        (filter === "Supported by Hadaf" && program.badge.toLowerCase().includes("hadaf")) ||
+        program.badge === filter;
       const matchesSubject = subject === "All Subject Areas" || program.category === subject;
       const matchesQuery =
         needle === "" ||

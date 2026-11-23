@@ -7,12 +7,6 @@ import { seminarHero } from "@/data/seminars";
 export function SeminarsHero() {
   return (
     <section className="seminars-hero" data-header-tone="light" aria-labelledby="seminars-hero-title">
-      {/* Same circular-photo hero system as Experts / Figma 3129:55412 */}
-      <div className="seminars-hero__bg" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/images/experts/hero-bg.svg" alt="" width={1440} height={900} />
-      </div>
-
       <div className="seminars-hero__stage" aria-hidden="true">
         <div className="seminars-hero__ring" />
         <div className="seminars-hero__photo">

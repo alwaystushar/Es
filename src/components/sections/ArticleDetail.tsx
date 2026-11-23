@@ -213,7 +213,8 @@ export function ArticleDetail({ article, related }: ArticleDetailProps) {
                       quality={90}
                       sizes="(max-width: 40rem) 100vw, (max-width: 56rem) 50vw, 33vw"
                     />
-                    <span className="kh-badge">
+                    <span className="kh-card__tag">
+                      <span className="review-dot" aria-hidden="true" />
                       <T>{item.categoryLabel}</T>
                     </span>
                   </RevealImage>
@@ -224,6 +225,12 @@ export function ArticleDetail({ article, related }: ArticleDetailProps) {
                     <h3 className="kh-card__title">
                       <T>{item.title}</T>
                     </h3>
+                    <p className="kh-card__excerpt">
+                      <T>{item.excerpt}</T>
+                    </p>
+                    <span className="kh-card__link">
+                      <T>Read Article</T>
+                    </span>
                   </div>
                 </Link>
               ))}

@@ -97,6 +97,7 @@ export default async function ProgramPage({ params }: PageProps) {
         trainerRole={trainer.role}
       />
       <ProgramDetailTabs
+        slug={program.slug}
         title={program.title}
         price={program.price}
         compareAt={program.compareAt}

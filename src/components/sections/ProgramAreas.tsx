@@ -31,6 +31,7 @@ type AreaItem = {
 type ProgramAreasProps = {
   eyebrow?: string;
   title?: string;
+  titleLines?: readonly string[];
   copy?: string;
   areas?: readonly AreaItem[] | AreaItem[];
   ctaHref?: string;
@@ -39,6 +40,7 @@ type ProgramAreasProps = {
 export function ProgramAreas({
   eyebrow = "Program areas",
   title = "Build the skills to perform better",
+  titleLines,
   copy = "Explore specialized learning areas designed to build skills and knowledge directly relevant to your work.",
   areas = programAreas,
   ctaHref = "/programs",
@@ -110,9 +112,24 @@ export function ProgramAreas({
         <div className="areas__heading">
           <Eyebrow small>{eyebrow}</Eyebrow>
           <div className="areas__split">
-            <RevealLines id="areas-title" as="h2" className="section-title section-title--display">
-              {title}
-            </RevealLines>
+            {titleLines ? (
+              <h2 id="areas-title" className="section-title section-title--display areas__title">
+                <span className="loc-en">
+                  {titleLines.map((line) => (
+                    <span key={line} className="areas__title-line">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+                <span className="loc-ar">
+                  <T>{title}</T>
+                </span>
+              </h2>
+            ) : (
+              <RevealLines id="areas-title" as="h2" className="section-title section-title--display">
+                {title}
+              </RevealLines>
+            )}
             <RevealLines as="p" className="section-copy" duration={0.7} stagger={0.08}>
               {copy}
             </RevealLines>

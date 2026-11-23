@@ -7,12 +7,6 @@ import { expertsHero } from "@/data/experts";
 export function ExpertsHero() {
   return (
     <section className="experts-hero" data-header-tone="light" aria-labelledby="experts-hero-title">
-      {/* Figma 3047:46588 — full-bleed green + stipple SVG */}
-      <div className="experts-hero__bg" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/images/experts/hero-bg.svg" alt="" width={1440} height={900} />
-      </div>
-
       {/* Figma 3047:46591 — lime ring + circular masked photo */}
       <div className="experts-hero__stage" aria-hidden="true">
         <div className="experts-hero__ring" />

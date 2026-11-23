@@ -25,13 +25,14 @@ export const seminarCatalog = [
   {
     slug: "strategy-to-performance",
     title: "From strategy to measurable performance",
-    description: "Discover how to turn strategic objectives into actionable plans, and measurable business results.",
+    description:
+      "Discover how to turn strategic objectives into actionable plans, and measurable business results.",
     trainer: "Imran Al-Mikhlafi",
     date: "Dec 2nd, 2026",
     time: "4 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-a.webp",
-    alt: "Seminar presenter speaking at an event",
+    image: "/assets/images/seminars/cards/strategy-performance.webp",
+    alt: "Presenter speaking into a microphone at a seminar",
     filter: "Upcoming" as SeminarFilter,
     about:
       "This seminar explores how organisations can align strategy with execution, building clear pathways from high-level objectives to actionable operational plans. Participants will gain frameworks to translate vision into measurable outcomes.",
@@ -41,13 +42,14 @@ export const seminarCatalog = [
   {
     slug: "leadership-in-practice",
     title: "Leadership in practice: building high-performance teams",
-    description: "Practical frameworks for developing leadership presence, communicating vision, and driving results.",
+    description:
+      "Practical frameworks for developing leadership presence, communicating vision, and driving results.",
     trainer: "Imran Al-Mikhlafi",
     date: "Dec 9th, 2026",
     time: "2 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-b.webp",
-    alt: "Leadership workshop participants collaborating",
+    image: "/assets/images/seminars/cards/leadership-teams.webp",
+    alt: "Professional working on a laptop during a seminar session",
     filter: "Upcoming" as SeminarFilter,
     about:
       "Effective leadership goes beyond authority. This seminar focuses on the behaviours, communication styles and decision-making approaches that distinguish high-impact leaders from managers.",
@@ -57,13 +59,14 @@ export const seminarCatalog = [
   {
     slug: "policy-design-essentials",
     title: "Policy design essentials for organisations",
-    description: "Learn how to structure, write and implement organisational policies that drive real behavioural change.",
+    description:
+      "Learn how to structure, write and implement organisational policies that drive real behavioural change.",
     trainer: "Imran Al-Mikhlafi",
     date: "Dec 16th, 2026",
     time: "3 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-a.webp",
-    alt: "Professionals reviewing policy documents",
+    image: "/assets/images/seminars/cards/policy-design.webp",
+    alt: "Facilitator presenting at a whiteboard to a colleague",
     filter: "Upcoming" as SeminarFilter,
     about:
       "Policies are the backbone of organisational governance. This seminar introduces a structured approach to drafting, reviewing and communicating policies that employees understand and follow.",
@@ -73,13 +76,14 @@ export const seminarCatalog = [
   {
     slug: "bpm-for-decision-makers",
     title: "Business process management for decision makers",
-    description: "An executive introduction to BPM: how to identify inefficiencies, model processes, and drive continuous improvement.",
+    description:
+      "An executive introduction to BPM: how to identify inefficiencies, model processes, and drive continuous improvement.",
     trainer: "Imran Al-Mikhlafi",
     date: "Jan 6th, 2027",
     time: "10 Am",
     location: "Online",
-    image: "/assets/images/seminars/card-b.webp",
-    alt: "Executive team reviewing process maps",
+    image: "/assets/images/seminars/cards/bpm-decision-makers.webp",
+    alt: "Speaker presenting on stage to a seminar audience",
     filter: "Upcoming" as SeminarFilter,
     about:
       "Business Process Management gives organisations a systematic way to improve how work gets done. This seminar is designed for decision-makers who want to champion BPM without getting lost in technical detail.",
@@ -89,13 +93,14 @@ export const seminarCatalog = [
   {
     slug: "data-driven-performance",
     title: "Data-driven performance management",
-    description: "Using KPIs, dashboards and analytics to build a culture of accountability and continuous improvement.",
+    description:
+      "Using KPIs, dashboards and analytics to build a culture of accountability and continuous improvement.",
     trainer: "Imran Al-Mikhlafi",
     date: "Nov 10th, 2026",
     time: "11 Am",
     location: "Online",
-    image: "/assets/images/seminars/card-a.webp",
-    alt: "Professional reviewing performance dashboards",
+    image: "/assets/images/seminars/cards/strategy-performance.webp",
+    alt: "Presenter speaking into a microphone at a seminar",
     filter: "Past Seminars" as SeminarFilter,
     about:
       "Performance data is only valuable when it drives decisions. This seminar covers how to design meaningful KPIs, build dashboards that inform rather than overwhelm, and use data to have better performance conversations.",
@@ -105,13 +110,14 @@ export const seminarCatalog = [
   {
     slug: "communication-for-impact",
     title: "Communication for impact: influencing without authority",
-    description: "How to communicate complex ideas, navigate difficult conversations, and build influence across your organisation.",
+    description:
+      "How to communicate complex ideas, navigate difficult conversations, and build influence across your organisation.",
     trainer: "Imran Al-Mikhlafi",
     date: "Oct 28th, 2026",
     time: "2 Pm",
     location: "Online",
-    image: "/assets/images/seminars/card-b.webp",
-    alt: "Professionals in a communication skills workshop",
+    image: "/assets/images/seminars/cards/leadership-teams.webp",
+    alt: "Professional working on a laptop during a seminar session",
     filter: "Past Seminars" as SeminarFilter,
     about:
       "Influence is a skill that can be developed. This seminar equips professionals with practical communication tools: structuring a compelling message, adapting your style to your audience, and driving action without direct authority.",

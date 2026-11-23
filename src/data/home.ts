@@ -258,6 +258,22 @@ export const partners = [
   { name: "DETECON Consulting", src: "/assets/logos/partner-detecon.webp", width: 685, height: 211, logoWidth: "9.2867rem", logoHeight: "5.2191rem" },
 ] as const;
 
+/** Footer nav — Figma 3129:65148 (two untitled columns, no section headings) */
+export const footerNavPrimary = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Programs", href: "/programs" },
+  { label: "Seminars", href: "/seminars" },
+] as const;
+
+export const footerNavSecondary = [
+  { label: "For Organization", href: "/organization" },
+  { label: "Knowledge Hub", href: "/knowledge" },
+  { label: "Partners", href: "/partners" },
+  { label: "Contact Us", href: "/contact" },
+] as const;
+
+/** @deprecated Prefer footerNavPrimary / footerNavSecondary */
 export const companyLinks = [
   { label: "About Us", href: "/about" },
   { label: "Training Programs", href: "/programs" },

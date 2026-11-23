@@ -47,6 +47,9 @@ export function ProgramListCard({ program, heading = "h2" }: ProgramListCardProp
         />
         <span className="program-list-card__overlay" aria-hidden="true" />
         <span className={["program-list-card__badge", `program-list-card__badge--${tone}`].join(" ")}>
+          {tone === "exclusive" ? (
+            <Icon src="/assets/icons/star.svg" width={12} height={12} className="program-list-card__badge-icon" />
+          ) : null}
           <T>{program.badge}</T>
         </span>
       </div>
