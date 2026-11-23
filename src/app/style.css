@@ -1906,13 +1906,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Match Contact hero — content top @ 11.25rem */
+  /* A step below Contact’s 11.25rem so copy sits a little lower */
   justify-content: flex-start;
   height: 100vh;
   min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
-  padding: 11.25rem var(--container-padding) calc(100vw * 45 / 1440);
+  padding: 13.5rem var(--container-padding) calc(100vw * 45 / 1440);
   background: #f9fcfb;
 }
 
@@ -5522,7 +5522,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 11.25rem var(--container-padding) 3rem;
+    padding: 13.5rem var(--container-padding) 3rem;
   }
 
   .about-hero__content {
