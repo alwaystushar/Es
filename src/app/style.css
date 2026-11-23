@@ -467,7 +467,9 @@
   align-items: center;
   flex: none;
   gap: 2rem;
-  padding: 0.25rem 0.25rem 0.25rem 2rem;
+  /* Logical padding so the roomy inset stays on the links side in RTL */
+  padding-block: 0.25rem;
+  padding-inline: 2rem 0.25rem;
   border: 0.0625rem solid rgba(27, 42, 34, 0.1);
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.82);
@@ -10492,7 +10494,8 @@ a.contact-detail__value:hover {
   display: flex;
   align-items: center;
   gap: 0.5em;
-  padding: 0.25em 0.25em 0.25em 2em;
+  padding-block: 0.25em;
+  padding-inline: 2em 0.25em;
   border-radius: var(--radius-pill);
   box-shadow: 0 0.25em 0.625em rgba(0, 0, 0, 0.04);
 }

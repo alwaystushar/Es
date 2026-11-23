@@ -41,7 +41,8 @@ const NavLabel = memo(function NavLabel({
     lines.forEach((line) => {
       line.textContent = text;
     });
-    if (reduced) return;
+    /* SplitText chars breaks Arabic joining/order — keep plain text in AR */
+    if (reduced || locale === "ar") return;
 
     registerGsap();
     const splits = lines.map((line) =>
