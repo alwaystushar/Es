@@ -12,13 +12,51 @@ import { Icon } from "@/components/ui/Icon";
 import { RevealImage } from "@/components/animation/RevealImage";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { useDocumentDirection } from "@/hooks/useDocumentDirection";
-import { T, tr, useLocale } from "@/i18n/locale";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
+import { T, tr, useLocale, type Locale } from "@/i18n/locale";
 import "swiper/css";
+
+function ArticleCard({
+  article,
+  locale,
+}: {
+  article: (typeof articles)[number];
+  locale: Locale;
+}) {
+  return (
+    <article className="article-card">
+      <RevealImage className="article-card__media">
+        <Image
+          src={article.image}
+          alt={tr(locale, article.alt)}
+          fill
+          quality={90}
+          sizes="(max-width: 48rem) 100vw, 42vw"
+        />
+        <span className="article-card__tag">
+          <span className="review-dot" aria-hidden="true" />
+          <T>{article.category}</T>
+        </span>
+      </RevealImage>
+      <h3>
+        <T>{article.title}</T>
+      </h3>
+      <p>
+        <T>{article.excerpt}</T>
+      </p>
+      <span className="article-card__link">
+        <T>Read Article</T>
+      </span>
+    </article>
+  );
+}
 
 export function KnowledgeHub() {
   const swiper = useRef<SwiperInstance | null>(null);
   const direction = useDocumentDirection();
   const { locale } = useLocale();
+  const isPhone = useMediaQuery(MQ_PHONE);
   const [gap, setGap] = useState(28);
 
   useEffect(() => {
@@ -41,61 +79,48 @@ export function KnowledgeHub() {
               Insights for better decisions and growth
             </RevealLines>
           </div>
-          <div className="knowledge__arrows">
-            <Button plain dot="none" className="icon-button" aria-label={tr(locale, "Previous article")} onClick={() => swiper.current?.slidePrev()}>
-              <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
-            </Button>
-            <Button plain dot="none" className="icon-button icon-button--next" aria-label={tr(locale, "Next article")} onClick={() => swiper.current?.slideNext()}>
-              <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
-            </Button>
-          </div>
+          {isPhone === false ? (
+            <div className="knowledge__arrows">
+              <Button plain dot="none" className="icon-button" aria-label={tr(locale, "Previous article")} onClick={() => swiper.current?.slidePrev()}>
+                <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+              </Button>
+              <Button plain dot="none" className="icon-button icon-button--next" aria-label={tr(locale, "Next article")} onClick={() => swiper.current?.slideNext()}>
+                <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+              </Button>
+            </div>
+          ) : null}
         </div>
 
-        <Swiper
-          key={direction}
-          className="knowledge-swiper"
-          dir={direction}
-          modules={[Navigation]}
-          spaceBetween={gap}
-          watchOverflow
-          slidesPerView={1.15}
-          breakpoints={{
-            768: { slidesPerView: 2 },
-            1152: { slidesPerView: 3 },
-          }}
-          onSwiper={(instance) => {
-            swiper.current = instance;
-          }}
-        >
-          {articles.map((article) => (
-            <SwiperSlide key={article.slug}>
-              <article className="article-card">
-                <RevealImage className="article-card__media">
-                  <Image
-                    src={article.image}
-                    alt={tr(locale, article.alt)}
-                    fill
-                    quality={90}
-                    sizes="(max-width: 48rem) 100vw, 42vw"
-                  />
-                  <span className="article-card__tag">
-                    <span className="review-dot" aria-hidden="true" />
-                    <T>{article.category}</T>
-                  </span>
-                </RevealImage>
-                <h3>
-                  <T>{article.title}</T>
-                </h3>
-                <p>
-                  <T>{article.excerpt}</T>
-                </p>
-                <span className="article-card__link">
-                  <T>Read Article</T>
-                </span>
-              </article>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {isPhone === true ? (
+          <div className="knowledge__list">
+            {articles.map((article) => (
+              <ArticleCard key={article.slug} article={article} locale={locale} />
+            ))}
+          </div>
+        ) : (
+          <Swiper
+            key={direction}
+            className="knowledge-swiper"
+            dir={direction}
+            modules={[Navigation]}
+            spaceBetween={gap}
+            watchOverflow
+            slidesPerView={1.15}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1152: { slidesPerView: 3 },
+            }}
+            onSwiper={(instance) => {
+              swiper.current = instance;
+            }}
+          >
+            {articles.map((article) => (
+              <SwiperSlide key={article.slug}>
+                <ArticleCard article={article} locale={locale} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
 
         <div className="knowledge__action">
           <Button variant="outline">

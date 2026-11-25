@@ -115,7 +115,8 @@
 }
 
 html {
-  font-size: 1vw !important;
+  /* Floor rem on narrow viewports so 1vw desktop scaling stays readable on phone */
+  font-size: clamp(14px, 1vw, 19.2px) !important;
   scroll-behavior: auto;
   -webkit-text-size-adjust: none;
   scrollbar-width: none;
@@ -133,11 +134,11 @@ html.lenis body {
 body {
   margin: 0;
   min-height: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
   background: var(--color-background);
   color: var(--color-ink);
   font-family: var(--font-primary);
-  font-size: 1vw !important;
+  font-size: clamp(14px, 1vw, 19.2px) !important;
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-heading);
   letter-spacing: var(--letter-spacing-normal);

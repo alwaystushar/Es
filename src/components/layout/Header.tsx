@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/data/home";
@@ -89,17 +90,25 @@ export function Header() {
   const pathname = usePathname();
   const isAuth = AUTH_PATHS.has(pathname);
   const [open, setOpen] = useState(false);
+  const [menuMounted, setMenuMounted] = useState(false);
+  /* White header chrome — delayed until the panel has started sliding in */
+  const [menuChrome, setMenuChrome] = useState(false);
   const { locale, setLocale } = useLocale();
   const arabic = locale === "ar";
   const [hidden, setHidden] = useState(false);
   const [onDark, setOnDark] = useState(pathname === "/");
   const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const toneRef = useRef(pathname === "/");
   const [menuPath, setMenuPath] = useState(pathname);
+  const reduced = useReducedMotion();
+  const timelineRef = useRef<ReturnType<typeof gsap.timeline> | null>(null);
 
   if (!isAuth && menuPath !== pathname) {
     setMenuPath(pathname);
     setOpen(false);
+    setMenuChrome(false);
   }
 
   if (!isAuth && open && hidden) setHidden(false);
@@ -144,16 +153,130 @@ export function Header() {
     };
   }, [isAuth, open, pathname]);
 
+  useEffect(() => {
+    if (open) setMenuMounted(true);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!menuMounted) return;
+    const panel = panelRef.current;
+    const nav = navRef.current;
+    if (!panel || !nav) return;
+
+    registerGsap();
+    timelineRef.current?.kill();
+
+    const links = [...nav.querySelectorAll<HTMLElement>(".mobile-nav__link")];
+    const actions = [...nav.querySelectorAll<HTMLElement>(".mobile-nav__actions > *")];
+    const items = [...links, ...actions];
+    const rtl = document.documentElement.getAttribute("dir") === "rtl";
+    const fromX = rtl ? 40 : -40;
+    const hiddenX = rtl ? 100 : -100;
+
+    if (reduced) {
+      gsap.set(panel, { xPercent: open ? 0 : hiddenX, visibility: open ? "visible" : "hidden" });
+      gsap.set(items, { clearProps: "opacity,x,filter" });
+      setMenuChrome(open);
+      if (!open) setMenuMounted(false);
+      return;
+    }
+
+    const timeline = gsap.timeline({
+      defaults: { ease: "power3.out" },
+      onComplete: () => {
+        if (!open) {
+          gsap.set(panel, { visibility: "hidden" });
+          setMenuChrome(false);
+          setMenuMounted(false);
+        }
+      },
+    });
+    timelineRef.current = timeline;
+
+    if (open) {
+      setMenuChrome(false);
+      gsap.set(panel, { xPercent: hiddenX, visibility: "visible" });
+      gsap.set(items, { opacity: 0, x: fromX, filter: "blur(6px)" });
+      timeline.to(panel, {
+        xPercent: 0,
+        duration: 0.65,
+        ease: "power3.inOut",
+      });
+      /* Panel slides first; white header chrome follows once the slide is underway */
+      timeline.call(() => setMenuChrome(true), [], 0.32);
+      timeline.to(
+        items,
+        {
+          opacity: 1,
+          x: 0,
+          filter: "blur(0px)",
+          duration: 0.5,
+          stagger: { each: 0.05, from: "start" },
+          ease: "power3.out",
+        },
+        0.16,
+      );
+    } else {
+      /* Drop white chrome as the panel starts leaving, so the bar matches the slide out */
+      timeline.call(() => setMenuChrome(false), [], 0.12);
+      timeline.to(
+        items,
+        {
+          opacity: 0,
+          x: fromX * 0.4,
+          filter: "blur(4px)",
+          duration: 0.24,
+          stagger: { each: 0.028, from: "end" },
+          ease: "power2.in",
+        },
+        0,
+      );
+      timeline.to(
+        panel,
+        {
+          xPercent: hiddenX,
+          duration: 0.45,
+          ease: "power3.inOut",
+        },
+        0.06,
+      );
+    }
+
+    return () => {
+      timeline.kill();
+    };
+  }, [menuMounted, open, reduced]);
+
   if (isAuth) {
     return <AuthHeader />;
   }
 
   return (
-    <header ref={headerRef} className={["site-header", hidden && !open ? "is-hidden" : "", onDark && !open ? "is-on-dark" : ""].filter(Boolean).join(" ")}>
+    <header
+      ref={headerRef}
+      className={[
+        "site-header",
+        hidden && !open ? "is-hidden" : "",
+        onDark && !menuChrome ? "is-on-dark" : "",
+        menuMounted ? "is-menu-active" : "",
+        menuChrome ? "is-menu-open" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <div className="section-container site-header__bar">
         <div className="brand-cluster">
           <Link href="/" className="brand" aria-label={tr(locale, "ES Learning home")}>
-            <Icon src={onDark && !open ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={48} height={48} />
+            <Icon src={onDark && !menuChrome ? "/assets/logos/logo-white.svg" : "/assets/logos/logo.svg"} width={48} height={48} />
           </Link>
         </div>
 
@@ -180,29 +303,57 @@ export function Header() {
           aria-controls="mobile-navigation"
           onClick={() => setOpen((value) => !value)}
         >
-          <span />
-          <span />
-          <span />
+          <span className="menu-toggle__bars" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+          <span className="menu-toggle__text" aria-hidden="true">
+            {tr(locale, open ? "Close" : "Menu")}
+          </span>
           <span className="sr-only">{tr(locale, open ? "Close menu" : "Open menu")}</span>
         </Button>
       </div>
 
-      {open ? (
-        <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile">
-          {navigation.map((item) => (
-            <Link key={item.label} href={item.href} aria-current={isNavActive(pathname, item.href) ? "page" : undefined}>
-              <T>{item.label}</T>
-            </Link>
-          ))}
-          <div className="mobile-nav__actions">
-            <Button plain dot="none" className="lang-button" aria-pressed={arabic} onClick={() => setLocale(arabic ? "en" : "ar")}>
-              <Icon src="/assets/icons/language.svg" width={18} height={18} />
-              {arabic ? "EN" : "AR"}
-            </Button>
-            <Button href="/signin">Sign In</Button>
-          </div>
-        </nav>
-      ) : null}
+      {menuMounted && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              ref={panelRef}
+              className={["mobile-nav-panel", open ? "is-interactive" : ""].filter(Boolean).join(" ")}
+              aria-hidden={!open}
+            >
+              <nav ref={navRef} id="mobile-navigation" className="mobile-nav" aria-label="Mobile">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="mobile-nav__link"
+                    aria-current={isNavActive(pathname, item.href) ? "page" : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    <T>{item.label}</T>
+                  </Link>
+                ))}
+                <div className="mobile-nav__actions">
+                  <Button
+                    plain
+                    dot="none"
+                    className="lang-button mobile-nav__action"
+                    aria-pressed={arabic}
+                    onClick={() => setLocale(arabic ? "en" : "ar")}
+                  >
+                    <Icon src="/assets/icons/language.svg" width={18} height={18} />
+                    {arabic ? "EN" : "AR"}
+                  </Button>
+                  <Button href="/signin" className="mobile-nav__action" onClick={() => setOpen(false)}>
+                    Sign In
+                  </Button>
+                </div>
+              </nav>
+            </div>,
+            document.body,
+          )
+        : null}
     </header>
   );
 }

@@ -29,7 +29,20 @@ export function Journey({
   return (
     <section className="journey" id="contact" data-header-tone="light" aria-labelledby="journey-title">
       <div className="journey__field" aria-hidden="true">
-        <img src="/assets/images/journey-field.svg" alt="" width={2055} height={2020} />
+        <img
+          className="journey__field-img journey__field-img--desktop"
+          src="/assets/images/journey-field.svg"
+          alt=""
+          width={2055}
+          height={2020}
+        />
+        <img
+          className="journey__field-img journey__field-img--mobile"
+          src="/assets/images/journey-field-mobile.svg"
+          alt=""
+          width={1178}
+          height={1158}
+        />
       </div>
       <div className="journey__shade" aria-hidden="true" />
       <div className="journey__glow" aria-hidden="true" />

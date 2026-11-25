@@ -23,6 +23,7 @@ export type ProgramListCardData = {
 type ProgramListCardProps = {
   program: ProgramListCardData;
   heading?: "h2" | "h3";
+  ctaLabel?: string;
 };
 
 function badgeTone(badge: string) {
@@ -31,7 +32,7 @@ function badgeTone(badge: string) {
   return "default";
 }
 
-export function ProgramListCard({ program, heading = "h2" }: ProgramListCardProps) {
+export function ProgramListCard({ program, heading = "h2", ctaLabel = "View Program" }: ProgramListCardProps) {
   const Heading = heading;
   const tone = badgeTone(program.badge);
 
@@ -102,7 +103,7 @@ export function ProgramListCard({ program, heading = "h2" }: ProgramListCardProp
             </div>
           </div>
           <Button href={`/programs/${program.slug}`} plain className="program-list-card__cta" dot="none">
-            View Program
+            <T>{ctaLabel}</T>
           </Button>
         </div>
       </div>

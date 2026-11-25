@@ -1,6 +1,8 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { homeFeaturedPrograms } from "@/data/home";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -8,10 +10,17 @@ import { FieldWash } from "@/components/ui/FieldWash";
 import { Icon } from "@/components/ui/Icon";
 import { ProgramListCard } from "@/components/ui/ProgramListCard";
 import { RevealLines } from "@/components/animation/RevealLines";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
 import { T } from "@/i18n/locale";
+import "swiper/css";
 
 export function HomePrograms() {
   const [query, setQuery] = useState("");
+  const swiper = useRef<SwiperInstance | null>(null);
+  const direction = useDocumentDirection();
+  const isPhone = useMediaQuery(MQ_PHONE);
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -58,15 +67,37 @@ export function HomePrograms() {
             />
           </label>
           <button type="submit" className="home-programs__search-btn" aria-label="Search programs">
-            <Icon src="/assets/icons/search.svg" width={32} height={32} />
+            <Icon src="/assets/icons/search.svg" width={24} height={24} />
           </button>
         </form>
 
-        <div className="home-programs__grid">
-          {visible.map((program) => (
-            <ProgramListCard key={program.slug} program={program} heading="h3" />
-          ))}
-        </div>
+        {isPhone ? (
+          <div className="home-programs__stage">
+            <Swiper
+              key={`${direction}-${visible.map((p) => p.slug).join(",")}`}
+              className="home-programs__swiper"
+              slidesPerView="auto"
+              spaceBetween={16}
+              dir={direction}
+              watchOverflow
+              onSwiper={(instance) => {
+                swiper.current = instance;
+              }}
+            >
+              {visible.map((program) => (
+                <SwiperSlide key={program.slug} className="home-programs__slide">
+                  <ProgramListCard program={program} heading="h3" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="home-programs__grid">
+            {visible.map((program) => (
+              <ProgramListCard key={program.slug} program={program} heading="h3" />
+            ))}
+          </div>
+        )}
 
         {visible.length === 0 ? (
           <p className="programs-catalog__empty">
@@ -78,6 +109,28 @@ export function HomePrograms() {
           <Button href="/programs" variant="outline">
             View all programs
           </Button>
+          {isPhone ? (
+            <div className="home-programs__arrows">
+              <Button
+                plain
+                dot="none"
+                className="icon-button"
+                aria-label="Previous program"
+                onClick={() => swiper.current?.slidePrev()}
+              >
+                <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+              </Button>
+              <Button
+                plain
+                dot="none"
+                className="icon-button icon-button--next"
+                aria-label="Next program"
+                onClick={() => swiper.current?.slideNext()}
+              >
+                <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

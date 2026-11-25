@@ -110,7 +110,7 @@ export function ProgramAreas({
     <section className="areas" id="areas" aria-labelledby="areas-title" ref={section}>
       <div className="section-container">
         <div className="areas__heading">
-          <Eyebrow small>{eyebrow}</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
           <div className="areas__split">
             {titleLines ? (
               <h2 id="areas-title" className="section-title section-title--display areas__title">

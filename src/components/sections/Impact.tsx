@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { stats } from "@/data/home";
 import { LocalizedImage, T } from "@/i18n/locale";
 import { Button } from "@/components/ui/Button";
@@ -5,27 +10,64 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RevealImage } from "@/components/animation/RevealImage";
 import { Odometer } from "@/components/animation/Odometer";
 import { RevealLines } from "@/components/animation/RevealLines";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
+import "swiper/css";
+
+function StatCard({ label, value }: { label: string; value: string }) {
+  return (
+    <article className="stat-card">
+      <strong>
+        <Odometer value={value} />
+      </strong>
+      <span>
+        <T>{label}</T>
+      </span>
+    </article>
+  );
+}
 
 export function Impact() {
+  const swiper = useRef<SwiperInstance | null>(null);
+  const direction = useDocumentDirection();
+  const isPhone = useMediaQuery(MQ_PHONE);
+
   return (
     <section className="impact" id="about" aria-labelledby="impact-title">
       <div className="section-container">
         <div className="impact__intro">
-          <RevealLines as="p" className="impact__label">
-            A growing record of impact
-          </RevealLines>
-          <div className="stat-grid">
-            {stats.map((stat) => (
-              <article key={stat.label} className="stat-card">
-                <strong>
-                  <Odometer value={stat.value} />
-                </strong>
-                <span>
-                  <T>{stat.label}</T>
-                </span>
-              </article>
-            ))}
-          </div>
+          <p className="impact__label">
+            <T>A growing record of impact</T>
+          </p>
+          {isPhone ? (
+            <div className="impact__stats-stage">
+              <Swiper
+                key={direction}
+                className="impact-stats-swiper"
+                slidesPerView="auto"
+                spaceBetween={12}
+                slidesOffsetAfter={12}
+                dir={direction}
+                watchOverflow
+                onSwiper={(instance) => {
+                  swiper.current = instance;
+                }}
+              >
+                {stats.map((stat) => (
+                  <SwiperSlide key={stat.label} className="impact-stats-swiper__slide">
+                    <StatCard label={stat.label} value={stat.value} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <div className="stat-grid">
+              {stats.map((stat) => (
+                <StatCard key={stat.label} label={stat.label} value={stat.value} />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="impact__story">
