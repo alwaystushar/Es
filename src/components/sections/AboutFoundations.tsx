@@ -1,24 +1,65 @@
 "use client";
 
 import { useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { aboutFoundations } from "@/data/about";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { LocalizedImage, T } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { MQ_TABLET } from "@/lib/breakpoints";
+import { MQ_PHONE, MQ_TABLET } from "@/lib/breakpoints";
 import { gsap, registerGsap } from "@/lib/gsap";
+import "swiper/css";
+
+function FoundationCard({
+  item,
+  sizes,
+}: {
+  item: (typeof aboutFoundations)[number];
+  sizes: string;
+}) {
+  return (
+    <article className="about-foundations__card">
+      <div className="about-foundations__media">
+        <LocalizedImage src={item.image} alt={item.alt} fill quality={90} sizes={sizes} />
+      </div>
+      <div className="about-foundations__detail">
+        <h3>
+          <T>{item.title}</T>
+        </h3>
+        <p>
+          <T>{item.description}</T>
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function FoundationsCount({ index, total }: { index: number; total: number }) {
+  return (
+    <div className="about-foundations__count" aria-live="polite">
+      <span className="about-foundations__count-ring" aria-hidden="true" />
+      <span className="about-foundations__count-current">{index + 1}</span>
+      <span className="about-foundations__count-total">/ {total}</span>
+    </div>
+  );
+}
 
 export function AboutFoundations() {
   const section = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
+  const direction = useDocumentDirection();
   const reduced = useReducedMotion();
   /* CSS stacks foundations at 72rem — never pin a stacked layout */
   const isTabletDown = useMediaQuery(MQ_TABLET);
+  /* Phone: Figma 3129:86751 — horizontal Swiper, no pin */
+  const isPhone = useMediaQuery(MQ_PHONE);
   const [index, setIndex] = useState(0);
   const total = aboutFoundations.length;
 
@@ -27,7 +68,7 @@ export function AboutFoundations() {
     const stageEl = stage.current;
     const trackEl = track.current;
     const bar = progress.current;
-    if (!root || !stageEl || !trackEl || reduced || isTabletDown !== false) return;
+    if (!root || !stageEl || !trackEl || reduced || isTabletDown !== false || isPhone) return;
 
     const items = Array.from(trackEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
     if (!items.length) return;
@@ -75,7 +116,7 @@ export function AboutFoundations() {
     }, root);
 
     return () => context.revert();
-  }, [reduced, total, isTabletDown]);
+  }, [reduced, total, isTabletDown, isPhone]);
 
   return (
     <section ref={section} className="about-foundations" aria-labelledby="about-foundations-title">
@@ -92,42 +133,60 @@ export function AboutFoundations() {
               Four foundations of our learning experience
             </RevealLines>
           </div>
-          <div className="about-foundations__count" aria-live="polite">
-            <span className="about-foundations__count-ring" aria-hidden="true" />
-            <span className="about-foundations__count-current">{index + 1}</span>
-            <span className="about-foundations__count-total">/ {total}</span>
-          </div>
+          {!isPhone ? <FoundationsCount index={index} total={total} /> : null}
         </div>
 
-        <div className="about-foundations__cards">
-          <div ref={track} className="about-foundations__track">
-            {aboutFoundations.map((item, i) => (
-              <article
-                key={item.title}
-                className="about-foundations__card"
-                aria-hidden={i === index ? undefined : true}
+        {isPhone ? (
+          <>
+            <div className="about-foundations__cards">
+              <Swiper
+                key={direction}
+                className="about-foundations__swiper"
+                slidesPerView="auto"
+                spaceBetween={16}
+                dir={direction}
+                onSlideChange={(instance: SwiperInstance) => setIndex(instance.activeIndex)}
               >
-                <div className="about-foundations__media">
-                  <LocalizedImage
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    quality={90}
-                    sizes="(max-width: 48rem) 100vw, 33rem"
-                  />
-                </div>
-                <div className="about-foundations__detail">
-                  <h3>
-                    <T>{item.title}</T>
-                  </h3>
-                  <p>
-                    <T>{item.description}</T>
-                  </p>
-                </div>
-              </article>
-            ))}
+                {aboutFoundations.map((item) => (
+                  <SwiperSlide key={item.title} className="about-foundations__slide">
+                    <FoundationCard item={item} sizes="85vw" />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <FoundationsCount index={index} total={total} />
+          </>
+        ) : (
+          <div className="about-foundations__cards">
+            <div ref={track} className="about-foundations__track">
+              {aboutFoundations.map((item, i) => (
+                <article
+                  key={item.title}
+                  className="about-foundations__card"
+                  aria-hidden={i === index ? undefined : true}
+                >
+                  <div className="about-foundations__media">
+                    <LocalizedImage
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      quality={90}
+                      sizes="(max-width: 48rem) 100vw, 33rem"
+                    />
+                  </div>
+                  <div className="about-foundations__detail">
+                    <h3>
+                      <T>{item.title}</T>
+                    </h3>
+                    <p>
+                      <T>{item.description}</T>
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

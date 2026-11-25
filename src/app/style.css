@@ -5513,6 +5513,7 @@
     padding-inline: 1.15rem;
   }
 
+  /* About · Mobile · 393 — Figma 3129:86706 (desktop rules above stay put) */
   .about-hero {
     height: auto;
   }
@@ -5522,11 +5523,21 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    padding: 18rem var(--container-padding) 3rem;
+    align-items: center;
+    gap: 2.5rem;
+    justify-content: flex-start;
+    padding: calc(var(--header-height) + var(--header-offset) + 2.5rem) 1rem 3rem;
+    overflow: visible;
   }
 
   .about-hero__content {
     width: 100%;
+    max-width: 100%;
+    gap: 1.5rem;
+  }
+
+  .about-hero__copy {
+    gap: 1.5rem;
   }
 
   .about-hero__title,
@@ -5535,38 +5546,58 @@
   .about-experts__title,
   .about-mission__title,
   .programs-catalog__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   .about-hero__body,
   .about-mission__body {
-    font-size: 1.05rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .about-hero__body {
+    max-width: 20rem;
+    margin-inline: auto;
   }
 
   .about-hero__media-wrap {
     position: relative;
     inset: auto;
-    margin-top: 2rem;
-    height: auto;
+    z-index: 1;
+    width: 100%;
+    height: 20.625rem;
+    margin-top: 0;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
+    pointer-events: none;
   }
 
-  .about-hero__media {
+  .about-hero__media,
+  .about-hero__media.is-masked {
     position: relative;
     left: auto;
     top: auto;
-    width: min(100%, 22rem);
+    width: 100%;
     max-width: 100%;
-    height: min(70vw, 22rem);
+    height: 100%;
     margin-inline: auto;
     opacity: 1;
     transform: none;
+    border-radius: 0;
   }
 
   .about-hero__field {
-    top: 20%;
-    opacity: 0.85;
+    top: 18%;
+    width: 140%;
+    height: auto;
+    opacity: 0.8;
+  }
+
+  .about-hero__field-scale,
+  .about-hero__field-scale img {
+    width: 100%;
+    max-width: none;
   }
 
   /* Home hero — wrap title/actions/audience; no horizontal overflow */
@@ -5602,36 +5633,64 @@
     flex-wrap: wrap;
   }
 
+  .about-values {
+    padding-block: 3rem 3.5rem;
+  }
+
+  .about-values > .section-container {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .about-values__intro {
+    max-width: 100%;
+    margin-bottom: 3rem;
+    gap: 1rem;
+  }
+
   .about-values__title-line {
     white-space: normal;
   }
 
+  /* Figma 3129:89317 — horizontal peek carousel, not a vertical stack */
   .about-values__grid {
-    flex-direction: column;
-  }
-
-  .about-values__card {
-    flex: 1 1 auto;
-    height: auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 1rem;
     min-height: 0;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
   }
 
+  .about-values__card,
+  .about-values__card.is-active,
   .about-values__grid.is-hot .about-values__card.is-dimmed,
   .about-values__grid.is-hot .about-values__card.is-active {
-    flex-grow: 1;
-    height: auto;
-    min-height: 0;
+    flex: 0 0 17.125rem;
+    width: 17.125rem;
+    height: 21.25rem;
+    min-height: 21.25rem;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
   }
 
-  /* Values copy stays readable without hover-only expand */
+  .about-values__grid.is-hot .about-values__card.is-active {
+    background: var(--color-white);
+  }
+
   .about-values__copy {
     gap: 1rem;
   }
 
   .about-values__card h3,
   .about-values__card.is-active h3 {
-    font-size: 1.5rem;
-    line-height: 1.2;
+    font-size: 1.75rem;
+    line-height: 1.1;
   }
 
   .about-values__card p,
@@ -5662,16 +5721,138 @@
     background: rgba(255, 255, 255, 0.6);
   }
 
-  .about-foundations__media {
-    height: 18rem;
+  /* Foundations — Figma 3129:86751 horizontal Swiper */
+  .about-foundations {
+    padding-block: 0;
   }
 
+  .about-foundations__stage {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.5rem;
+    min-height: 0;
+    padding-block: 3rem;
+    padding-inline: 1rem;
+  }
+
+  .about-foundations__copy {
+    height: auto;
+    gap: 1rem;
+  }
+
+  .about-foundations__heading {
+    gap: 1rem;
+  }
+
+  .about-foundations__cards {
+    width: 100%;
+    margin-inline: -1rem;
+    padding-inline: 1rem;
+    overflow: visible;
+  }
+
+  .about-foundations__swiper,
+  .about-foundations__swiper.swiper {
+    overflow: visible;
+    width: 100%;
+  }
+
+  .about-foundations__slide,
+  .about-foundations__swiper .swiper-slide {
+    width: 20.25rem;
+    height: auto;
+  }
+
+  .about-foundations__card {
+    width: 100%;
+    height: auto;
+    gap: 2rem;
+  }
+
+  .about-foundations__media {
+    height: 18.875rem;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .about-foundations__detail h3 {
+    font-size: 1.5rem;
+  }
+
+  .about-foundations__detail p {
+    font-size: 1rem;
+  }
+
+  .about-foundations__count {
+    width: 4.356rem;
+    height: 2.872rem;
+    align-self: flex-start;
+  }
+
+  .about-foundations__count-ring {
+    width: 2.869rem;
+    height: 2.869rem;
+  }
+
+  .about-foundations__count-current {
+    inset-block-start: 0.62rem;
+    inset-inline-start: 1.06rem;
+    font-size: 1.5rem;
+  }
+
+  .about-foundations__count-total {
+    inset-block-start: 1.93rem;
+    inset-inline-start: 3.17rem;
+    font-size: 0.875rem;
+  }
+
+  /* Mission — Figma 3129:86771 (Mission panel only; no Vision stack) */
   .about-mission {
     min-height: 0;
+    padding-block: 3.125rem;
+  }
+
+  .about-mission__pin {
+    height: auto;
+    min-height: 35rem;
+    gap: 0;
+    padding: 5.04rem 2rem;
+    justify-content: space-between;
+  }
+
+  .about-mission__globe {
+    width: min(100%, 24.2rem);
+    opacity: 0.3;
+  }
+
+  .about-mission__swap-item[aria-hidden="true"] {
+    display: none;
+  }
+
+  .about-mission__static {
+    display: none;
+  }
+
+  .about-mission__pin > .about-mission__title {
+    align-self: flex-start;
+    font-size: 2.25rem;
+    margin-bottom: 0;
+    text-align: start;
+  }
+
+  .about-mission__pin > .about-mission__body {
+    font-size: 1rem;
+    max-width: 19.375rem;
+    margin-inline: auto;
+    margin-bottom: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.78);
   }
 
   .journey__content h2 {
     font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   .journey__content--wide,
@@ -5681,14 +5862,122 @@
     max-width: 100%;
   }
 
+  .journey__body {
+    font-size: 1rem;
+  }
+
   .journey__actions {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.75rem;
     max-width: 100%;
   }
 
   .journey__actions .btn:first-child,
   .journey__actions .btn:last-child {
     min-width: 0;
+    flex: 0 1 auto;
+  }
+
+  /* Experts — Figma 3129:89342 stacked portrait cards */
+  .about-experts {
+    padding-block: 3rem;
+    background: #f2f5f4;
+  }
+
+  .about-experts__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-experts__title {
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .about-experts__lede {
+    margin-top: 0;
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  .about-experts__stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.375rem;
+  }
+
+  .about-experts__stack .about-expert {
+    display: block;
+    width: 100%;
+    height: 26.25rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    background: #e2f4ed;
+    cursor: default;
+  }
+
+  .about-experts__stack .about-expert__media,
+  .about-experts__stack .about-expert.is-open .about-expert__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    flex: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+  }
+
+  .about-experts__stack .about-expert__photo,
+  .about-experts__stack .about-expert.is-open .about-expert__photo {
+    inset-inline-start: 50%;
+    width: 100%;
+    height: 100%;
+    translate: -50% 0;
+  }
+
+  .about-experts__stack .about-expert__panel,
+  .about-experts__stack .about-expert.is-open .about-expert__panel {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    min-height: 8.0625rem;
+    padding: 1.5rem 1rem 1.25rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(0.625rem);
+    -webkit-backdrop-filter: blur(0.625rem);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .about-experts__stack .about-expert__dots {
+    display: none;
+  }
+
+  .about-experts__stack .about-expert__copy {
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .about-experts__stack .about-expert__copy h3 {
+    font-size: 1.5rem;
+  }
+
+  .about-experts__stack .about-expert__copy p {
+    font-size: 1rem;
+    color: #818f87;
+    line-height: 1.5;
+  }
+
+  .about-experts__action {
+    margin-top: 2rem;
   }
 
   .impact__photo {
