@@ -5670,6 +5670,8 @@
     backdrop-filter: blur(0.1875rem);
     -webkit-backdrop-filter: blur(0.1875rem);
     box-shadow: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* Icon badge must NOT stretch — column align-items:stretch was blowing it to ~full card width */
@@ -5728,6 +5730,56 @@
   .why-swiper .why-card:hover .why-card__copy p,
   .why-swiper .why-card:focus-visible .why-card__copy p {
     display: none;
+  }
+
+  /* Tap-open — same visual language as desktop hover (white plate, green icon, detail) */
+  .why-swiper .why-card.is-open,
+  .why-swiper .why-card.is-open:hover,
+  .why-swiper .why-card.is-open:focus-visible {
+    background: var(--color-white);
+    border-color: transparent;
+    box-shadow: 0 0.65rem 2rem rgba(27, 42, 34, 0.035);
+  }
+
+  .why-swiper .why-card.is-open .why-card__icon,
+  .why-swiper .why-card.is-open:hover .why-card__icon,
+  .why-swiper .why-card.is-open:focus-visible .why-card__icon {
+    background: var(--color-primary);
+  }
+
+  .why-swiper .why-card.is-open .why-card__glyph,
+  .why-swiper .why-card.is-open:hover .why-card__glyph,
+  .why-swiper .why-card.is-open:focus-visible .why-card__glyph {
+    filter: brightness(0) invert(1);
+  }
+
+  .why-swiper .why-card.is-open .why-card__copy,
+  .why-swiper .why-card.is-open:hover .why-card__copy,
+  .why-swiper .why-card.is-open:focus-visible .why-card__copy {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    gap: 0.75rem;
+    overflow: visible;
+  }
+
+  .why-swiper .why-card.is-open .why-card__copy p,
+  .why-swiper .why-card.is-open:hover .why-card__copy p,
+  .why-swiper .why-card.is-open:focus-visible .why-card__copy p {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    opacity: 1;
+    overflow: visible;
+    color: #818f87;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .why-swiper .why-card.is-open .why-card__detail {
+    width: 100%;
   }
 
   .why__arrows {
@@ -5901,6 +5953,13 @@
   .home-programs__intro {
     width: 100%;
     max-width: 100%;
+  }
+
+  /* Match Why section copy — Figma 16px / #818f87 */
+  .home-programs__copy {
+    color: #818f87;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   .home-programs__search {

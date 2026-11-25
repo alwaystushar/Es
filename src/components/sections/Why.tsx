@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { whyItems } from "@/data/home";
@@ -39,10 +39,58 @@ type WhyProps = {
   items?: readonly WhyItem[] | WhyItem[];
 };
 
-function WhyCard({ item }: { item: WhyItem }) {
+function WhyCard({
+  item,
+  expandable = false,
+  open = false,
+  onToggle,
+}: {
+  item: WhyItem;
+  expandable?: boolean;
+  open?: boolean;
+  onToggle?: () => void;
+}) {
   const lines = whyTitleLines[item.title] ?? [item.title, ""];
+  const pointer = useRef<{ x: number; y: number } | null>(null);
+
   return (
-    <article className="why-card" tabIndex={0}>
+    <article
+      className={["why-card", open ? "is-open" : ""].filter(Boolean).join(" ")}
+      tabIndex={0}
+      aria-expanded={expandable ? open : undefined}
+      onPointerDown={
+        expandable
+          ? (event) => {
+              pointer.current = { x: event.clientX, y: event.clientY };
+            }
+          : undefined
+      }
+      onClick={
+        expandable
+          ? (event) => {
+              const start = pointer.current;
+              pointer.current = null;
+              /* Ignore swipe gestures — only toggle on a real tap */
+              if (start) {
+                const dx = Math.abs(event.clientX - start.x);
+                const dy = Math.abs(event.clientY - start.y);
+                if (dx >= 10 || dy >= 10) return;
+              }
+              onToggle?.();
+            }
+          : undefined
+      }
+      onKeyDown={
+        expandable
+          ? (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onToggle?.();
+              }
+            }
+          : undefined
+      }
+    >
       <div className="why-card__icon">
         <Icon className="why-card__glyph" src={item.icon} width={item.iconWidth} height={item.iconHeight} />
       </div>
@@ -79,6 +127,12 @@ export function Why({
   const direction = useDocumentDirection();
   const isPhone = useMediaQuery(MQ_PHONE);
   const { locale } = useLocale();
+  const [openTitle, setOpenTitle] = useState<string | null>(null);
+
+  const toggleCard = (titleKey: string) => {
+    setOpenTitle((current) => (current === titleKey ? null : titleKey));
+    requestAnimationFrame(() => swiper.current?.update());
+  };
 
   return (
     <section className="why" aria-labelledby="why-title">
@@ -106,13 +160,20 @@ export function Why({
                 spaceBetween={12}
                 dir={direction}
                 watchOverflow
+                preventClicks={false}
+                preventClicksPropagation={false}
                 onSwiper={(instance) => {
                   swiper.current = instance;
                 }}
               >
                 {items.map((item) => (
                   <SwiperSlide key={item.title} className="why-swiper__slide">
-                    <WhyCard item={item} />
+                    <WhyCard
+                      item={item}
+                      expandable
+                      open={openTitle === item.title}
+                      onToggle={() => toggleCard(item.title)}
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
