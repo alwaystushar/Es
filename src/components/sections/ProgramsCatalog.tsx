@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { programCatalog, programFilters, programSubjectAreas } from "@/data/programs";
 import { Button } from "@/components/ui/Button";
 import { CustomSelect } from "@/components/ui/CustomSelect";
@@ -9,6 +10,10 @@ import { Icon } from "@/components/ui/Icon";
 import { ProgramListCard } from "@/components/ui/ProgramListCard";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { T } from "@/i18n/locale";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
+import "swiper/css";
 
 const subjectOptions = programSubjectAreas.map((label) => ({
   value: label,
@@ -19,6 +24,8 @@ export function ProgramsCatalog() {
   const [filter, setFilter] = useState<(typeof programFilters)[number]>("All Programs");
   const [subject, setSubject] = useState<(typeof programSubjectAreas)[number]>("All Subject Areas");
   const [query, setQuery] = useState("");
+  const direction = useDocumentDirection();
+  const isPhone = useMediaQuery(MQ_PHONE);
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase();
@@ -39,6 +46,19 @@ export function ProgramsCatalog() {
       return matchesFilter && matchesSubject && matchesQuery;
     });
   }, [filter, query, subject]);
+
+  const filterChips = programFilters.map((item) => (
+    <button
+      key={item}
+      type="button"
+      role="tab"
+      aria-selected={filter === item}
+      className={["programs-catalog__chip", filter === item ? "is-active" : ""].filter(Boolean).join(" ")}
+      onClick={() => setFilter(item)}
+    >
+      <T>{item}</T>
+    </button>
+  ));
 
   return (
     <section className="programs-catalog" aria-labelledby="programs-catalog-title">
@@ -74,20 +94,36 @@ export function ProgramsCatalog() {
           />
         </div>
 
-        <div className="programs-catalog__filters" role="tablist" aria-label="Program filters">
-          {programFilters.map((item) => (
-            <button
-              key={item}
-              type="button"
-              role="tab"
-              aria-selected={filter === item}
-              className={["programs-catalog__chip", filter === item ? "is-active" : ""].filter(Boolean).join(" ")}
-              onClick={() => setFilter(item)}
+        {isPhone ? (
+          <div className="programs-catalog__filters-track" role="tablist" aria-label="Program filters">
+            <Swiper
+              key={direction}
+              className="programs-catalog-filters-swiper"
+              slidesPerView="auto"
+              spaceBetween={8}
+              dir={direction}
+              watchOverflow
             >
-              <T>{item}</T>
-            </button>
-          ))}
-        </div>
+              {programFilters.map((item) => (
+                <SwiperSlide key={item} className="programs-catalog-filters-swiper__slide">
+                  <button
+                    type="button"
+                    role="tab"
+                    aria-selected={filter === item}
+                    className={["programs-catalog__chip", filter === item ? "is-active" : ""].filter(Boolean).join(" ")}
+                    onClick={() => setFilter(item)}
+                  >
+                    <T>{item}</T>
+                  </button>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ) : (
+          <div className="programs-catalog__filters" role="tablist" aria-label="Program filters">
+            {filterChips}
+          </div>
+        )}
 
         <div className="programs-catalog__grid">
           {visible.map((program) => (

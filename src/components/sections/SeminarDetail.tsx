@@ -1,27 +1,95 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
+import type { Swiper as SwiperInstance } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import type { Seminar } from "@/data/seminars";
 import { seminarCatalog } from "@/data/seminars";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
 import { RevealLines } from "@/components/animation/RevealLines";
+import { Journey } from "@/components/sections/Journey";
 import { LocalizedImage, T, tr, useLocale } from "@/i18n/locale";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
 
 type SeminarDetailProps = {
   seminar: Seminar;
 };
 
+function RelatedCard({ item }: { item: Seminar }) {
+  return (
+    <article className="seminar-list-card">
+      <div className="seminar-list-card__media">
+        <LocalizedImage
+          src={item.image}
+          alt={item.alt}
+          fill
+          quality={90}
+          sizes="(max-width: 48rem) 90vw, 22rem"
+        />
+        <span className="seminar-list-card__fade" aria-hidden="true" />
+      </div>
+      <div className="seminar-list-card__panel">
+        <div className="seminar-list-card__body">
+          <div className="seminar-list-card__content">
+            <div className="seminar-list-card__heading">
+              <h3 className="seminar-list-card__title">
+                <T>{item.title}</T>
+              </h3>
+              <div className="seminar-list-card__meta">
+                <div className="seminar-list-card__meta-row">
+                  <span className="seminar-list-card__meta-item">
+                    <Icon src="/assets/icons/seminars/meta-person.svg" width={16} height={16} />
+                    <T>{item.trainer}</T>
+                  </span>
+                </div>
+                <div className="seminar-list-card__meta-row seminar-list-card__meta-row--details">
+                  <span className="seminar-list-card__meta-item">
+                    <Icon src="/assets/icons/seminars/meta-clock.svg" width={16} height={16} />
+                    <T>{item.time}</T>
+                  </span>
+                  <span className="seminar-list-card__meta-item">
+                    <Icon src="/assets/icons/seminars/meta-calendar.svg" width={16} height={16} />
+                    <T>{item.date}</T>
+                  </span>
+                  <span className="seminar-list-card__meta-item">
+                    <Icon src="/assets/icons/seminars/meta-monitor.svg" width={16} height={16} />
+                    <T>{item.location}</T>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <p className="seminar-list-card__description">
+              <T>{item.description}</T>
+            </p>
+          </div>
+          <Link href={`/seminars/${item.slug}`} className="btn btn--solid seminar-list-card__cta">
+            <span className="btn__ripple" aria-hidden="true" />
+            <span className="btn__label">
+              <T>Register Now</T>
+            </span>
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export function SeminarDetail({ seminar }: SeminarDetailProps) {
   const { locale } = useLocale();
+  const direction = useDocumentDirection();
+  const isPhone = useMediaQuery(MQ_PHONE);
+  const relatedSwiper = useRef<SwiperInstance | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
 
-  const related = seminarCatalog.filter((item) => item.slug !== seminar.slug).slice(0, 2);
+  const related = seminarCatalog.filter((item) => item.slug !== seminar.slug).slice(0, isPhone ? 4 : 2);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,36 +126,42 @@ export function SeminarDetail({ seminar }: SeminarDetailProps) {
 
         <div className="section-container seminar-detail-hero__inner">
           <div className="seminar-detail-hero__content">
-            <Eyebrow light>Seminars</Eyebrow>
-            <RevealLines id="seminar-detail-title" as="h1" className="seminar-detail-hero__title" playOnMount>
-              {seminar.title}
-            </RevealLines>
-            <p className="seminar-detail-hero__body">
-              <T>{seminar.description}</T>
-            </p>
-            <Button href="/programs" variant="solid" className="seminar-detail-hero__cta" dot="start">
+            <div className="seminar-detail-hero__text">
+              <Eyebrow light>Seminars</Eyebrow>
+              <RevealLines id="seminar-detail-title" as="h1" className="seminar-detail-hero__title" playOnMount>
+                {seminar.title}
+              </RevealLines>
+              <p className="seminar-detail-hero__body">
+                <T>{seminar.description}</T>
+              </p>
+            </div>
+            <Button href="/programs" variant="white" className="seminar-detail-hero__cta">
               Explore Programs
             </Button>
           </div>
 
           <div className="seminar-detail-hero__meta">
             <div className="seminar-detail-hero__meta-bar">
-              <span className="seminar-detail-hero__meta-item">
-                <Icon src="/assets/icons/person.svg" width={20} height={20} />
-                <T>{seminar.trainer}</T>
-              </span>
-              <span className="seminar-detail-hero__meta-item">
-                <Icon src="/assets/icons/calendar.svg" width={20} height={20} />
-                <T>{seminar.date}</T>
-              </span>
-              <span className="seminar-detail-hero__meta-item">
-                <Icon src="/assets/icons/clock.svg" width={20} height={20} />
-                <T>{seminar.time}</T>
-              </span>
-              <span className="seminar-detail-hero__meta-item">
-                <Icon src="/assets/icons/globe.svg" width={20} height={20} />
-                <T>{seminar.location}</T>
-              </span>
+              <div className="seminar-detail-hero__meta-row seminar-detail-hero__meta-row--trainer">
+                <span className="seminar-detail-hero__meta-item seminar-detail-hero__meta-item--trainer">
+                  <Icon src="/assets/icons/person.svg" width={20} height={20} />
+                  <T>{seminar.trainer}</T>
+                </span>
+              </div>
+              <div className="seminar-detail-hero__meta-row seminar-detail-hero__meta-row--details">
+                <span className="seminar-detail-hero__meta-item">
+                  <Icon src="/assets/icons/calendar.svg" width={16} height={16} />
+                  <T>{seminar.date}</T>
+                </span>
+                <span className="seminar-detail-hero__meta-item">
+                  <Icon src="/assets/icons/clock.svg" width={16} height={16} />
+                  <T>{seminar.time}</T>
+                </span>
+                <span className="seminar-detail-hero__meta-item">
+                  <Icon src="/assets/icons/globe.svg" width={16} height={16} />
+                  <T>{seminar.location}</T>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -106,9 +180,12 @@ export function SeminarDetail({ seminar }: SeminarDetailProps) {
             </div>
 
             <div className="seminar-detail-after">
-              <h3 className="seminar-detail-after__title">
-                <T>After the Seminar</T>
-              </h3>
+              <div className="seminar-detail-after__head">
+                <Icon src="/assets/icons/seminars/after-seminar.svg" width={24} height={24} />
+                <h3 className="seminar-detail-after__title">
+                  <T>After the Seminar</T>
+                </h3>
+              </div>
               <p className="seminar-detail-after__text">
                 <T>{seminar.afterSeminar}</T>
               </p>
@@ -163,76 +240,83 @@ export function SeminarDetail({ seminar }: SeminarDetailProps) {
         </div>
       </section>
 
+      <Journey
+        title="Keep building your knowledge"
+        body="Explore our training programs or stay informed about upcoming seminars and professional events."
+        primaryLabel="Explore Programs"
+        primaryHref="/programs"
+        secondaryLabel="View Upcoming Seminars"
+        secondaryHref="/seminars"
+      />
+
       {related.length > 0 ? (
         <section className="seminar-related" aria-labelledby="seminar-related-title">
           <div className="section-container">
             <div className="seminar-related__header">
               <RevealLines id="seminar-related-title" as="h2" className="seminar-related__title">
-                Explore upcoming seminars
+                Upcoming Seminars
               </RevealLines>
-              <Button href="/seminars" variant="outline" dot="none">
-                View All
-              </Button>
+              {isPhone === false ? (
+                <Button href="/seminars" variant="outline" dot="none">
+                  View All
+                </Button>
+              ) : null}
             </div>
 
-            <div className="seminar-related__grid">
-              {related.map((item) => (
-                <article key={item.slug} className="seminar-list-card">
-                  <div className="seminar-list-card__media">
-                    <LocalizedImage
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      quality={90}
-                      sizes="(max-width: 48rem) 100vw, 22rem"
-                    />
-                    <span className="seminar-list-card__fade" aria-hidden="true" />
+            {isPhone ? (
+              <>
+                <div className="seminar-related__stage">
+                  <Swiper
+                    key={direction}
+                    className="seminar-related-swiper"
+                    slidesPerView="auto"
+                    spaceBetween={12}
+                    dir={direction}
+                    watchOverflow
+                    onSwiper={(instance) => {
+                      relatedSwiper.current = instance;
+                    }}
+                  >
+                    {related.map((item) => (
+                      <SwiperSlide key={item.slug} className="seminar-related-swiper__slide">
+                        <RelatedCard item={item} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+                <div className="seminar-related__footer">
+                  <Button href="/seminars" variant="outline">
+                    View All
+                  </Button>
+                  <div className="seminar-related__arrows">
+                    <Button
+                      plain
+                      dot="none"
+                      className="icon-button"
+                      aria-label={tr(locale, "Previous seminar")}
+                      onClick={() => relatedSwiper.current?.slidePrev()}
+                    >
+                      <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+                    </Button>
+                    <Button
+                      plain
+                      dot="none"
+                      className="icon-button icon-button--next"
+                      aria-label={tr(locale, "Next seminar")}
+                      onClick={() => relatedSwiper.current?.slideNext()}
+                    >
+                      <Icon src="/assets/icons/arrow-a.svg" width={20} height={20} />
+                    </Button>
                   </div>
-                  <div className="seminar-list-card__panel">
-                    <div className="seminar-list-card__body">
-                      <div className="seminar-list-card__content">
-                        <div className="seminar-list-card__heading">
-                          <h3 className="seminar-list-card__title">
-                            <T>{item.title}</T>
-                          </h3>
-                          <div className="seminar-list-card__meta">
-                            <div className="seminar-list-card__meta-row">
-                              <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/seminars/meta-person.svg" width={16} height={16} />
-                                <T>{item.trainer}</T>
-                              </span>
-                            </div>
-                            <div className="seminar-list-card__meta-row seminar-list-card__meta-row--details">
-                              <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/seminars/meta-clock.svg" width={16} height={16} />
-                                <T>{item.time}</T>
-                              </span>
-                              <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/seminars/meta-calendar.svg" width={16} height={16} />
-                                <T>{item.date}</T>
-                              </span>
-                              <span className="seminar-list-card__meta-item">
-                                <Icon src="/assets/icons/seminars/meta-monitor.svg" width={16} height={16} />
-                                <T>{item.location}</T>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <p className="seminar-list-card__description">
-                          <T>{item.description}</T>
-                        </p>
-                      </div>
-                      <Link href={`/seminars/${item.slug}`} className="btn btn--solid seminar-list-card__cta">
-                        <span className="btn__ripple" aria-hidden="true" />
-                        <span className="btn__label">
-                          <T>Register Now</T>
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+                </div>
+              </>
+            ) : (
+              <div className="seminar-related__grid">
+                {related.map((item) => (
+                  <RelatedCard key={item.slug} item={item} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
       ) : null}

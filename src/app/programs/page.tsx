@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProgramsCatalog } from "@/components/sections/ProgramsCatalog";
-import { ProgramsTeamCta } from "@/components/sections/ProgramsTeamCta";
+import { Journey } from "@/components/sections/Journey";
 
 export const metadata: Metadata = { title: "Training Programs" };
 
@@ -8,7 +8,7 @@ export default function ProgramsPage() {
   return (
     <main id="main">
       <ProgramsCatalog />
-      <ProgramsTeamCta />
+      <Journey variant="programs" />
     </main>
   );
 }

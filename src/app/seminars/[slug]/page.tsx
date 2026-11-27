@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { seminarCatalog } from "@/data/seminars";
-import { Journey } from "@/components/sections/Journey";
 import { SeminarDetail } from "@/components/sections/SeminarDetail";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -27,7 +26,6 @@ export default async function SeminarPage({ params }: PageProps) {
   return (
     <main id="main">
       <SeminarDetail seminar={seminar} />
-      <Journey />
     </main>
   );
 }

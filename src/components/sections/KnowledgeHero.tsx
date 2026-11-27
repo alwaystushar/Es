@@ -1,8 +1,15 @@
+"use client";
+
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RevealLines } from "@/components/animation/RevealLines";
 import { T, tr, useLocale } from "@/i18n/locale";
 import type { KnowledgeCategorySlug } from "@/data/knowledge";
 import { knowledgeCategories } from "@/data/knowledge";
+import { useDocumentDirection } from "@/hooks/useDocumentDirection";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { MQ_PHONE } from "@/lib/breakpoints";
+import "swiper/css";
 
 type KnowledgeHeroProps = {
   activeFilter: KnowledgeCategorySlug;
@@ -13,6 +20,21 @@ type KnowledgeHeroProps = {
 
 export function KnowledgeHero({ activeFilter, searchQuery, onFilterChange, onSearchChange }: KnowledgeHeroProps) {
   const { locale } = useLocale();
+  const direction = useDocumentDirection();
+  const isPhone = useMediaQuery(MQ_PHONE);
+  const filterLabel = tr(locale, "Filter articles by category");
+
+  const filterButtons = knowledgeCategories.map((cat) => (
+    <button
+      key={cat.slug}
+      type="button"
+      className={`knowledge-page-filter${activeFilter === cat.slug ? " is-active" : ""}`}
+      onClick={() => onFilterChange(cat.slug)}
+      aria-pressed={activeFilter === cat.slug}
+    >
+      <T>{cat.label}</T>
+    </button>
+  ));
 
   return (
     <section className="knowledge-page-hero" aria-labelledby="knowledge-page-title">
@@ -55,19 +77,35 @@ export function KnowledgeHero({ activeFilter, searchQuery, onFilterChange, onSea
             </button>
           </div>
 
-          <div className="knowledge-page-filters" role="group" aria-label={tr(locale, "Filter articles by category")}>
-            {knowledgeCategories.map((cat) => (
-              <button
-                key={cat.slug}
-                type="button"
-                className={`knowledge-page-filter${activeFilter === cat.slug ? " is-active" : ""}`}
-                onClick={() => onFilterChange(cat.slug)}
-                aria-pressed={activeFilter === cat.slug}
+          {isPhone ? (
+            <div className="knowledge-page-filters-track" role="group" aria-label={filterLabel}>
+              <Swiper
+                key={direction}
+                className="knowledge-page-filters-swiper"
+                slidesPerView="auto"
+                spaceBetween={8}
+                dir={direction}
+                watchOverflow
               >
-                <T>{cat.label}</T>
-              </button>
-            ))}
-          </div>
+                {knowledgeCategories.map((cat) => (
+                  <SwiperSlide key={cat.slug} className="knowledge-page-filters-swiper__slide">
+                    <button
+                      type="button"
+                      className={`knowledge-page-filter${activeFilter === cat.slug ? " is-active" : ""}`}
+                      onClick={() => onFilterChange(cat.slug)}
+                      aria-pressed={activeFilter === cat.slug}
+                    >
+                      <T>{cat.label}</T>
+                    </button>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ) : (
+            <div className="knowledge-page-filters" role="group" aria-label={filterLabel}>
+              {filterButtons}
+            </div>
+          )}
         </div>
       </div>
     </section>

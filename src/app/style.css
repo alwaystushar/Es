@@ -1782,6 +1782,13 @@
 
 .partner-marquee {
   margin-top: 8.5rem;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.partner-marquee .rfm-marquee,
+.partner-marquee .rfm-initial-child-container {
+  max-width: none;
 }
 
 .partner-marquee .rfm-child {
@@ -4489,10 +4496,6 @@
     flex: 1 1 calc(50% - 0.5rem);
   }
 
-  .about-foundations__rail {
-    display: none;
-  }
-
   .about-foundations__copy {
     height: auto;
     min-height: 0;
@@ -4510,27 +4513,6 @@
   .about-hero__content {
     width: 100%;
     max-width: 100%;
-  }
-
-  .about-foundations__cards {
-    height: auto;
-    max-width: 100%;
-    overflow: visible;
-  }
-
-  .about-foundations__track {
-    gap: 3rem;
-    transform: none !important;
-  }
-
-  .about-foundations__card {
-    height: auto;
-    min-height: 0;
-  }
-
-  .about-foundations__media {
-    height: 16rem;
-    max-height: none;
   }
 
   .about-foundations__detail h3 {
@@ -4551,49 +4533,80 @@
     height: 2.875rem;
   }
 
-  .about-mission__pin {
-    height: auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-    padding: 5rem var(--container-padding);
+  /* Tablet only — stack cards; phone uses pinned scrub (3129:86751) */
+  @media (min-width: 48.0625rem) {
+    .about-foundations__rail {
+      display: none;
+    }
+
+    .about-foundations__cards {
+      height: auto;
+      max-width: 100%;
+      overflow: visible;
+    }
+
+    .about-foundations__track {
+      gap: 3rem;
+      transform: none !important;
+    }
+
+    .about-foundations__card {
+      height: auto;
+      min-height: 0;
+    }
+
+    .about-foundations__media {
+      height: 16rem;
+      max-height: none;
+    }
   }
 
-  .about-mission__globe {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: min(100%, 28rem);
-    margin-inline: auto;
-    transform: none;
-    opacity: 0.28;
-  }
+  /* Tablet only — stack Mission + Vision; phone uses pinned scrub (3129:86771) */
+  @media (min-width: 48.0625rem) {
+    .about-mission__pin {
+      height: auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      padding: 5rem var(--container-padding);
+    }
 
-  .about-mission__title,
-  .about-mission__body {
-    position: relative;
-    top: auto !important;
-    inset-inline-start: auto !important;
-    width: auto;
-    max-width: 100%;
-    white-space: normal;
-  }
+    .about-mission__globe {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: min(100%, 28rem);
+      margin-inline: auto;
+      transform: none;
+      opacity: 0.28;
+    }
 
-  .about-mission__pin > .about-mission__title {
-    margin-bottom: 1rem;
-  }
+    .about-mission__title,
+    .about-mission__body {
+      position: relative;
+      top: auto !important;
+      inset-inline-start: auto !important;
+      width: auto;
+      max-width: 100%;
+      white-space: normal;
+    }
 
-  .about-mission__pin > .about-mission__body {
-    margin-bottom: 3rem;
-  }
+    .about-mission__pin > .about-mission__title {
+      margin-bottom: 1rem;
+    }
 
-  .about-mission__static {
-    display: block;
-  }
+    .about-mission__pin > .about-mission__body {
+      margin-bottom: 3rem;
+    }
 
-  .about-mission__static .about-mission__title {
-    margin-bottom: 1rem;
+    .about-mission__static {
+      display: block;
+    }
+
+    .about-mission__static .about-mission__title {
+      margin-bottom: 1rem;
+    }
   }
 
   .about-experts__lede {
@@ -4643,13 +4656,32 @@
   .programs-catalog__search {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.75rem;
   }
 
-  .programs-catalog__field,
+  /*
+   * Desktop flex-basis 35.9375rem becomes HEIGHT in a column flex.
+   * Reset so the search field stays a normal input row.
+   */
+  .programs-catalog__field {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: auto;
+    min-height: 3.375rem;
+  }
+
   .programs-catalog__subject-select,
+  .programs-catalog__subject-select.custom-select,
   .programs-catalog__subject-select .custom-select__trigger {
     width: 100%;
     min-width: 0;
+  }
+
+  .programs-catalog__subject-select .custom-select__trigger {
+    border-color: #dbebe4;
+    background: var(--color-white);
   }
 }
 
@@ -5116,10 +5148,18 @@
   flex-direction: column;
   align-items: flex-start;
   align-self: center;
-  gap: 1.5rem;
+  gap: 2rem;
   width: min(100%, calc(100vw * 431 / 1440)); /* Figma 431 */
   /* Figma nudge: content sits slightly above true center */
   transform: translateY(-2.2rem);
+}
+
+.seminar-detail-hero__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
 }
 
 .seminar-detail-hero__content .eyebrow {
@@ -5143,18 +5183,7 @@
 }
 
 .seminar-detail-hero__cta {
-  margin-top: 0.5rem; /* ~32 gap before button in Figma stack */
-}
-
-.seminar-detail-hero__cta.btn--solid {
-  background: var(--color-secondary);
-  border-color: var(--color-secondary);
-  color: var(--color-ink);
-}
-
-.seminar-detail-hero__cta.btn--solid .btn__dot {
-  background: var(--color-ink);
-  color: var(--color-secondary);
+  margin-top: 0;
 }
 
 .seminar-detail-hero__meta {
@@ -5174,6 +5203,10 @@
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(0.3125rem);
   -webkit-backdrop-filter: blur(0.3125rem);
+}
+
+.seminar-detail-hero__meta-row {
+  display: contents;
 }
 
 .seminar-detail-hero__meta-item {
@@ -5240,26 +5273,35 @@
 .seminar-detail-after {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-  padding: 1.75rem;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: 1.125rem;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border: 0.0625rem solid #d8e7e1;
+  border-radius: 1rem;
   background: #f6fbf9;
+}
+
+.seminar-detail-after__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-inline: 1rem;
 }
 
 .seminar-detail-after__title {
   margin: 0;
   color: var(--color-primary);
-  font-size: var(--font-size-xl);
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 400;
   line-height: 1.2;
 }
 
 .seminar-detail-after__text {
   margin: 0;
-  color: var(--color-text);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-body);
+  padding: 0.75rem 1rem 0;
+  border-top: 0.0625rem solid #d8e7e1;
+  color: #818f87;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 /* ─── Register Card ──────────────────────────────────────────────── */
@@ -5370,7 +5412,7 @@
 .seminar-related {
   position: relative;
   padding-block: 5rem;
-  background: var(--color-areas);
+  background: #f1f5f3;
   overflow: hidden;
 }
 
@@ -5386,7 +5428,7 @@
 
 .seminar-related__title {
   margin: 0;
-  color: var(--color-ink);
+  color: #1b2a22;
   font-size: var(--font-size-2xl);
   font-weight: 400;
   line-height: 1.2;
@@ -5398,6 +5440,32 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.seminar-related__stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: visible;
+}
+
+.seminar-related-swiper {
+  overflow: visible;
+}
+
+.seminar-related-swiper__slide {
+  width: min(21.875rem, calc(100vw - 2.5rem));
+  height: auto;
+}
+
+.seminar-related__footer {
+  display: none;
+}
+
+.seminar-related__arrows {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 /* ─── Responsive adjustments ─────────────────────────────────────── */
@@ -5423,11 +5491,28 @@
     --section-spacing: 3.5rem;
   }
 
+  /* Stop page-level sideways drag — carousels still swipe via Swiper transforms */
+  html,
+  body {
+    overflow-x: clip;
+    max-width: 100%;
+    overscroll-behavior-x: none;
+  }
+
+  main {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   .stat-grid {
     grid-template-columns: 1fr;
   }
 
-  /* Keep washes in view — do not clip home carousels */
+  /*
+   * Contain sideways overflow from peek carousels / marquees without killing
+   * in-section Swiper peeks. overflow-x: visible here was expanding the
+   * document to ~2kpx and letting the whole page pan horizontally on phones.
+   */
   .hero,
   .areas,
   .programs,
@@ -5453,7 +5538,7 @@
   .home-programs,
   .signin-page,
   .article-hero {
-    overflow-x: visible;
+    overflow-x: clip;
     max-width: 100%;
   }
 
@@ -5605,7 +5690,8 @@
 
   /* Why — Figma 3129:72118 / 3129:72127 (glass cards, title-only rest, next-card peek) */
   .why {
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   .why__intro {
@@ -5947,7 +6033,8 @@
   }
 
   .home-programs {
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   .home-programs__intro {
@@ -5987,11 +6074,46 @@
   .home-programs__slide,
   .home-programs__swiper .swiper-slide {
     width: min(20rem, 88%);
+    max-width: 100%;
     height: auto;
   }
 
   .home-programs .program-list-card {
+    width: 100%;
+    max-width: 100%;
     height: 100%;
+    min-width: 0;
+  }
+
+  .home-programs .program-list-card__body {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Fees + CTA must fit the ~320px card — desktop gap/padding overflow the button */
+  .home-programs .program-list-card__footer {
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .home-programs .program-list-card__fees {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .home-programs .program-list-card__price {
+    flex-wrap: wrap;
+    row-gap: 0.15rem;
+  }
+
+  .home-programs .program-list-card__cta {
+    flex: 0 1 auto;
+    max-width: 100%;
+    min-height: 2.5rem;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.75rem;
   }
 
   .home-programs__action {
@@ -6146,6 +6268,7 @@
     gap: 0.75rem;
   }
 
+  /* Values — Figma 3129:89317 */
   .about-values {
     padding-block: 3rem 3.5rem;
   }
@@ -6161,43 +6284,47 @@
     gap: 1rem;
   }
 
+  .about-values__title {
+    max-width: 22.375rem;
+    line-height: 1.2;
+  }
+
+  /* Let the heading wrap like Figma (3 lines), not forced desktop breaks */
   .about-values__title-line {
+    display: inline;
     white-space: normal;
   }
 
-  /* Figma 3129:89317 — horizontal peek carousel, not a vertical stack */
-  .about-values__grid {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    gap: 1rem;
-    min-height: 0;
+  .about-values__track {
     margin-inline: -1rem;
     padding-inline: 1rem;
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
+    overflow: visible;
   }
 
-  .about-values__card,
-  .about-values__card.is-active,
-  .about-values__grid.is-hot .about-values__card.is-dimmed,
-  .about-values__grid.is-hot .about-values__card.is-active {
-    flex: 0 0 17.125rem;
+  .about-values-swiper,
+  .about-values-swiper.swiper {
+    overflow: visible;
+  }
+
+  .about-values-swiper__slide,
+  .about-values-swiper .swiper-slide {
     width: 17.125rem;
     height: 21.25rem;
-    min-height: 21.25rem;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: none;
   }
 
-  .about-values__grid.is-hot .about-values__card.is-active {
-    background: var(--color-white);
+  .about-values-swiper .about-values__card,
+  .about-values-swiper .about-values__card.is-active {
+    flex: none;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    list-style: none;
   }
 
   .about-values__copy {
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .about-values__card h3,
@@ -6234,73 +6361,120 @@
     background: rgba(255, 255, 255, 0.6);
   }
 
-  /* Foundations — Figma 3129:86751 horizontal Swiper */
+  /* Foundations — Figma 3129:86751 pin + scrub (rail on right, cards change on scroll) */
   .about-foundations {
     padding-block: 0;
   }
 
-  .about-foundations__stage {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 2.5rem;
-    min-height: 0;
+  .about-foundations__stage,
+  .about-foundations__stage.section-container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 0.125rem;
+    grid-template-areas:
+      "heading heading"
+      "cards rail"
+      "count count";
+    column-gap: 2rem;
+    row-gap: 2.5rem;
+    align-items: start;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100svh;
+    margin-inline: 0;
     padding-block: 3rem;
     padding-inline: 1rem;
   }
 
   .about-foundations__copy {
+    grid-area: heading;
     height: auto;
-    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 0;
   }
 
   .about-foundations__heading {
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .about-foundations__title {
+    width: 100%;
+    max-width: 100%;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+  }
+
+  .about-foundations__rail {
+    grid-area: rail;
+    position: relative;
+    inset: auto;
+    top: auto;
+    inset-inline-start: auto;
+    display: block;
+    width: 0.125rem;
+    height: 26.75rem;
+    transform: none;
+    align-self: start;
+  }
+
+  .about-foundations__rail-fill {
+    transform-origin: top center;
   }
 
   .about-foundations__cards {
+    grid-area: cards;
     width: 100%;
-    margin-inline: -1rem;
-    padding-inline: 1rem;
-    overflow: visible;
+    max-width: none;
+    min-width: 0;
+    height: 26.75rem;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 
-  .about-foundations__swiper,
-  .about-foundations__swiper.swiper {
-    overflow: visible;
-    width: 100%;
-  }
-
-  .about-foundations__slide,
-  .about-foundations__swiper .swiper-slide {
-    width: 20.25rem;
-    height: auto;
+  .about-foundations__track {
+    gap: 1.5rem;
   }
 
   .about-foundations__card {
     width: 100%;
-    height: auto;
+    height: 26.75rem;
     gap: 2rem;
   }
 
   .about-foundations__media {
-    height: 18.875rem;
-    border-radius: 1rem;
+    height: 18.887rem;
+    max-height: none;
+    border-radius: 0.5rem;
     overflow: hidden;
+  }
+
+  .about-foundations__detail {
+    gap: 1rem;
   }
 
   .about-foundations__detail h3 {
     font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   .about-foundations__detail p {
+    color: #4a5a51;
     font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.7;
   }
 
   .about-foundations__count {
+    grid-area: count;
     width: 4.356rem;
     height: 2.872rem;
-    align-self: flex-start;
+    align-self: start;
   }
 
   .about-foundations__count-ring {
@@ -6320,54 +6494,100 @@
     font-size: 0.875rem;
   }
 
-  /* Mission — Figma 3129:86771 (Mission panel only; no Vision stack) */
+  /* Mission — Figma 3129:86771 (panel 390×560; coords relative to panel) */
   .about-mission {
     min-height: 0;
     padding-block: 3.125rem;
   }
 
   .about-mission__pin {
-    height: auto;
+    display: block;
+    position: relative;
+    height: 35rem;
     min-height: 35rem;
-    gap: 0;
-    padding: 5.04rem 2rem;
-    justify-content: space-between;
+    padding: 0;
+    overflow: hidden;
   }
 
   .about-mission__globe {
-    width: min(100%, 24.2rem);
+    position: absolute;
+    top: 5.039rem;
+    left: 50%;
+    z-index: 0;
+    width: 99.28%;
+    max-width: none;
+    height: 24.922rem;
+    margin: 0;
     opacity: 0.3;
+    transform: translateX(-50%);
+    aspect-ratio: auto;
   }
 
-  .about-mission__swap-item[aria-hidden="true"] {
-    display: none;
+  .about-mission__globe img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .about-mission__static {
     display: none;
   }
 
+  .about-mission__title,
   .about-mission__pin > .about-mission__title {
-    align-self: flex-start;
+    position: absolute;
+    top: 5.039rem;
+    inset-inline-start: 2rem;
+    inset-inline-end: auto;
+    z-index: 1;
+    width: auto;
+    max-width: calc(100% - 4rem);
+    margin: 0;
+    color: var(--color-white);
     font-size: 2.25rem;
-    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 1.2;
+    white-space: normal;
     text-align: start;
   }
 
+  .about-mission__body,
   .about-mission__pin > .about-mission__body {
+    position: absolute;
+    top: 25.898rem;
+    inset-inline-start: 3rem;
+    inset-inline-end: auto;
+    z-index: 1;
+    width: 19.375rem;
+    max-width: calc(100% - 5rem);
+    margin: 0;
+    color: var(--color-white);
     font-size: 1rem;
-    max-width: 19.375rem;
-    margin-inline: auto;
-    margin-bottom: 0;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.78);
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: start;
   }
 
-  /* Journey CTA — Figma 3129:75057 */
+  .about-mission__swap {
+    display: grid;
+    overflow: hidden;
+  }
+
+  .about-mission__swap-item {
+    grid-area: 1 / 1;
+    display: block;
+    width: 100%;
+  }
+
+  /* Journey CTA — home mobile Figma 3129:75057; about mobile 3129:89426 / 3129:89429 */
   .journey {
     height: 30rem;
     background: #1f6f4e;
     overflow: hidden;
+  }
+
+  .journey--about {
+    height: 37.5rem;
   }
 
   .journey__field {
@@ -6377,6 +6597,15 @@
     height: 103.182rem;
     max-width: none;
     overflow: visible;
+  }
+
+  /* About / programs — shared mobile field framing */
+  .journey--about .journey__field,
+  .journey--programs .journey__field {
+    top: 6.09375rem;
+    left: calc(50% - 1.235rem);
+    width: 103.1247rem;
+    height: 103.1822rem;
   }
 
   .journey__field-img--desktop {
@@ -6405,7 +6634,6 @@
     gap: 2rem;
   }
 
-  /* Figma 3129:75062 — 36px / 43.2px, two lines: "Let's build your next" / "learning journey" */
   .journey__content h2,
   .journey__content h2.section-title,
   .journey__content .reveal-lines.section-title {
@@ -6426,22 +6654,46 @@
     white-space: normal;
   }
 
-  .journey__content--wide,
-  .journey__content--programs,
-  .journey__body {
-    width: 100%;
-    max-width: 100%;
+  /* About / programs content — shared mobile cluster */
+  .journey--about .journey__content,
+  .journey--about .journey__content--wide,
+  .journey--programs .journey__content,
+  .journey--programs .journey__content--programs {
+    width: min(100% - 2rem, 22.375rem);
+    max-width: 22.375rem;
+    gap: 1.5rem;
+  }
+
+  .journey--about .journey__content--wide .journey__actions,
+  .journey--programs .journey__content--programs .journey__actions {
+    margin-top: 0.5rem;
   }
 
   .journey__body {
     font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .journey--about .journey__body,
+  .journey--programs .journey__body {
+    width: min(100%, 20.61rem);
+    max-width: 20.61rem;
+    opacity: 0.7;
+    color: #fff;
+  }
+
+  .journey--programs .journey__actions .btn:first-child,
+  .journey--programs .journey__actions .btn:last-child {
+    flex: none;
+    width: auto;
+    min-width: 0;
   }
 
   .journey__actions {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: stretch;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
     gap: 0.75rem;
     width: 100%;
     max-width: 100%;
@@ -6450,17 +6702,30 @@
   .journey__actions .btn,
   .journey__actions .btn:first-child,
   .journey__actions .btn:last-child {
-    flex: 1 1 0;
-    min-width: 0;
+    flex: none;
     width: auto;
     max-width: none;
     justify-content: center;
   }
 
-  /* Experts — Figma 3129:89342 stacked portrait cards */
+  .journey--about .journey__actions .btn:first-child {
+    width: 9.1875rem;
+    min-width: 9.1875rem;
+  }
+
+  .journey--about .journey__actions .btn:last-child {
+    width: 11.4375rem;
+    min-width: 11.4375rem;
+  }
+
+  /* Experts — Figma 3129:89342 / card media 3129:89349 */
   .about-experts {
     padding-block: 3rem;
     background: #f2f5f4;
+  }
+
+  .about-experts > .section-container {
+    width: min(100% - 2rem, 71.5rem);
   }
 
   .about-experts__intro {
@@ -6473,11 +6738,13 @@
   .about-experts__title {
     max-width: 100%;
     margin-top: 0;
+    line-height: 1.2;
   }
 
   .about-experts__lede {
     margin-top: 0;
     font-size: 1rem;
+    line-height: 1.5;
     opacity: 0.7;
   }
 
@@ -6489,6 +6756,7 @@
 
   .about-experts__stack .about-expert {
     display: block;
+    position: relative;
     width: 100%;
     height: 26.25rem;
     overflow: hidden;
@@ -6505,15 +6773,55 @@
     flex: none;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     border-radius: 1rem;
   }
 
+  .about-experts__stack .about-expert__glow {
+    width: 160%;
+    inset-block-start: 45%;
+  }
+
+  /*
+   * Full-bleed portrait inside the 358×420 clip.
+   * Desktop offsetY (e.g. 2.25rem) chops heads here — kill it.
+   */
   .about-experts__stack .about-expert__photo,
   .about-experts__stack .about-expert.is-open .about-expert__photo {
-    inset-inline-start: 50%;
+    inset: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
-    translate: -50% 0;
+    translate: none;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  /*
+   * Full-bleed cover inside the 358×420 clip. Desktop offsetY (inline transform)
+   * chops heads on this wider plate — force it off.
+   */
+  /*
+   * Figma 3129:89349 — portrait sits inside the mint plate with headroom
+   * (~6% from top), not full-bleed cover (that chopped the agal).
+   */
+  .about-experts__stack .about-expert__photo img,
+  .about-experts__stack .about-expert.is-open .about-expert__photo img {
+    inset: auto !important;
+    top: 5.9% !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 92% !important;
+    height: 94% !important;
+    max-width: none;
+    object-fit: contain;
+    object-position: 50% 100%;
+    transform: translateX(-50%) !important;
+  }
+
+  .about-experts__stack .about-expert__shade {
+    opacity: 0.1;
   }
 
   .about-experts__stack .about-expert__panel,
@@ -6546,6 +6854,7 @@
 
   .about-experts__stack .about-expert__copy h3 {
     font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   .about-experts__stack .about-expert__copy p {
@@ -6646,32 +6955,12 @@
     overflow-wrap: break-word;
   }
 
-  .about-foundations__card,
-  .about-foundations__cards {
-    height: auto;
-    max-width: 100%;
-  }
-
-  .about-foundations__title,
   .about-experts__title,
-  .about-mission__title,
   .about-values__title,
   .about-hero__title,
   .programs-catalog__title,
   .hero__title {
     font-size: 2.25rem;
-  }
-
-  .about-foundations__detail h3 {
-    font-size: 1.5rem;
-  }
-
-  .about-foundations__detail p {
-    font-size: 1rem;
-  }
-
-  .about-mission__globe {
-    width: min(100%, 20rem);
   }
 
   .site-header {
@@ -6712,42 +7001,6 @@
     font-size: 2.25rem;
   }
 
-  .knowledge-page-filters {
-    flex-wrap: wrap;
-  }
-
-  .article-hero {
-    height: auto;
-    min-height: 0;
-  }
-
-  .article-hero__stage {
-    position: relative;
-    inset-inline-start: auto;
-    top: auto;
-    width: min(90vw, 22rem);
-    height: min(90vw, 22rem);
-    margin: 0 auto 1.5rem;
-  }
-
-  .article-hero__layout {
-    height: auto;
-    min-height: 0;
-    flex-direction: column;
-    align-items: stretch;
-    padding-top: calc(var(--header-height) + var(--header-offset) + 2rem);
-  }
-
-  .article-hero__copy,
-  .article-hero__title {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .article-hero__title {
-    font-size: 2rem;
-  }
-
   .article-body__grid,
   .article-related__grid,
   .article-sidebar {
@@ -6756,15 +7009,13 @@
 
   .partners-page__title,
   .partners-page__body,
-  .contact-hero__title,
-  .experts-hero__title {
+  .contact-hero__title {
     font-size: 2.25rem;
     max-width: 100%;
   }
 
   .partners-page__field,
-  .contact-hero__field,
-  .experts-hero__stage {
+  .contact-hero__field {
     max-width: 100%;
   }
 
@@ -6783,10 +7034,31 @@
     font-size: 0.875rem;
     min-height: 2.5rem;
     padding: 0.5rem 0.75rem;
+    white-space: nowrap;
   }
 
   .programs-catalog__title {
     font-size: 2.25rem;
+  }
+
+  /* Program filters — horizontal peek swipe (clip content off) */
+  .programs-catalog__filters-track {
+    position: relative;
+    z-index: 0;
+    margin-inline: calc(var(--container-padding) * -1);
+    padding-inline: var(--container-padding);
+    margin-bottom: 2.5rem;
+    overflow: visible;
+  }
+
+  .programs-catalog-filters-swiper,
+  .programs-catalog-filters-swiper.swiper {
+    overflow: visible;
+  }
+
+  .programs-catalog-filters-swiper__slide,
+  .programs-catalog-filters-swiper .swiper-slide {
+    width: auto;
   }
 
   .program-viewport {
@@ -6858,6 +7130,33 @@
   .program-list-card__body h3 {
     overflow-wrap: break-word;
     max-width: 100%;
+  }
+
+  .program-list-card {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .program-list-card__body {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .program-list-card__footer {
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .program-list-card__fees {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .program-list-card__cta {
+    flex: 0 1 auto;
+    padding-inline: 0.875rem;
   }
 }
 
@@ -7859,6 +8158,14 @@
   width: min(100% - 2 * var(--container-padding), calc(100vw * 568 / 1440));
 }
 
+.expert-profile-hero__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem; /* 24 desktop */
+  width: 100%;
+}
+
 .expert-profile-hero__eyebrow-link {
   text-decoration: none;
   color: inherit;
@@ -7867,13 +8174,6 @@
 .expert-profile-hero__eyebrow-link .eyebrow {
   color: var(--color-text); /* #4A5A51 */
   font-size: 1.125rem; /* 18 */
-}
-
-.expert-profile-hero__text {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem; /* 24 */
-  width: 100%;
 }
 
 .expert-profile-hero__name {
@@ -8833,8 +9133,8 @@ a.contact-detail__value:hover {
 
 .program-detail-hero {
   position: relative;
-  height: 55.5556rem;
-  min-height: 55.5556rem;
+  height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: stretch;
   overflow: hidden;
@@ -9045,10 +9345,6 @@ a.contact-detail__value:hover {
     background-color 0.3s var(--ease-standard),
     box-shadow 0.3s var(--ease-standard),
     padding 0.3s var(--ease-standard);
-}
-
-.program-tab:hover {
-  color: var(--color-primary);
 }
 
 .program-tab--active {
@@ -9581,26 +9877,103 @@ a.contact-detail__value:hover {
 }
 
 @media (max-width: 48rem) {
-  .experts-hero {
-    align-items: flex-end;
-    padding-bottom: 3rem;
+  /*
+   * Circular-photo heroes — Figma 3129:78862 (390×844)
+   * Shared layout for experts/trainee, seminars, and article/news.
+   * Ring 675.86 @ (72.27, -173.30); photo 667.56 @ (83.43, -182.08).
+   * Copy: px 16 / py 40, title 36/1.2, body 16/24 @ 70%, CTA gap 28.
+   */
+  .experts-hero,
+  .seminars-hero,
+  .article-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 100svh;
   }
 
-  .experts-hero__stage {
-    inset-inline-start: 22%;
-    top: -8%;
-    transform: scale(0.62);
-    transform-origin: top center;
+  .experts-hero__stage,
+  .seminars-hero__stage,
+  .article-hero__stage {
+    --circular-hero-ring: calc(100vw * 675.858 / 390);
+    --circular-hero-photo: calc(100vw * 667.563 / 390);
+    position: absolute;
+    inset-inline-start: calc(100vw * 72.268 / 390);
+    top: calc(100vw * -173.301 / 390);
+    width: var(--circular-hero-ring);
+    height: var(--circular-hero-ring);
+    max-width: none;
+    margin: 0;
+    transform: none;
+  }
+
+  .experts-hero__ring,
+  .seminars-hero__ring,
+  .article-hero__ring {
+    inset-inline-start: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .experts-hero__photo,
+  .seminars-hero__photo,
+  .article-hero__photo {
+    inset-inline-start: calc(100vw * 11.164 / 390);
+    top: calc(100vw * -8.779 / 390);
+    width: var(--circular-hero-photo);
+    height: var(--circular-hero-photo);
+  }
+
+  /* Figma copy frame 3129:81994 — starts at y=447.5, py=40 */
+  .experts-hero__layout,
+  .seminars-hero__layout,
+  .article-hero__layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    align-self: center;
+    height: auto;
+    min-height: 0;
+    flex-direction: row;
+    margin-top: calc(100svh * 447.5 / 844);
+    padding-block: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  .experts-hero__copy,
+  .seminars-hero__copy,
+  .article-hero__copy {
+    width: 100%;
+    max-width: none;
+    gap: 1.75rem; /* 28 — body → CTA */
+  }
+
+  .experts-hero__text,
+  .seminars-hero__text {
+    gap: 1.25rem; /* 20 — title → body */
   }
 
   .experts-hero__title,
+  .seminars-hero__title,
+  .article-hero__title {
+    font-size: 2.25rem; /* 36 */
+    line-height: 1.2;
+  }
+
+  .experts-hero__body,
+  .seminars-hero__body,
+  .article-hero__lead {
+    font-size: 1rem; /* 16 */
+    line-height: 1.5;
+  }
+
   .partners-page__title,
   .contact-hero__title {
     font-size: 2.5rem;
-  }
-
-  .experts-hero__copy {
-    width: min(100%, 28rem);
   }
 
   .expert-cards {
@@ -9612,36 +9985,83 @@ a.contact-detail__value:hover {
     grid-template-columns: 1fr;
   }
 
+  /*
+   * Expert profile hero — Figma 3129:82300 (390×844)
+   * Copy pinned near top; portrait absolute at bottom with soft fade.
+   * Photo: (-43.75, 393.59) 445.27×534.32; fade from y=615.89.
+   */
   .expert-profile-hero {
-    height: auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 2.5rem;
+    display: block;
+    height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    padding-bottom: 0;
+    background: #ffffff;
+  }
+
+  .expert-profile-hero__wash {
+    background:
+      radial-gradient(ellipse 48% 55% at 12% 58%, rgba(159, 203, 81, 0.28), transparent 72%),
+      radial-gradient(ellipse 60% 58% at 48% 72%, rgba(159, 203, 81, 0.7), transparent 74%),
+      radial-gradient(ellipse 55% 50% at 55% 80%, rgba(159, 203, 81, 0.2), transparent 70%),
+      radial-gradient(ellipse 45% 48% at 88% 42%, rgba(31, 111, 78, 0.08), transparent 72%);
+  }
+
+  .expert-profile-hero__field {
+    display: none;
   }
 
   .expert-profile-hero__photo {
-    position: relative;
-    inset: auto;
-    width: min(100%, 22rem);
-    height: 26rem;
-    margin: 5rem auto 0;
+    position: absolute;
+    inset-inline-start: calc(100vw * -43.75 / 390);
+    top: calc(100svh * 393.59 / 844);
+    width: calc(100vw * 445.265 / 390);
+    height: calc(100vw * 534.318 / 390);
+    margin: 0;
+  }
+
+  .expert-profile-hero__fade {
+    inset-inline-start: calc(100vw * -122.34 / 390);
+    width: calc(100vw * 1164.117 / 390);
+    height: calc(100svh * 265.141 / 844);
+    bottom: auto;
+    top: calc(100svh * 615.89 / 844);
+    background: linear-gradient(180deg, rgba(221, 228, 225, 0) 34%, #dde4e1 100%);
   }
 
   .expert-profile-hero__copy {
-    position: relative;
-    inset: auto;
-    width: min(100% - 2 * var(--container-padding), 35rem);
-    margin: 1.5rem auto 0;
-    padding-inline: var(--container-padding);
+    position: absolute;
+    inset-inline-start: 0;
+    top: calc(100svh * 127.44 / 844);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 2.5rem var(--container-padding) 0;
+    gap: 1rem; /* 16 — heading → role */
+    box-sizing: border-box;
+  }
+
+  .expert-profile-hero__heading {
+    gap: 1.25rem; /* 20 — eyebrow → name */
+    width: min(100%, 20.05rem);
+  }
+
+  .expert-profile-hero__eyebrow-link .eyebrow {
+    font-size: 1rem; /* 16 */
   }
 
   .expert-profile-hero__name {
-    font-size: 2.5rem;
+    font-size: 2.25rem; /* 36 */
+    line-height: 1.2;
+    color: #1b2a22;
   }
 
   .expert-profile-hero__role {
-    font-size: 1.25rem;
+    width: min(100%, 21.375rem);
+    color: #4a5a51;
+    font-size: 1.25rem; /* 20 */
+    line-height: 1.4;
+    opacity: 0.7;
   }
 
   .expert-programs {
@@ -9653,16 +10073,25 @@ a.contact-detail__value:hover {
   }
 
   .program-trainer-card {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
   }
 
   .program-trainer-card__photo {
-    height: 16rem;
+    width: 100%;
+    height: 14rem;
+  }
+
+  .program-trainer-card__info {
+    padding: 1.25rem;
+    justify-content: flex-start;
   }
 
   .program-detail-hero {
-    height: auto;
-    min-height: 40rem;
+    height: 100vh;
+    min-height: 100svh;
   }
 
   .program-detail-hero__layout {
@@ -9702,31 +10131,6 @@ a.contact-detail__value:hover {
   .partners-row__role {
     max-width: 100%;
     overflow-wrap: break-word;
-  }
-
-  /* Seminars circular hero — match experts stacking */
-  .seminars-hero {
-    align-items: flex-end;
-    padding-bottom: 3rem;
-  }
-
-  .seminars-hero__stage {
-    inset-inline-start: 22%;
-    top: -8%;
-    transform: scale(0.62);
-    transform-origin: top center;
-  }
-
-  .seminars-hero__title {
-    font-size: 2.5rem;
-  }
-
-  .seminars-hero__copy {
-    width: min(100%, 28rem);
-  }
-
-  .seminars-hero__body {
-    font-size: 1.125rem;
   }
 
   .seminar-detail-hero__content {
@@ -9784,17 +10188,182 @@ a.contact-detail__value:hover {
     font-size: 2.5rem;
   }
 
-  .seminar-list-card {
+  /*
+   * Seminar detail mobile — Figma 3129:86230 / 3129:86229
+   * Hero: full-bleed photo, vertical green wash, bottom copy + stacked meta.
+   * Related: overlay cards in Swiper with View All + arrows.
+   */
+  .seminar-detail-hero {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .seminar-detail-hero__bg {
+    inset-inline: 0;
+  }
+
+  .seminar-detail-hero__bg img {
+    object-position: center 28%;
+  }
+
+  .seminar-detail-hero__shade {
+    background: linear-gradient(
+      180.42deg,
+      rgba(31, 111, 78, 0) 17.6%,
+      rgba(31, 111, 78, 0.9) 42.8%,
+      #1f6f4e 99.9%
+    );
+  }
+
+  [dir="rtl"] .seminar-detail-hero__shade {
+    transform: none;
+  }
+
+  .seminar-detail-hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 2.5rem;
+    padding-block: 2.5rem 2rem;
+    /* keep .section-container inset — do not force width:100% */
+  }
+
+  .seminar-detail-hero__content {
+    align-self: stretch;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 0;
+    gap: 2rem; /* 32 — text block → CTA */
+  }
+
+  .seminar-detail-hero__text {
+    gap: 1rem; /* 16 */
+  }
+
+  .seminar-detail-hero__content .eyebrow {
+    font-size: 1rem;
+  }
+
+  .seminar-detail-hero__title {
+    font-size: 2.25rem; /* 36 */
+    line-height: 1.2;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .seminar-detail-hero__body {
+    color: #bfccc6;
+    font-size: 1rem; /* 16 */
+    line-height: 1.5;
+    max-width: 20.2rem;
+  }
+
+  .seminar-detail-hero__meta {
+    width: 100%;
+  }
+
+  .seminar-detail-hero__meta-bar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 0.75rem; /* 12 */
+    width: 100%;
+  }
+
+  .seminar-detail-hero__meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem; /* 24 */
+  }
+
+  .seminar-detail-hero__meta-row--trainer {
+    gap: 0;
+  }
+
+  .seminar-detail-hero__meta-item {
+    gap: 0.5rem;
+    font-size: 1rem; /* 16 */
+  }
+
+  .seminar-detail-hero__meta-item--trainer {
+    font-size: 1.125rem; /* 18 */
+  }
+
+  .seminar-detail-hero__meta-item--trainer img,
+  .seminar-detail-hero__meta-item--trainer svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .seminar-detail-hero__meta-item img,
+  .seminar-detail-hero__meta-item svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .seminar-detail-body {
+    padding-block: 0 2.5rem;
+    background: #f1f5f3;
+  }
+
+  .seminar-detail-body__grid {
+    gap: 0.75rem;
+  }
+
+  .seminar-detail-body__left {
+    gap: 0;
+  }
+
+  .seminar-detail-body__about {
+    gap: 1rem;
+    padding-block: 2.5rem 3rem;
+  }
+
+  .seminar-detail-body__about-title {
+    font-size: 1.75rem; /* 28 */
+    line-height: 1.1;
+    color: #1b2a22;
+  }
+
+  .seminar-detail-body__about-text {
+    color: #4a5a51;
+    font-size: 1rem; /* 16 */
+    line-height: 1.5;
+    opacity: 0.7;
+  }
+
+  .seminar-detail-after {
+    margin-bottom: 0.75rem;
+  }
+
+  .seminar-register-card {
+    position: static;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.3125rem 2.5rem 0.625rem rgba(0, 0, 0, 0.03);
+  }
+
+  .seminar-register-card__title {
+    font-size: 1.5rem; /* 24 */
+    padding-bottom: 1rem;
+  }
+
+  /* Catalog list cards — stacked on phone */
+  .seminars-catalog .seminar-list-card {
     grid-template-columns: 1fr;
     height: auto;
     min-height: 0;
   }
 
-  .seminar-list-card__media {
+  .seminars-catalog .seminar-list-card__media {
     min-height: 14rem;
   }
 
-  .seminar-list-card__fade {
+  .seminars-catalog .seminar-list-card__fade {
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 35%,
@@ -9803,62 +10372,124 @@ a.contact-detail__value:hover {
     );
   }
 
-  .seminar-list-card__body {
+  .seminars-catalog .seminar-list-card__body {
     padding: 1rem 1.25rem 1.25rem;
   }
 
-  .seminar-list-card__heading {
+  .seminars-catalog .seminar-list-card__heading {
     gap: 1rem;
   }
 
-  .seminar-list-card__title {
+  .seminars-catalog .seminar-list-card__title {
     font-size: 1.25rem;
     max-width: 100%;
     overflow-wrap: break-word;
   }
 
-  .seminar-detail-hero {
-    height: auto;
-    min-height: 100svh;
-  }
-
-  .seminar-detail-hero__content {
-    align-self: end;
-    transform: none;
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-
-  .seminar-detail-hero__inner {
-    padding-block: calc(var(--header-height) + var(--header-offset) + 2.5rem) 2rem;
-  }
-
-  .seminar-detail-hero__title {
-    font-size: 2.25rem;
-    max-width: 100%;
-    overflow-wrap: break-word;
-  }
-
-  .seminar-detail-hero__meta-bar {
-    gap: 1rem 1.5rem;
-  }
-
-  .seminar-detail-hero__shade {
-    background: linear-gradient(
-      180deg,
-      rgba(31, 111, 78, 0.55) 0%,
-      rgba(31, 111, 78, 0.92) 48%,
-      #1f6f4e 100%
-    );
-  }
-
-  [dir="rtl"] .seminar-detail-hero__shade {
-    transform: none;
+  /* Related overlay cards — Figma 3129:86367 */
+  .seminar-related {
+    padding-block: 2.5rem;
   }
 
   .seminar-related__header {
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+
+  .seminar-related__title {
+    font-size: 2.25rem; /* 36 */
+    line-height: 1.2;
+  }
+
+  .seminar-related__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .seminar-related-swiper__slide {
+    width: min(21.875rem, calc(100vw - 2.5rem));
+  }
+
+  .seminar-related .seminar-list-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none;
+    height: 33.75rem; /* 540 */
+    border-radius: 1rem;
+    background: transparent;
+    box-shadow: none;
+    overflow: hidden;
+  }
+
+  .seminar-related .seminar-list-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .seminar-related .seminar-list-card__media {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .seminar-related .seminar-list-card__fade {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 255, 255, 0.8) 56%,
+      #ffffff 100%
+    );
+  }
+
+  .seminar-related .seminar-list-card__panel {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    background: transparent;
+  }
+
+  .seminar-related .seminar-list-card__body {
+    gap: 2rem;
+    padding: 1.25rem 0.75rem 0.75rem;
+  }
+
+  .seminar-related .seminar-list-card__content {
+    gap: 1.5rem;
+  }
+
+  .seminar-related .seminar-list-card__heading {
+    gap: 1.25rem;
+  }
+
+  .seminar-related .seminar-list-card__title {
+    font-size: 1.5rem; /* 24 */
+    line-height: 1.1;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .seminar-related .seminar-list-card__meta {
+    gap: 0.5rem;
+  }
+
+  .seminar-related .seminar-list-card__meta-row--details {
+    gap: 1.25rem;
+  }
+
+  .seminar-related .seminar-list-card__description {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .seminar-related .seminar-list-card__cta {
+    min-height: 2.5625rem;
   }
 
   .contact-section__layout {
@@ -9945,6 +10576,47 @@ a.contact-detail__value:hover {
     radial-gradient(ellipse 55% 55% at 32% 42%, rgba(159, 203, 81, 0.24), transparent 74%),
     radial-gradient(ellipse 48% 42% at 58% 48%, rgba(159, 203, 81, 0.14), transparent 70%),
     radial-gradient(ellipse 50% 45% at 88% 22%, rgba(31, 111, 78, 0.08), transparent 72%);
+}
+
+/*
+ * Base wash above is declared after the shared phone MQ, so it would win and
+ * leave left:-12% + width:100% — a right-side gap. Re-assert full cover here.
+ */
+@media (max-width: 48rem) {
+  .knowledge-page__wash {
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 42rem;
+    background:
+      radial-gradient(ellipse 78% 58% at 18% 22%, rgba(159, 203, 81, 0.36), transparent 72%),
+      radial-gradient(ellipse 85% 62% at 48% 38%, rgba(159, 203, 81, 0.26), transparent 74%),
+      radial-gradient(ellipse 70% 50% at 78% 28%, rgba(159, 203, 81, 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 48% at 92% 18%, rgba(31, 111, 78, 0.08), transparent 72%);
+  }
+
+  .knowledge-page-filters-track {
+    position: relative;
+    z-index: 0;
+    margin-inline: calc(var(--container-padding) * -1);
+    padding-inline: var(--container-padding);
+    width: calc(100% + var(--container-padding) * 2);
+    overflow: visible;
+  }
+
+  .knowledge-page-filters-swiper,
+  .knowledge-page-filters-swiper.swiper {
+    overflow: visible;
+  }
+
+  .knowledge-page-filters-swiper__slide,
+  .knowledge-page-filters-swiper .swiper-slide {
+    width: auto;
+  }
+
+  .knowledge-page-filters {
+    flex-wrap: nowrap;
+  }
 }
 
 .knowledge-page-hero {
@@ -10465,6 +11137,8 @@ a.contact-detail__value:hover {
 
 .article-hero {
   position: relative;
+  display: flex;
+  align-items: center;
   height: 100vh;
   min-height: 100svh;
   overflow: hidden;
@@ -10608,6 +11282,76 @@ a.contact-detail__value:hover {
 .article-hero__meta span {
   color: #111e15;
   font-weight: 400;
+}
+
+/* Article hero mobile — after base rules so cascade wins over desktop vw math */
+@media (max-width: 48rem) {
+  .article-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .article-hero__stage {
+    --circular-hero-ring: calc(100vw * 675.858 / 390);
+    --circular-hero-photo: calc(100vw * 667.563 / 390);
+    position: absolute;
+    inset-inline-start: calc(100vw * 72.268 / 390);
+    top: calc(100vw * -173.301 / 390);
+    width: var(--circular-hero-ring);
+    height: var(--circular-hero-ring);
+    max-width: none;
+    margin: 0;
+    transform: none;
+    opacity: 1;
+  }
+
+  .article-hero__ring {
+    inset-inline-start: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .article-hero__photo {
+    inset-inline-start: calc(100vw * 11.164 / 390);
+    top: calc(100vw * -8.779 / 390);
+    width: var(--circular-hero-photo);
+    height: var(--circular-hero-photo);
+  }
+
+  .article-hero__layout {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    align-self: center;
+    height: auto;
+    min-height: 0;
+    flex-direction: row;
+    margin-top: calc(100svh * 447.5 / 844);
+    padding-block: 2.5rem;
+    box-sizing: border-box;
+  }
+
+  .article-hero__copy {
+    width: 100%;
+    max-width: none;
+    gap: 1.75rem;
+  }
+
+  .article-hero__title {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+
+  .article-hero__lead {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
 }
 
 .article-body {
@@ -10818,6 +11562,31 @@ a.contact-detail__value:hover {
   line-height: 1.3;
 }
 
+/* Desktop content width uses 100vw — re-assert full card width on phone */
+@media (max-width: 48rem) {
+  .article-takeaway {
+    min-height: 0;
+    margin-top: 2.5rem;
+  }
+
+  .article-takeaway__content {
+    width: 100%;
+    max-width: none;
+    padding: 1.75rem 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .article-takeaway__text {
+    font-size: 1.25rem;
+  }
+
+  .article-takeaway__field {
+    inset-inline-start: 75%;
+    top: -14rem;
+    width: 42rem;
+  }
+}
+
 .article-related {
   background: var(--color-white);
   padding-block: 4rem;
@@ -10893,10 +11662,6 @@ a.contact-detail__value:hover {
   .knowledge-page-hero__title {
     font-size: var(--font-size-display);
   }
-
-  .knowledge-page-filters {
-    flex-wrap: wrap;
-  }
 }
 
 @media (max-width: 40rem) {
@@ -10921,41 +11686,9 @@ a.contact-detail__value:hover {
     font-size: var(--font-size-3xl);
   }
 
-  .article-hero {
-    height: auto;
-    min-height: auto;
-  }
-
-  .article-hero__stage {
-    position: relative;
-    inset-inline-start: auto;
-    top: auto;
-    width: min(90vw, 28rem);
-    height: min(90vw, 28rem);
-    margin: 0 auto 2rem;
-  }
-
-  .article-hero__layout {
-    height: auto;
-    min-height: auto;
-    flex-direction: column;
-    align-items: stretch;
-    padding-top: calc(var(--header-height) + var(--header-offset) + 2rem);
-  }
-
-  .article-hero__copy {
-    width: 100%;
-  }
-
-  .article-hero__title {
-    font-size: 2.25rem;
-  }
-
-  .article-hero__lead,
   .article-content__intro,
   .article-content__heading,
   .article-content__text,
-  .article-takeaway__text,
   .article-related__title {
     font-size: 1.125rem;
   }
@@ -10982,15 +11715,6 @@ a.contact-detail__value:hover {
     align-items: flex-start;
   }
 
-  /* Seminars mobile */
-  .seminars-hero__title {
-    font-size: 2.25rem;
-  }
-
-  .seminars-hero__body {
-    font-size: 1.125rem;
-  }
-
   .seminars-catalog__topbar {
     flex-direction: column;
     align-items: flex-start;
@@ -11015,79 +11739,6 @@ a.contact-detail__value:hover {
 
   .seminars-catalog__title {
     font-size: 2.5rem;
-  }
-
-  .seminar-list-card {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 0;
-  }
-
-  .seminar-list-card__media {
-    min-height: 14rem;
-  }
-
-  .seminar-list-card__fade {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 35%,
-      rgba(255, 255, 255, 0.75) 72%,
-      #ffffff 100%
-    );
-  }
-
-  .seminar-list-card__body {
-    padding: 1rem 1.25rem 1.25rem;
-  }
-
-  .seminar-list-card__heading {
-    gap: 1rem;
-  }
-
-  .seminar-list-card__title {
-    font-size: 1.25rem;
-  }
-
-  .seminar-detail-hero {
-    height: auto;
-    min-height: 100svh;
-  }
-
-  .seminar-detail-hero__content {
-    align-self: end;
-    transform: none;
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-
-  .seminar-detail-hero__inner {
-    padding-block: calc(var(--header-height) + var(--header-offset) + 2.5rem) 2rem;
-  }
-
-  .seminar-detail-hero__title {
-    font-size: 2.25rem;
-  }
-
-  .seminar-detail-hero__meta-bar {
-    gap: 1rem 1.5rem;
-  }
-
-  .seminar-detail-hero__shade {
-    background: linear-gradient(
-      180deg,
-      rgba(31, 111, 78, 0.55) 0%,
-      rgba(31, 111, 78, 0.92) 48%,
-      #1f6f4e 100%
-    );
-  }
-
-  [dir="rtl"] .seminar-detail-hero__shade {
-    transform: none;
-  }
-
-  .seminar-related__header {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .contact-section__layout {

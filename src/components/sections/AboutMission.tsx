@@ -7,8 +7,8 @@ import { useLocale } from "@/i18n/locale";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { MQ_TABLET } from "@/lib/breakpoints";
-import { gsap, registerGsap } from "@/lib/gsap";
+import { MQ_PHONE, MQ_TABLET } from "@/lib/breakpoints";
+import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 
 function localize(text: string, locale: string) {
   if (locale !== "ar") return text;
@@ -25,9 +25,12 @@ export function AboutMission() {
   const bodyMission = useRef<HTMLSpanElement>(null);
   const bodyVision = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
-  /* CSS stacks mission at 72rem — never pin a stacked layout */
+  /* CSS stacks mission at tablet — never pin a stacked layout */
   const isTabletDown = useMediaQuery(MQ_TABLET);
+  /* Phone: Figma 3129:86771 — pin + Mission→Vision swap on scroll */
+  const isPhone = useMediaQuery(MQ_PHONE);
   const { locale } = useLocale();
+  const pinActive = !reduced && (isPhone === true || isTabletDown === false);
 
   const missionTitle = localize(aboutMission.mission.title, locale);
   const missionBody = localize(aboutMission.mission.body, locale);
@@ -52,50 +55,78 @@ export function AboutMission() {
       !titleB ||
       !bodyA ||
       !bodyB ||
-      reduced ||
-      isTabletDown !== false
+      !pinActive
     ) {
       return;
     }
 
     registerGsap();
     const context = gsap.context(() => {
-      const rtl = document.documentElement.getAttribute("dir") === "rtl";
-      const titleFrom = rtl ? "52.12%" : "28.23%";
-      const titleTo = rtl ? "28.23%" : "52.12%";
-      const bodyFrom = rtl ? "24.79%" : "42.71%";
-      const bodyTo = rtl ? "42.71%" : "24.79%";
-
       // Mission visible; Vision waits below (comes up on scroll down)
-      gsap.set(titleSlotEl, { insetInlineStart: titleFrom });
-      gsap.set(bodySlotEl, { insetInlineStart: bodyFrom });
       gsap.set([titleA, bodyA], { yPercent: 0 });
       gsap.set([titleB, bodyB], { yPercent: 100 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: "+=160%",
-          pin: pinEl,
-          scrub: 0.65,
-          invalidateOnRefresh: true,
-        },
-      });
+      if (isPhone) {
+        /* Mobile keeps Figma positions fixed — only the copy swaps */
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: "top top",
+            end: "+=140%",
+            pin: pinEl,
+            scrub: 0.65,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          },
+        });
 
-      // Scroll down: Mission ↑ out, Vision ↑ in. Scroll up reverses.
-      tl.to({}, { duration: 0.18 })
-        .to(titleSlotEl, { insetInlineStart: titleTo, ease: "none", duration: 0.82 }, 0.18)
-        .to(bodySlotEl, { insetInlineStart: bodyTo, ease: "none", duration: 0.82 }, 0.18)
-        .to(titleA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.25)
-        .to(titleB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.25)
-        .to(bodyA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.28)
-        .to(bodyB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.28)
-        .to({}, { duration: 0.18 });
+        tl.to({}, { duration: 0.22 })
+          .to([titleA, bodyA], { yPercent: -100, ease: "none", duration: 0.56 }, 0.22)
+          .to([titleB, bodyB], { yPercent: 0, ease: "none", duration: 0.56 }, 0.22)
+          .to({}, { duration: 0.22 });
+      } else {
+        const rtl = document.documentElement.getAttribute("dir") === "rtl";
+        const titleFrom = rtl ? "52.12%" : "28.23%";
+        const titleTo = rtl ? "28.23%" : "52.12%";
+        const bodyFrom = rtl ? "24.79%" : "42.71%";
+        const bodyTo = rtl ? "42.71%" : "24.79%";
+
+        gsap.set(titleSlotEl, { insetInlineStart: titleFrom });
+        gsap.set(bodySlotEl, { insetInlineStart: bodyFrom });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: root,
+            start: "top top",
+            end: "+=160%",
+            pin: pinEl,
+            scrub: 0.65,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        // Scroll down: Mission ↑ out, Vision ↑ in. Scroll up reverses.
+        tl.to({}, { duration: 0.18 })
+          .to(titleSlotEl, { insetInlineStart: titleTo, ease: "none", duration: 0.82 }, 0.18)
+          .to(bodySlotEl, { insetInlineStart: bodyTo, ease: "none", duration: 0.82 }, 0.18)
+          .to(titleA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.25)
+          .to(titleB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.25)
+          .to(bodyA, { yPercent: -100, ease: "none", duration: 0.7 }, 0.28)
+          .to(bodyB, { yPercent: 0, ease: "none", duration: 0.7 }, 0.28)
+          .to({}, { duration: 0.18 });
+      }
     }, root);
 
-    return () => context.revert();
-  }, [reduced, isTabletDown, missionTitle, missionBody, visionTitle, visionBody]);
+    const refresh = () => ScrollTrigger.refresh();
+    const raf = requestAnimationFrame(refresh);
+    const timer = window.setTimeout(refresh, 120);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timer);
+      context.revert();
+    };
+  }, [pinActive, isPhone, missionTitle, missionBody, visionTitle, visionBody]);
 
   return (
     <section ref={section} className="about-mission" data-header-tone="light" aria-labelledby="about-mission-title">

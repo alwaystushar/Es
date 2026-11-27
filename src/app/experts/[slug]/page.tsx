@@ -29,13 +29,7 @@ export default async function ExpertPage({ params }: PageProps) {
     <main id="main">
       <ExpertProfileHero expert={expert} />
       <ExpertProfileDetail expert={expert} />
-      <Journey
-        title="Looking for training for your team?"
-        body="We can tailor learning objectives, content and activities to your organization's needs and target audience."
-        primaryLabel="Request a Team Proposal"
-        primaryHref="/contact"
-        secondaryLabel=""
-      />
+      <Journey variant="programs" primaryHref="/contact" />
     </main>
   );
 }

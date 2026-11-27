@@ -35,17 +35,17 @@ export function ExpertProfileHero({ expert }: ExpertProfileHeroProps) {
       <div className="expert-profile-hero__fade" aria-hidden="true" />
 
       <div className="expert-profile-hero__copy">
-        <Link href="/experts" className="expert-profile-hero__eyebrow-link">
-          <Eyebrow>ES Learning Experts</Eyebrow>
-        </Link>
-        <div className="expert-profile-hero__text">
+        <div className="expert-profile-hero__heading">
+          <Link href="/experts" className="expert-profile-hero__eyebrow-link">
+            <Eyebrow>ES Learning Experts</Eyebrow>
+          </Link>
           <h1 id="expert-profile-name" className="expert-profile-hero__name">
             {expert.name}
           </h1>
-          <p className="expert-profile-hero__role">
-            <T>{expert.role}</T>
-          </p>
         </div>
+        <p className="expert-profile-hero__role">
+          <T>{expert.role}</T>
+        </p>
       </div>
     </section>
   );

@@ -1,43 +1,15 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { Swiper as SwiperInstance } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { aboutFoundations } from "@/data/about";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { LocalizedImage, T } from "@/i18n/locale";
 import { RevealLines } from "@/components/animation/RevealLines";
-import { useDocumentDirection } from "@/hooks/useDocumentDirection";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { MQ_PHONE, MQ_TABLET } from "@/lib/breakpoints";
-import { gsap, registerGsap } from "@/lib/gsap";
-import "swiper/css";
-
-function FoundationCard({
-  item,
-  sizes,
-}: {
-  item: (typeof aboutFoundations)[number];
-  sizes: string;
-}) {
-  return (
-    <article className="about-foundations__card">
-      <div className="about-foundations__media">
-        <LocalizedImage src={item.image} alt={item.alt} fill quality={90} sizes={sizes} />
-      </div>
-      <div className="about-foundations__detail">
-        <h3>
-          <T>{item.title}</T>
-        </h3>
-        <p>
-          <T>{item.description}</T>
-        </p>
-      </div>
-    </article>
-  );
-}
+import { gsap, registerGsap, ScrollTrigger } from "@/lib/gsap";
 
 function FoundationsCount({ index, total }: { index: number; total: number }) {
   return (
@@ -54,21 +26,21 @@ export function AboutFoundations() {
   const stage = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const progress = useRef<HTMLSpanElement>(null);
-  const direction = useDocumentDirection();
   const reduced = useReducedMotion();
-  /* CSS stacks foundations at 72rem — never pin a stacked layout */
+  /* CSS stacks foundations at tablet — never pin a stacked layout */
   const isTabletDown = useMediaQuery(MQ_TABLET);
-  /* Phone: Figma 3129:86751 — horizontal Swiper, no pin */
+  /* Phone: Figma 3129:86751 — pin + scrub cards (same idea as desktop) */
   const isPhone = useMediaQuery(MQ_PHONE);
   const [index, setIndex] = useState(0);
   const total = aboutFoundations.length;
+  const pinActive = !reduced && (isPhone === true || isTabletDown === false);
 
   useIsomorphicLayoutEffect(() => {
     const root = section.current;
     const stageEl = stage.current;
     const trackEl = track.current;
     const bar = progress.current;
-    if (!root || !stageEl || !trackEl || reduced || isTabletDown !== false || isPhone) return;
+    if (!root || !stageEl || !trackEl || !pinActive) return;
 
     const items = Array.from(trackEl.querySelectorAll<HTMLElement>(".about-foundations__card"));
     if (!items.length) return;
@@ -76,47 +48,48 @@ export function AboutFoundations() {
     registerGsap();
     const context = gsap.context(() => {
       const distance = () => {
+        /* Use offsetTops so CSS gap between cards is included in the scrub */
         const first = items[0];
         const last = items[items.length - 1];
         if (!first || !last) return 0;
-        return last.offsetTop - first.offsetTop;
+        return Math.max(0, last.offsetTop - first.offsetTop);
+      };
+
+      const apply = (progress: number) => {
+        const d = distance();
+        gsap.set(trackEl, { y: -d * progress });
+        if (bar) gsap.set(bar, { scaleY: 1 / total + progress * (1 - 1 / total) });
+        const next = Math.min(total - 1, Math.floor(progress * total * 0.999));
+        setIndex((current) => (current === next ? current : next));
       };
 
       gsap.set(trackEl, { y: 0 });
       if (bar) gsap.set(bar, { scaleY: 1 / total });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top top",
-          end: () => `+=${Math.max(total, 1) * window.innerHeight}`,
-          pin: stageEl,
-          scrub: 0.55,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const next = Math.min(total - 1, Math.floor(self.progress * total * 0.999));
-            setIndex((current) => (current === next ? current : next));
-          },
-        },
+      ScrollTrigger.create({
+        trigger: root,
+        start: "top top",
+        end: () => `+=${Math.max(total, 1) * window.innerHeight}`,
+        pin: stageEl,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        onUpdate: (self) => apply(self.progress),
+        onRefresh: (self) => apply(self.progress),
       });
-
-      tl.to(
-        trackEl,
-        {
-          y: () => -distance(),
-          ease: "none",
-          duration: 1,
-        },
-        0,
-      );
-
-      if (bar) {
-        tl.to(bar, { scaleY: 1, ease: "none", duration: 1 }, 0);
-      }
     }, root);
 
-    return () => context.revert();
-  }, [reduced, total, isTabletDown, isPhone]);
+    const refresh = () => ScrollTrigger.refresh();
+    const raf = requestAnimationFrame(refresh);
+    const timer = window.setTimeout(refresh, 120);
+    window.addEventListener("load", refresh);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(timer);
+      window.removeEventListener("load", refresh);
+      context.revert();
+    };
+  }, [pinActive, total]);
 
   return (
     <section ref={section} className="about-foundations" aria-labelledby="about-foundations-title">
@@ -136,57 +109,37 @@ export function AboutFoundations() {
           {!isPhone ? <FoundationsCount index={index} total={total} /> : null}
         </div>
 
-        {isPhone ? (
-          <>
-            <div className="about-foundations__cards">
-              <Swiper
-                key={direction}
-                className="about-foundations__swiper"
-                slidesPerView="auto"
-                spaceBetween={16}
-                dir={direction}
-                onSlideChange={(instance: SwiperInstance) => setIndex(instance.activeIndex)}
+        <div className="about-foundations__cards">
+          <div ref={track} className="about-foundations__track">
+            {aboutFoundations.map((item, i) => (
+              <article
+                key={item.title}
+                className="about-foundations__card"
+                aria-hidden={i === index ? undefined : true}
               >
-                {aboutFoundations.map((item) => (
-                  <SwiperSlide key={item.title} className="about-foundations__slide">
-                    <FoundationCard item={item} sizes="85vw" />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-            <FoundationsCount index={index} total={total} />
-          </>
-        ) : (
-          <div className="about-foundations__cards">
-            <div ref={track} className="about-foundations__track">
-              {aboutFoundations.map((item, i) => (
-                <article
-                  key={item.title}
-                  className="about-foundations__card"
-                  aria-hidden={i === index ? undefined : true}
-                >
-                  <div className="about-foundations__media">
-                    <LocalizedImage
-                      src={item.image}
-                      alt={item.alt}
-                      fill
-                      quality={90}
-                      sizes="(max-width: 48rem) 100vw, 33rem"
-                    />
-                  </div>
-                  <div className="about-foundations__detail">
-                    <h3>
-                      <T>{item.title}</T>
-                    </h3>
-                    <p>
-                      <T>{item.description}</T>
-                    </p>
-                  </div>
-                </article>
-              ))}
-            </div>
+                <div className="about-foundations__media">
+                  <LocalizedImage
+                    src={item.image}
+                    alt={item.alt}
+                    fill
+                    quality={90}
+                    sizes="(max-width: 48rem) 90vw, 33rem"
+                  />
+                </div>
+                <div className="about-foundations__detail">
+                  <h3>
+                    <T>{item.title}</T>
+                  </h3>
+                  <p>
+                    <T>{item.description}</T>
+                  </p>
+                </div>
+              </article>
+            ))}
           </div>
-        )}
+        </div>
+
+        {isPhone ? <FoundationsCount index={index} total={total} /> : null}
       </div>
     </section>
   );
