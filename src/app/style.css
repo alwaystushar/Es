@@ -6241,13 +6241,14 @@
   }
 
   .hero__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   .hero--organization .hero__title {
     width: max-content;
     max-width: 100%;
-    font-size: clamp(1.5rem, 6vw, 3.375rem);
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
   }
 
   .hero--organization .hero__body {
@@ -7008,9 +7009,14 @@
   }
 
   .partners-page__title,
-  .partners-page__body,
   .contact-hero__title {
     font-size: 2.25rem;
+    max-width: 100%;
+  }
+
+  .partners-page__body {
+    font-size: 1rem;
+    line-height: 1.5;
     max-width: 100%;
   }
 
@@ -9973,7 +9979,14 @@ a.contact-detail__value:hover {
 
   .partners-page__title,
   .contact-hero__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+
+  .partners-page__body,
+  .knowledge-page-hero__body {
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   .expert-cards {
@@ -10100,7 +10113,13 @@ a.contact-detail__value:hover {
   }
 
   .program-detail-hero__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem; /* match home .hero__title */
+    line-height: 1.2;
+  }
+
+  .program-detail-hero__body {
+    font-size: 1rem; /* match home .hero__body */
+    line-height: 1.5;
   }
 
   .program-detail-hero__info {
@@ -10185,7 +10204,8 @@ a.contact-detail__value:hover {
   }
 
   .seminars-catalog__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   /*
@@ -11660,7 +11680,8 @@ a.contact-detail__value:hover {
   }
 
   .knowledge-page-hero__title {
-    font-size: var(--font-size-display);
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 }
 
@@ -11683,7 +11704,8 @@ a.contact-detail__value:hover {
   }
 
   .knowledge-page-hero__title {
-    font-size: var(--font-size-3xl);
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   .article-content__intro,
@@ -11738,7 +11760,8 @@ a.contact-detail__value:hover {
   }
 
   .seminars-catalog__title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
   }
 
   .contact-section__layout {
@@ -12763,5 +12786,39 @@ a.contact-detail__value:hover {
 
   .registration-form {
     padding: 1.5rem 1.25rem;
+  }
+
+  /*
+   * Page heroes — match home mobile type (title 36 / body 16).
+   * Declared last so later base section CSS cannot override it.
+   */
+  .hero__title,
+  .about-hero__title,
+  .programs-catalog__title,
+  .seminars-catalog__title,
+  .knowledge-page-hero__title,
+  .partners-page__title,
+  .contact-hero__title,
+  .experts-hero__title,
+  .seminars-hero__title,
+  .article-hero__title,
+  .program-detail-hero__title,
+  .seminar-detail-hero__title,
+  .split-hero__title {
+    font-size: 2.25rem;
+    line-height: 1.2;
+  }
+
+  .hero__body,
+  .about-hero__body,
+  .knowledge-page-hero__body,
+  .partners-page__body,
+  .experts-hero__body,
+  .seminars-hero__body,
+  .article-hero__lead,
+  .program-detail-hero__body,
+  .seminar-detail-hero__body {
+    font-size: 1rem;
+    line-height: 1.5;
   }
 }
